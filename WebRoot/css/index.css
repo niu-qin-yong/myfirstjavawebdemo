@@ -191,7 +191,7 @@ nav {
 .userinfo .userphoto{
     background-size:100% 100%;
     border-radius:20%;
-    background-image:url(../imgs/head4.jpg);
+    background-image:url(../imgs/default-photo.png);
     background-repeat:no-repeat;
     background-position:center;
     border:2px solid #dbdede;

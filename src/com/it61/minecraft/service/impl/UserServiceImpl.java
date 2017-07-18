@@ -37,4 +37,5 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getClassmates(user);
 	}
 
+
 }

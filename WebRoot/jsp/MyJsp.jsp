@@ -28,5 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	Age:<input type="text" name="age"><br/>
     	<input type="submit" value="提交">
     </form>
+    <div id="mydiv"></div>
+    <script type="text/javascript">
+    	var div = document.getElementById("mydiv");
+    	div.innerHTML = "HEE";
+    </script>
   </body>
 </html>

@@ -23,6 +23,11 @@ public class TestDAO {
 	private static Connection conn;
 	private PreparedStatement ps;
 	
+	public static void main(String[] args) {
+		String sm = "male".equals(null)?"checked":"";
+		System.out.println(sm);
+	}
+	
 
 	
 	public int insert(String name,InputStream blobInputStream){

@@ -1,9 +1,17 @@
+<%@ page language="java" import="java.util.*"  pageEncoding="UTF-8"%>
+<%@page import="com.it61.minecraft.bean.User"%>
+<%@page import="com.it61.minecraft.service.UserService"%>
 <%@page import="com.it61.minecraft.service.impl.UserServiceImpl"%>
-<%@ page language="java" import="java.util.*" import="com.it61.minecraft.bean.User" pageEncoding="UTF-8"%>
+<%@page import="com.it61.minecraft.service.FriendService"%>
+<%@page import="com.it61.minecraft.service.impl.FriendServiceImpl"%>
 <%
 User user = (User)session.getAttribute("user");
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+//获取所有好友
+FriendService friService = new FriendServiceImpl();
+
 %>
 
 
@@ -260,7 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div id="classname" class="showcontent">
 		                <div class="classmask"></div>
 		                <div class="classbgdecoration"></div>
-		                <div class="classmate">
+		                <div class="classmate" id="classmate">
 		                
 		                </div>				
 					</div>
@@ -335,9 +343,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div id="sex">
 								<span>  </span>
-								<input type="radio" name="gender" <%=user.getGender().equals("male")?"checked":"" %> value="male"/>
+								<input type="radio" name="gender" <%="male".equals(user.getGender())?"checked":""%> value="male"/>
 								<b>男</b>
-								<input type="radio" name="gender" <%=user.getGender().equals("female")?"checked":"" %> value="female"/>
+								<input type="radio" name="gender" <%="female".equals(user.getGender())?"checked":"" %> value="female"/>
 								<b>女</b>
 							</div>
 							<div id="oldpass">
@@ -461,25 +469,117 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		/**
+		*添加好友，friendId是好友id
+		**/
+		function addFriend(a){
+			var friId = a.getAttribute("data-friId");
+			var friName = a.getAttribute("data-friName");
+			
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+               if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+            	    a.style.backgroundImage="url(/minecraft/imgs/friends-each-other.png)";
+					a.setAttribute("title","移除好友");
+					a.setAttribute("data-friId",a.getAttribute("data-friId"));
+					a.setAttribute("onclick",'removeFriend(this)');            	   
+               }
+            }
+            xmlhttp.open("post","/minecraft/servlet/AddFriendServlet",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send("friendId="+friId+"&friendName="+friName);
+		}
+		
+		/**
+		*判断是否相互是好友
+		**/
+		function isFriend(friendId){
+			
+		}
+		
+		/**
+		*移除好友关系
+		**/
+		function removeFriend(a){
+			var friId = a.getAttribute("data-friId");
+			alert("removeFriend "+friId)
+		}
+		
+		/**
 		*显示班级同学
 		**/
 		function showClassmates(){
 			<%
 			UserServiceImpl service = new UserServiceImpl();
 			List<User> classmates = service.getClassmates(user);
-			for(User mate : classmates){
+			
+			System.out.println("showClassmates size:"+classmates.size());
+			
+			for(int i=0;i<classmates.size();i++){
+				User mate = classmates.get(i);
+				
 			%>
+				/* 创建代表一个好友的div */
 				var classmatee=document.createElement("div");
 				classmatee.setAttribute("class","classmatee");
 				
+				var rank = <%=i%>;
+				var jiangpai=document.createElement("div");
+				jiangpai.setAttribute("class","jiangpai");
+				if(rank==0){
+					//gold
+					jiangpai.style.backgroundImage="url(/minecraft/imgs/golden.png)";
+				}else if(rank==1){
+					//silver
+					jiangpai.style.backgroundImage="url(/minecraft/imgs/sliver.png)";
+				}else if(rank==2){
+					//copper
+					jiangpai.style.backgroundImage="url(/minecraft/imgs/tong.png)";
+				}
 				
+				var classmatephoto=document.createElement("div");
+				classmatephoto.setAttribute("class","classmatephoto");
+				classmatephoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+<%=mate.getId()%>+")";	
 				
-				var parent = document.getElementById("classname");
-				parent.appendChild(classmatee)
+				var classmatename=document.createElement("div");
+				classmatename.setAttribute("class","classmatename");
+				classmatename.innerHTML = "<%=mate.getUserName()%>";
+				
+				var classmatecaozuo=document.createElement("div");
+				classmatecaozuo.setAttribute("class","classmatecaozuo");
+				
+				//在自己的条目后面不显示添加好友的按钮
+				if(<%=user.getId()%> != <%=mate.getId()%>){
+					var addfriend=document.createElement("a");
+					addfriend.setAttribute("href","javascript:;");
+					if(isFriend(<%=mate.getId()%>)){
+						//如果是好友，取消好友
+						addfriend.setAttribute("title","取消好友");
+						addfriend.setAttribute("data-friId",<%=mate.getId()%>);
+						addfriend.setAttribute("onclick","removeFriend(this)");
+					}else{
+						//如果不是好友，添加好友
+						addfriend.setAttribute("title","添加好友");
+						addfriend.setAttribute("data-friId",<%=mate.getId()%>);
+						addfriend.setAttribute("data-friName","<%=mate.getUserName()%>");
+						addfriend.setAttribute("onclick","addFriend(this)");
+					}
+					classmatecaozuo.appendChild(addfriend);
+				}
+				
+				classmatee.appendChild(jiangpai);
+				classmatee.appendChild(classmatephoto);
+				classmatee.appendChild(classmatename);
+				classmatee.appendChild(classmatecaozuo);
+				
+				/* 将好友div添加到父元素中 */
+				var parent = document.getElementById("classmate");
+				parent.appendChild(classmatee);
 			<%	
 				}
 			%>
 		}
+		
+
         
 		checkRadio();
 		setSelectedOption("grade", <%=user.getGrade()-1%>);

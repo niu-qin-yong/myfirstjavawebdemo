@@ -64,11 +64,17 @@
 }
 .classmate .jiangpai{
     height:50px;
+    width:47px;
     position:relative;
     top:10px;
+    background-repeat: no-repeat;
+    background-size:100% 100%;
 }
 .classmate .classmatephoto{
     width:70px;
+    background-position: center;
+    background-size:100% 100%;
+    background-repeat: no-repeat;
 }
 .classmate .classmatename{
     width:80px;
@@ -106,14 +112,14 @@
     display:block;
     height:26px;
 }
-.classmate .classmatecaozuo a:last-child{
+/* .classmate .classmatecaozuo a:last-child{
     background:url(../imgs/guanzhu.png) no-repeat;
     background-size:100% 100%;
     float:right;
     width:60px;
     display:block;
     height:26px;
-}
+} */
 #classmate2 .jiangpai{
     background:url(../imgs/sliver.png) no-repeat;
     background-size:100% 100%;

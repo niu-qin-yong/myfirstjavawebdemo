@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.it61.minecraft.bean.Friend;
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.common.DAOTemplate;
 import com.it61.minecraft.common.OnTransformListener;
@@ -65,7 +66,6 @@ public class UserDAO implements OnTransformListener<User>{
 		return temp.queryAll(sql, null);
 	}
 	
-
 	@Override
 	public User onTransform(ResultSet rs)  {
 		User user = null;
@@ -97,5 +97,6 @@ public class UserDAO implements OnTransformListener<User>{
 		List<User> classmates = temp.queryAll(sql, args);
 		return classmates;
 	}
+
 
 }
