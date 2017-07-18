@@ -1,0 +1,165 @@
+*{
+    font-size:14px;
+    padding:0px;
+    margin:0px;
+	box-sizing:border-box;
+}
+html{
+    height:96%;
+    overflow:hidden;
+}
+body{
+    height:100%;
+
+}
+a{
+    text-decoration:none;
+}
+a:hover,a:link,a:visited{
+    color:#999;
+}
+ul,li{
+    list-style:none;
+}
+header{
+    width:1190px;
+    /* margin:0 auto; */
+    padding:16px 20px 0 20px;
+    box-sizing:border-box;
+    
+  
+}
+hr{
+    width:100%;
+    border-top:2px solid #adadad;
+}
+
+/*网页头部*/
+header .logo{
+    width:270px;
+    height:55px;
+    background-image:url(../imgs/logo.gif);
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+	display:block;
+}
+ header .welcome{
+    line-height:27px;
+    font-size:23px;    
+    color:#333333;
+    font-family:microsoft YaHei;
+	position:relative;
+	top:-45px; 
+    left:290px;
+	/* font-weight:bold; */
+}
+/*网页中部*/
+section{
+    height:440px;
+	padding-top:10px;
+}
+#section_left{
+	height:370px;
+    margin:20px 230px;
+}
+#section_right{
+    width:563px;
+    height:431px;
+    background-image:url(../imgs/regbg.png);
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+	position:relative;
+	top:-420px;
+	left:740px; 
+}
+/*输入框部分*/
+#inputarea{
+	list-style:none;
+	width:300px;
+}
+#inputarea li{
+	position:relative;
+    /* left:200px; */
+	margin-bottom:15px;
+	width:500px;
+}
+#inputarea li input{
+	width:300px;
+	height:40px;
+	padding-left:80px;
+	font-size:14px;
+}
+#inputarea li .inputprompt{
+	position:absolute;
+	top:0;
+	left:0;
+	width:80px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	color:#474747;
+}
+/*设置输入错误后提示文字样式*/
+#inputarea li .warning{
+	display:inline-block;
+	width:180px;
+	color:red;
+}
+#inputarea li input#agreement{
+	width:15px;
+	height:15px;
+}
+#inputarea li span,#Inputarea li span a{
+	font-size:14px;
+}
+#inputarea li span{
+
+}
+#inputarea li span a{
+	color: #83c5ff;
+}
+	
+#inputarea li #register{
+	background-image:url(../imgs/registnow.png);
+    background-size:100% 100%;
+    outline:none;
+    border:none;
+}
+#inputarea li #register:hover{
+	cursor:pointer;
+}
+#inputarea li #vertify{
+    width:100px;
+	height:35px;
+	background-image:url(../imgs/vertigycode.jpg);
+	background-size:100% 100%;
+	position:absolute;
+	left:196px;
+	top:2.5px;
+
+}
+/*网页尾部*/
+.fohr{
+    border-top:1px solid rgba(210, 210, 210, 0.31);
+}
+footer{
+    padding-top:10px; 
+}
+footer .line_first{
+    width:720px;
+    margin:0 auto;
+}
+footer .line_first a{
+    padding:0 8px;
+    border-right:1px solid #999;
+}
+footer .line_first a:last-child{
+    border-right:none;
+}
+footer div:last-child{
+    width:720px;
+	text-align:center;
+    margin:5px auto;
+    color:#999;
+    margin-top:10px;
+}

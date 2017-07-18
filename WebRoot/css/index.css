@@ -1,0 +1,777 @@
+/*全局样式*/
+html{
+  cursor:default;              
+}
+::-webkit-scrollbar {         
+  width: 0px;
+  height: 0px;
+}
+body {
+	margin: 0;
+	padding: 0;
+	background: url(../imgs/bg.jpg) no-repeat top left;
+	background-size: 100% 100%;
+	overflow: auto;
+}
+header {
+	width: 820px;
+	height: 140px;
+	margin: auto;
+	position: relative;
+}
+aside {
+	width: 185px;
+	height: 660px;
+	box-sizing: border-box;
+}
+nav {
+	width: 629px;
+	height: 40px;
+	position: absolute;
+	bottom: -8px;
+	right: -115px;
+	z-index: 10;
+}
+#base {
+	width: 1190px;
+	height: 660px;
+	margin: auto;
+	position: relative;
+}
+/*顶部导航栏*/
+#banner {
+	width: 491px;
+	height: 81px;
+	margin: auto;
+}
+.navct {
+	width: 117px;
+	height: 37px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+#friendzone0 {
+	background-image: url(../imgs/friendzone.png);
+	z-index: -1;
+}
+#photo1 {
+	background-image: url(../imgs/photo.png);
+	left: -35px;
+	z-index: -2;
+}
+#dairy2 {
+	background-image: url(../imgs/dairy.png);
+	z-index: -3;
+	left: -70px;
+}
+#plan3 {
+	background-image: url(../imgs/plan.png);
+	z-index: -2;
+	left: -105px;
+}
+#mgame4 {
+	background-image: url(../imgs/mgame.png);
+	z-index: -1;
+	left: -140px;
+}
+/*左侧导航栏部分*/
+#left-side {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#signIn {
+	height: 110px;
+	width: 184px;
+	background: url(../imgs/signin.gif) no-repeat;
+	background-size: 100% 100%;
+	margin-top: 52px;
+}
+#lnav {
+	width: 184px;
+	height: 470px;
+	background: url(../imgs/gan.gif) no-repeat;
+	background-position: 64% bottom;
+	background-size: 30% 90%;
+	position: relative;
+	padding: 0;
+}
+.lnavc {
+	width: 204px;
+	height: 91px;
+	list-style: none;
+	position: absolute;
+	right: -40px;
+}
+#friends5 {
+	background: url(../imgs/friend.png) no-repeat;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	top: 37px;
+	z-index: 705;
+}
+
+#classname6 {
+	background: url(../imgs/class.gif) no-repeat;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	top: 98px;
+	z-index: 704;
+}
+
+#schoolfellow7 {
+	background: url(../imgs/schoolfellow.gif) no-repeat;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	top: 169px;
+	z-index: 703;
+}
+#music8 {
+	background: url(../imgs/music.gif) no-repeat;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	top: 229px;
+	z-index: 702;
+}
+#setting9 {
+	background: url(../imgs/setting.gif) no-repeat;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	top: 303px;
+	z-index: 701;
+}
+/*主题内容部分*/
+#contentView {
+	width: 820px;
+	height: 520px;
+	margin: auto;
+	box-sizing: border-box;
+	background: url(../imgs/contbg.png) no-repeat;
+	background-size: 100% 100%;
+	margin-top: -5px;
+}
+#content{
+	width:700px;
+	height:400px;
+	position:absolute;
+	top:170px;
+	left:240px;
+}
+.showcontent{
+	width:700px;
+	height:400px;
+	margin:auto;
+	padding:20px;
+	border-radius:40px;
+	box-sizing:border-box;
+	background:rgba(255,255,255,0.5);
+	position:absolute;
+	top:25px;
+	left:5px;
+	display:none;
+}
+/*内容区域顶部导航栏*/
+.userinfo{
+  width:600px;
+    height:90px;
+    position:absolute;
+    top:-20px;
+    left : 45px;
+
+}
+.userinfo div{
+    width:90px;
+    height:90px;
+    float:left;                      
+    margin-right:15px;
+
+}
+.userinfo .userphoto{
+    background-size:100% 100%;
+    border-radius:20%;
+    background-image:url(../imgs/head4.jpg);
+    background-repeat:no-repeat;
+    background-position:center;
+    border:2px solid #dbdede;
+}
+
+.userinfo .userphoto a{
+	position: relative;
+     display: inline-block;
+    width:inherit;
+    height:inherit;
+      border-radius:20%;
+     text-decoration: none;
+     
+}
+
+.userinfo .userphoto a:HOVER{
+	background-color: rgba(0,0,0,0.2);
+}
+
+.userinfo .userphoto input{
+    position: absolute;
+     width:inherit;
+     height:inherit;    
+    left: 0;
+    top: 0;
+   opacity:0;
+}
+.userinfo .username{
+    width:95px;
+    height:36px;
+    margin-top:45px;
+    font-size:27px;
+    font-weight:bold;                
+    color:#30b0ef;
+}
+.userinfo .userlevel{
+    height:25px;
+    width : 75px;
+    margin-top:50px;
+    background:url(../imgs/star.png) no-repeat;
+    background-size:100% 100%;
+}
+.userinfo .unitgame{
+    height:30px;
+    width : 85px;
+    margin-top:45px;
+    float:right;
+    text-align:center;
+    line-height:30px;
+    font-size:14px;
+    font-weight:bold;
+    color:#a8afb5;
+    background:url(../imgs/tab.png) no-repeat;
+    background-size:100% 100%;
+}
+
+/*我的游戏列表*/
+#gamelist{
+    width: 600px;
+    height: 300px;
+    position: absolute;
+    top: 80px;
+    left : 45px;
+}
+.gamelistitem{
+    width:265px;
+    height:90px;
+    float:left;
+    margin-left:20px;
+    margin-top:5px;
+}
+.gamelistitem div{
+    float:left;
+    margin-right:10px;
+}
+.gamenum{
+  width:30px;
+    height:30px;
+    margin-top:30px;
+}
+.gamephoto{
+    height:60px;
+    width:60px;
+    margin-top : 15px;
+    border-radius:10%;
+}
+.gamename{
+    height:35px;
+    width:130px;
+    margin-top : 25px;
+}
+
+#mgame #gamelist  #gameitem1 .gamename {
+    background:url(../imgs/wodeshijie.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem2 .gamename {
+    background:url(../imgs/wangzhe.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem3 .gamename {
+    background:url(../imgs/xiaoxiaole.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem4 .gamename {
+    background:url(../imgs/buyu.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem5 .gamename {
+    background:url(../imgs/baowei.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem6 .gamename {
+    background:url(../imgs/koudai.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem1 .gamenum {
+    background:url(../imgs/g1.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem2 .gamenum {
+    background:url(../imgs/g2.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem3 .gamenum  {
+    background:url(../imgs/g3.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem4 .gamenum  {
+    background:url(../imgs/g4.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem5 .gamenum  {
+    background:url(../imgs/g5.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem6 .gamenum  {
+    background:url(../imgs/g6.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem1 .gamephoto{
+    background:url(../imgs/gn1.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem2 .gamephoto{
+    background:url(../imgs/gn2.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem3 .gamephoto  {
+    background:url(../imgs/gn3.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem4 .gamephoto {
+    background:url(../imgs/gn4.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem5 .gamephoto{
+    background:url(../imgs/gn5.png) no-repeat;
+    background-size:100% 100%;
+}
+#mgame #gamelist  #gameitem6 .gamephoto {
+    background:url(../imgs/gn6.png) no-repeat;
+    background-size:100% 100%;
+}
+
+#edit {
+  width: 600px;
+  height: 300px;
+  position: absolute;
+  top: 85px;
+  left: 45px;
+}
+#edit div {
+  width: 300px;
+  height: 50px;
+  float: left;
+}
+#edit div span {
+  float: left;
+  width: 70px;
+  height: 35px;
+  background-image: url(../imgs/setlist.png);
+  background-size: 80px 350px;
+}
+#edit div input {
+  width: 170px;
+  height: 35px;
+  float: left;
+  margin-left: 5px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+/*分别设置*/
+#edit div select {
+  width: 75px;
+  height: 40px;
+  margin-left: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+#edit #sex input {
+  width: 30px;
+  height: 15px;
+  float: none;
+  margin-top: 10px;
+}
+/*添加小花装饰*/
+#flower {
+  width: 140px;
+  height: 120px;
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background-image: url(../imgs/flower.png);
+  background-size: 100% 100%;
+}
+#edit #sub{
+	width:600px;
+	height:50px;
+}
+#edit #sub input{  
+  margin-left:200px;
+  background-color:transparent; 
+  background-image:url(../imgs/submit.png);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  outline: none;
+}
+#nick span {
+  background-position: 0 -3%;
+}
+#age span {
+  background-position: 0 8%;
+}
+#birthday span {
+  background-position: 0 20%;
+}
+#star span {
+  background-position: 0 42%;
+}
+#myclass span {
+  background-position: 0 30%;
+}
+#sex span {
+  background-position: 0 52%;
+}
+#phone span {
+  background-position: 0 65%;
+}
+#mail span {
+  background-position: 0 76%;
+}
+#oldpass span {
+  background-position: 0 97%;
+  background-size: 100% 600%;
+}
+#newpass span {
+  background-position: 0 85%;
+  background-size: 100% 600%;
+}
+/*日记*/
+#dairy{
+  overflow-y:auto;               
+}
+#dairyleft{
+  margin-left:10px;
+  width:400px;
+  height:100%;
+  float:left;
+}
+#operation{
+  height:40px;
+}
+#opr-left{
+  float:left;
+}
+#opr-left span{
+  display:inline-block;
+  width:100px;
+  height:30px;
+  margin-right:5px;
+  margin-top:3px;
+  border-radius:20px;
+  cursor:pointer;
+}
+#opr-left span:first-child{
+  background-image:url(../imgs/d_03.png);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+}
+#opr-left span:nth-child(2){
+  background-image:url(../imgs/d_05.png);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+}
+#opr-right{
+  float:right;
+  font-size:13px;
+  line-height:30px;
+}
+#opr-right span:nth-child(odd){
+  display:inline-block;
+  width:15px;
+  height:15px;
+  margin-top:10px;
+}
+#opr-right span:first-child{
+  background-image:url(../imgs/d13.png);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+}
+#opr-right span:nth-child(3){
+  background-image:url(../imgs/d12.png);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+}
+#dairycontent table{
+  font-family:"Microsoft YaHei";
+  width:400px;
+  font-size:15px;
+  border-collapse:collapse; 
+}
+#dairycontent table a{
+ color:black;
+ text-decoration:none;
+}
+#dairycontent table a:hover{
+ text-decoration:underline;
+}
+#dairycontent table tr:nth-child(even){
+ background-color:rgba(255,255,255,0.6); 
+}
+#dairycontent table td{
+  height:33px;
+  font-size:13px;
+  padding:0 5px;
+}
+#dairycontent table td:first-child{
+ text-align:left;
+}
+#dairycontent table td:first-child span{
+ color:#eb6100;
+}
+#dairycontent table td:nth-child(2){
+ text-align:right;
+}
+#dairycontent table td:nth-child(2) a{
+  color:#005aa0;
+}
+#dairycontent table td:nth-child(2) span{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background-image:url('../imgs/d15.png');
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+}
+/*日记*/
+#dairyright{
+  float:left;
+  width:220px;
+  height:404px;
+  margin-left:7px;
+}
+/*顶部*/
+#newshead input{
+  box-sizing:border-box;
+  padding-left:30px;
+  margin-left:10px;
+  width:190px;
+  height:24px;
+  border-radius:5px;
+  color:#787878;
+  background:url(../imgs/d10.png) no-repeat center left;
+}
+#newshead #calendar{
+  margin-top:2px;
+  margin-left:10px;
+  width:200px;
+  height:194px;
+}
+#newslist div{
+  font-family:"Microsoft YaHei";
+  color:#787878;
+  font-size:13px;
+  padding:5px 0;
+}
+#newslist div img{
+  width:63px;
+  height:50px;
+  float:left;
+}
+#newslist div p{
+  margin:0px;
+  padding:0px;
+}
+#newslist div p span{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  background:url(../imgs/d3.png) no-repeat 100% 100%;
+}
+#newslist div p a{
+  color:#787878;
+  text-decoration:none;
+}
+#newslist div p a:nth-child(2){
+  padding-right:50px;
+}
+/************************************/
+/*20课*/
+#friendzone{
+  overflow:auto;
+}
+.remarks{
+  width:600px;
+  height:330px;
+  margin:0 auto;
+  margin-bottom:10px;
+}
+/*作者信息*/
+.remarks-author{
+  width:600px;
+  height:75px;
+  box-sizing:border-box;
+}
+.remarks-author img{
+  width:60px;
+  height:60px;
+  float:left;
+}
+.author-name{
+  height:20px;
+  min-width:50px;           /*知识点 可变长度*/
+  float:left;
+  margin:20px 20px;
+  background-color:rgba(255,255,255,0.8);
+  border-radius:30px;
+  text-align:center;
+  font-family:"microSoft YaHei";
+  font-size:14px;
+  line-height:20px;
+  color:#efa9c8;
+  padding:0 5px;
+}
+.author-class{
+  width:85px;
+  height:24px;
+  margin-top:20px;
+  float:left;
+  background-image:url(../imgs/star.png);
+}
+/*内容区域*/
+.remarks-content{
+  width:500px;
+  height:240px;
+  margin:0 auto;
+  background:rgba(255,255,255,0.8);
+  border-radius:10px;
+  margin-top:-10px;
+  padding:10px;
+  box-sizing:border-box;
+  font-family:"microSoft YaHei";
+  font-size:14px;
+  overflow:auto;
+}
+.content-text{
+  width:400px;
+  float:left;
+}
+.content-time{
+  float:right;
+  font-size:12px;
+  color:#959899;
+}
+.remarks-content img{
+  width:180px;
+  height:120px;
+}
+/*评论区域*/
+.remarks-comments{
+  width:480px;
+  height:70px;
+  margin:0 auto;
+}
+.remarks-comments div{
+  width:480px;
+  height:35px;
+  box-sizing:border-box;
+}
+.remarks-comments span{
+  display:inline-block;
+  width:25px;
+  height:25px;
+}
+.comment-like span{
+  background:url(../imgs/like.jpg) no-repeat;
+  background-size:100% 100%;
+}
+.comment-like img{
+  width:25px;
+  height:25px;
+}
+.comment-text span{
+  background:url(../imgs/comment.jpg) no-repeat;
+  background-size:100% 100%;
+}
+.comment-text textarea{
+  width:435px;
+  height:25px;
+  font-size:16px;
+  resize:none;              /*知识点：设置文本域不可拖动*/
+  border:none;
+}
+
+/************************************/
+/*右侧侧边栏部分*/
+#right-side {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+#friendsOnline {
+	width: 185px;
+	height: 450px;
+	position: absolute;
+	left: 0;
+}
+#right-down {
+	width: 185px;
+	height: 150px;
+	position: absolute;
+	bottom: 0;
+}
+#onlinefriend {
+	width: 180px;
+	height: 150px;
+}
+.friendOn {
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	border: 1px solid #eaf6ff;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+}
+
+#friend1 {
+	background-image: url(../imgs/f1.gif), url(../imgs/pop.jpg);
+	left: 10px;
+	top: 30px;
+}
+#friend2 {
+	background-image: url(../imgs/f2.gif), url(../imgs/pop.jpg);
+	left: 90px;
+	top: 80px;
+}
+#friend3 {
+	background-image: url(../imgs/f3.gif), url(../imgs/pop.jpg);
+	left: 5px;
+	top: 140px;
+}
+#friend4 {
+	background-image: url(../imgs/f4.gif), url(../imgs/pop.jpg);
+	left: 90px;
+	top: 200px;
+}
+#friend5 {
+	background-image: url(../imgs/f5.gif), url(../imgs/pop.jpg);
+	left: 20px;
+	top: 260px;
+}
+#friend6 {
+	background-image: url(../imgs/f6.gif), url(../imgs/pop.jpg);
+	left: 15px;
+	top: 350px;
+}
+#friend7 {
+	background-image: url(../imgs/f7.gif), url(../imgs/pop.jpg);
+	left: 95px;
+	top: 300px;
+}
