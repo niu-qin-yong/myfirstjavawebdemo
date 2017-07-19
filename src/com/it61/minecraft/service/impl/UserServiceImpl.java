@@ -1,5 +1,6 @@
 package com.it61.minecraft.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.it61.minecraft.bean.User;
@@ -8,9 +9,10 @@ import com.it61.minecraft.service.UserService;
 
 
 public class UserServiceImpl implements UserService {
+	public static List<User> onlineUsers = new ArrayList<User>();
 
 	@Override
-	public void register(User user) {
+	public void register(User user) throws Exception {
 		UserDAO userDAO = new UserDAO();
 		userDAO.add(user);
 	}
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateInfo(User user) {
+	public void updateInfo(User user) throws Exception {
 		UserDAO userDAO = new UserDAO();
 		userDAO.update(user);
 	}
@@ -37,5 +39,10 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getClassmates(user);
 	}
 
+	@Override
+	public List<User> getAllUsers() {
+		UserDAO userDAO = new UserDAO();
+		return userDAO.getAllUsers();
+	}
 
 }

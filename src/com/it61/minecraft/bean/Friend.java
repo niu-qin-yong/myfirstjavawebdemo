@@ -2,25 +2,36 @@ package com.it61.minecraft.bean;
 
 public class Friend {
 	private int id;
-	private String owerId;
-	private String friId;
+	private int owerId;
+	private int friId;
 	private String friName;
+	
+	public Friend(){
+		
+	}
+	
+	public Friend(int owerId,int friId){
+		this.owerId = owerId;
+		this.friId = friId;
+	}
+	
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getOwerId() {
+	public int getOwerId() {
 		return owerId;
 	}
-	public void setOwerId(String owerId) {
+	public void setOwerId(int owerId) {
 		this.owerId = owerId;
 	}
-	public String getFriId() {
+	public int getFriId() {
 		return friId;
 	}
-	public void setFriId(String friId) {
+	public void setFriId(int friId) {
 		this.friId = friId;
 	}
 	public String getFriName() {

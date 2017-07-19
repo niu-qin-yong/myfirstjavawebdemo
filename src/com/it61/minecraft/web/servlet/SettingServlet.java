@@ -97,14 +97,15 @@ public class SettingServlet extends HttpServlet {
 				UserService service = new UserServiceImpl();
 				service.updateInfo(user);
 				
-				
-			} catch (FileUploadException e) {
+				//更新成功
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write("恭喜，修改成功！");
+			} catch (Exception e) {
 				e.printStackTrace();
+				//TODO 更新失败
 			}
 		}		
 
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write("恭喜，修改成功！");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

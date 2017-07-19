@@ -5,8 +5,9 @@ import java.util.List;
 import com.it61.minecraft.bean.User;
 
 public interface UserService {
-	void register(User user);
+	void register(User user) throws Exception;
 	User login(String userName,String passWord);
-	void updateInfo(User user); 
+	void updateInfo(User user) throws Exception; 
 	List<User> getClassmates(User user);
+	List<User> getAllUsers();
 }

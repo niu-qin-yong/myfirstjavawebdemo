@@ -7,30 +7,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.it61.minecraft.bean.User;
+import com.it61.minecraft.bean.Friend;
 import com.it61.minecraft.service.FriendService;
-import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.FriendServiceImpl;
-import com.it61.minecraft.service.impl.UserServiceImpl;
 
-public class AddFriendServlet extends HttpServlet {
+public class RemoveFriendServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		User currentUser = (User) request.getSession().getAttribute("user");
-		String friendId = request.getParameter("friendId");
-		String friendName = request.getParameter("friendName");
-		System.out.println("AddFriendServlet:"+currentUser.getUserName()+" 将要添加 "+friendName+" 为好友");
+		int owerId = Integer.valueOf(request.getParameter("owerId"));
+		int friId = Integer.valueOf(request.getParameter("friId"));
+		
+		System.out.println("RemoveFriendServlet:"+owerId+" 将要移除好友 "+friId);
+
 		
 		try {
 			FriendService service = new FriendServiceImpl();
-			service.addFriend(currentUser.getId(),Integer.valueOf(friendId),friendName);
+			service.removeFriend(new Friend(owerId, friId));
 			
-			response.getWriter().write("add_friend_ok");
-		}  catch (Exception e) {
+			response.getWriter().write("remove_friend_ok");
+		} catch (Exception e) {
 			e.printStackTrace();
-			response.getWriter().write("add_friend_fail");
+			response.getWriter().write("remove_friend_fail");
 		}
+		
 		
 	}
 

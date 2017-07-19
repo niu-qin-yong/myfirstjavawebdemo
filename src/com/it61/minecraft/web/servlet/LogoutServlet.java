@@ -16,6 +16,7 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if(session != null){
 			session.removeAttribute("user");
+			session.invalidate();
 		}
 		//重定向到index.html
 		response.sendRedirect(request.getContextPath()+"/index.html");

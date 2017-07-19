@@ -29,12 +29,18 @@ public class RegisteServlet extends HttpServlet {
 		
 		
 		//调用UserService的注册的方法
-		UserService userService = new UserServiceImpl();
-		userService.register(user);
+		try {
+			UserService userService = new UserServiceImpl();
+			userService.register(user);
+			
+			//注册完成，重定向到登录页面
+			String host = getServletContext().getContextPath();
+			response.sendRedirect(host+"/login.html");
+		} catch (Exception e) {
+			e.printStackTrace();
+			//TODO 注册失败
+		}
 		
-		//注册完成，重定向到登录页面
-		String host = getServletContext().getContextPath();
-		response.sendRedirect(host+"/login.html");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -61,6 +61,11 @@
     <servlet-name>AddFriendServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.AddFriendServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RemoveFriendServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.RemoveFriendServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -124,7 +129,20 @@
   <servlet-mapping>
     <servlet-name>AddFriendServlet</servlet-name>
     <url-pattern>/servlet/AddFriendServlet</url-pattern>
-  </servlet-mapping>	
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RemoveFriendServlet</servlet-name>
+    <url-pattern>/servlet/RemoveFriendServlet</url-pattern>
+  </servlet-mapping>
+  
+  <listener>
+  	<listener-class>com.it61.minecraft.web.listener.OnlineListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.it61.minecraft.web.listener.ContextListenerImpl</listener-class>
+  </listener>
+  
+  	
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

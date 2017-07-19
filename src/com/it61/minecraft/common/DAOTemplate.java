@@ -13,22 +13,18 @@ public  class DAOTemplate<T> {
 		this.listener=mapper;
 	}
 	
-	public void update(String sql, Object[] args){
+	public void update(String sql, Object[] args) throws Exception{
+		Connection conn=null;
+		PreparedStatement pstmt=null;
 		try {
-			Connection conn=null;
-			PreparedStatement pstmt=null;
-			try {
-				conn=ConnectionFactory.getConnection();
-				pstmt=conn.prepareStatement(sql);
-				for (int i = 0; i < args.length; i++) {
-					pstmt.setObject(i+1, args[i]);
-				}
-				pstmt.executeUpdate();
-			} finally {
-				ConnectionFactory.close(null, pstmt, conn);
+			conn=ConnectionFactory.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			for (int i = 0; i < args.length; i++) {
+				pstmt.setObject(i+1, args[i]);
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			pstmt.executeUpdate();
+		} finally {
+			ConnectionFactory.close(null, pstmt, conn);
 		}
 	}
 	

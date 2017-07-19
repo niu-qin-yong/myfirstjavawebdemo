@@ -18,6 +18,10 @@ public class User {
 	private String email;
 	private int grade;
 	
+	public User(){
+		
+	}
+	
 	public String getEmail() {
 		return email;
 	}

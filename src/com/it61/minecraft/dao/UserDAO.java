@@ -22,8 +22,9 @@ public class UserDAO implements OnTransformListener<User>{
 	
 	/**
 	 * @param user
+	 * @throws Exception 
 	 */
-	public void add(User user){
+	public void add(User user) throws Exception{
 		String sql = "insert into "
 				+ "users(username,password,nick_name,gender,age,birth,class,phonenumber,photo)"
 				+ "values(?,?,?,?,?,?,?,?,?)";
@@ -35,8 +36,9 @@ public class UserDAO implements OnTransformListener<User>{
 	
 	/**
 	 * @param user
+	 * @throws Exception 
 	 */
-	public void update(User user){
+	public void update(User user) throws Exception{
 		String sql = "update users "
 				+ "set username=?,password=?,nick_name=?,gender=?,age=?,birth=?,class=?,phonenumber=?,photo=?,star=?,email=?,grade=?"
 				+ " where id=?"; //注意where和之前的字符之间有空格，不要因为换行忘记了
@@ -96,6 +98,12 @@ public class UserDAO implements OnTransformListener<User>{
 		Object[] args = {user.getGrade(),user.getBanji()};
 		List<User> classmates = temp.queryAll(sql, args);
 		return classmates;
+	}
+
+	public List<User> getAllUsers() {
+		String sql = "select * from users";
+		Object[] args = {};
+		return temp.queryAll(sql, args);
 	}
 
 

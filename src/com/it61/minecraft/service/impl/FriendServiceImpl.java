@@ -10,7 +10,7 @@ import com.it61.minecraft.service.FriendService;
 
 public class FriendServiceImpl implements FriendService{
 	@Override
-	public void addFriend(int owerId, int friendId,String friendName) {
+	public void addFriend(int owerId, int friendId,String friendName) throws Exception {
 		FriendDAO dao = new FriendDAO();
 		dao.addFriend(owerId,friendId,friendName);
 	}
@@ -19,5 +19,11 @@ public class FriendServiceImpl implements FriendService{
 	public List<Friend> getAllFriends(User user) {
 		FriendDAO dao = new FriendDAO();
 		return dao.findAllFriends(user);
+	}
+
+	@Override
+	public void removeFriend(Friend friend) throws Exception {
+		FriendDAO dao = new FriendDAO();
+		dao.removeFriend(friend);
 	}
 }

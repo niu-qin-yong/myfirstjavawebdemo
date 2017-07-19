@@ -1,4 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8"%>
+<%@page import="java.util.*"  %>
+<%@page import="com.it61.minecraft.bean.*"  %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -29,9 +31,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<input type="submit" value="提交">
     </form>
     <div id="mydiv"></div>
+    
+    <%
+    ArrayList<User> onlineUsers = (ArrayList<User>)getServletContext().getAttribute("online_users");
+    out.write("当前在线用户个数"+onlineUsers.size()+"\r\n");
+    for(User u:onlineUsers){
+	    out.write("用户"+u.getUserName()+"\r\n");
+    }
+    %>
+    
     <script type="text/javascript">
     	var div = document.getElementById("mydiv");
-    	div.innerHTML = "HEE";
+    	div.innerHTML = "hehe";
     </script>
   </body>
 </html>

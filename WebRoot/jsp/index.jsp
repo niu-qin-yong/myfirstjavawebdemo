@@ -1,9 +1,7 @@
 <%@ page language="java" import="java.util.*"  pageEncoding="UTF-8"%>
-<%@page import="com.it61.minecraft.bean.User"%>
-<%@page import="com.it61.minecraft.service.UserService"%>
-<%@page import="com.it61.minecraft.service.impl.UserServiceImpl"%>
-<%@page import="com.it61.minecraft.service.FriendService"%>
-<%@page import="com.it61.minecraft.service.impl.FriendServiceImpl"%>
+<%@page import="com.it61.minecraft.bean.*"%>
+<%@page import="com.it61.minecraft.service.*"%>
+<%@page import="com.it61.minecraft.service.impl.*"%>
 <%
 User user = (User)session.getAttribute("user");
 String path = request.getContextPath();
@@ -11,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 //获取所有好友
 FriendService friService = new FriendServiceImpl();
-
+List<Friend> allFriends = friService.getAllFriends(user);
 %>
 
 
@@ -23,6 +21,8 @@ FriendService friService = new FriendServiceImpl();
 		<link rel="stylesheet" href="css/index.css"/>
 		<link rel="stylesheet" type="text/css" href="plugin/kalendae/css/kalendae.css">
 		<link rel="stylesheet" href="css/classroom.css">
+		<link rel="stylesheet" href="css/schoolfellow.css">
+		<link rel="stylesheet" href="css/friend.css">
 	</head>
 	<body>
 		<!-- 用户登录部分 -->
@@ -262,8 +262,12 @@ FriendService friService = new FriendServiceImpl();
 		                    </div>
 		                </div>
 					</div>
-					<div id="friends" class="showcontent">
-						好友
+					<div id="friendd6" class="showcontent">
+						<div class="classmask"></div>
+		                <div class="friendbgdecoration"></div>
+		                <div class="friendcontent" id="friendcontent">
+		                	<div class="multichat" onclick="multichat()"></div>
+		                </div>
 					</div>
 					<div id="classname" class="showcontent">
 		                <div class="classmask"></div>
@@ -272,8 +276,11 @@ FriendService friService = new FriendServiceImpl();
 		                
 		                </div>				
 					</div>
-					<div id="schoolfellow" class="showcontent">
-						校友录
+					<div id="schoolfellows8" class="showcontent">
+		                <div class="classmask"></div>
+		                <div class="schoolbgdecoration"></div>
+		                <div class="schoolfellowcontent" id="schoolfees">
+		                </div>						
 					</div>
 					<div id="music" class="showcontent">
 						音乐
@@ -369,13 +376,13 @@ FriendService friService = new FriendServiceImpl();
 			<aside id="right-side">
 				<!--泡泡部分-->
 				<div id="friendsOnline">
-					<div class="friendOn" id="friend1"> </div>
+<!-- 					<div class="friendOn" id="friend1"> </div>
 					<div class="friendOn" id="friend2"> </div>
 					<div class="friendOn" id="friend3"> </div>
 					<div class="friendOn" id="friend4"> </div>
 					<div class="friendOn" id="friend5"> </div>
 					<div class="friendOn" id="friend6"> </div>
-					<div class="friendOn" id="friend7"> </div>
+					<div class="friendOn" id="friend7"> </div> -->
 				</div>
 				<div id="right-down">
 					<img id="onlinefriend"src="imgs/onlinefriend.gif">
@@ -478,10 +485,15 @@ FriendService friService = new FriendServiceImpl();
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
                if(xmlhttp.readyState==4 && xmlhttp.status == 200){
-            	    a.style.backgroundImage="url(/minecraft/imgs/friends-each-other.png)";
-					a.setAttribute("title","移除好友");
-					a.setAttribute("data-friId",a.getAttribute("data-friId"));
-					a.setAttribute("onclick",'removeFriend(this)');            	   
+            	   if(xmlhttp.responseText == "add_friend_ok"){
+	            	    a.style.backgroundImage="url(/minecraft/imgs/friends-each-other.png)";
+						a.setAttribute("title","移除好友");
+						a.setAttribute("data-friId",a.getAttribute("data-friId"));
+						a.setAttribute("onclick",'removeFriend(this)');  
+						
+						//更新好友界面
+						addEleFromFriends(a.getAttribute("data-friId"),a.getAttribute("data-friName"));
+            	   }
                }
             }
             xmlhttp.open("post","/minecraft/servlet/AddFriendServlet",true);
@@ -493,15 +505,39 @@ FriendService friService = new FriendServiceImpl();
 		*判断是否相互是好友
 		**/
 		function isFriend(friendId){
+			<%	for(Friend fri:allFriends){ %>
 			
+				if(friendId == <%=fri.getFriId()%>){
+					return true;
+				}
+					
+			<%}%>
+			return false;
 		}
 		
 		/**
 		*移除好友关系
 		**/
 		function removeFriend(a){
+			var owerId = "<%=user.getId()%>";
 			var friId = a.getAttribute("data-friId");
-			alert("removeFriend "+friId)
+			
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+               if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+            	   if(xmlhttp.responseText == "remove_friend_ok"){
+	            	    a.style.backgroundImage="url(/minecraft/imgs/jiafriend.png)";
+						a.setAttribute("title","添加好友");
+						a.setAttribute("onclick",'addFriend(this)'); 
+						
+						//更新好友界面
+						removeEleFromFriends(a.getAttribute("data-friId"));
+            	   }
+               }
+            }
+            xmlhttp.open("post","/minecraft/servlet/RemoveFriendServlet",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send("owerId="+owerId+"&friId="+friId);			
 		}
 		
 		/**
@@ -551,10 +587,12 @@ FriendService friService = new FriendServiceImpl();
 				if(<%=user.getId()%> != <%=mate.getId()%>){
 					var addfriend=document.createElement("a");
 					addfriend.setAttribute("href","javascript:;");
+
 					if(isFriend(<%=mate.getId()%>)){
 						//如果是好友，取消好友
 						addfriend.setAttribute("title","取消好友");
 						addfriend.setAttribute("data-friId",<%=mate.getId()%>);
+						addfriend.style.backgroundImage="url(/minecraft/imgs/friends-each-other.png)";
 						addfriend.setAttribute("onclick","removeFriend(this)");
 					}else{
 						//如果不是好友，添加好友
@@ -579,13 +617,160 @@ FriendService friService = new FriendServiceImpl();
 			%>
 		}
 		
+		/**
+		*显示校友录
+		**/		
+		function showSchoolmates(){
+			<%
+			List<User> schoolmates = service.getAllUsers();
+			
+			System.out.println("showSchoolmates size:"+schoolmates.size());
+			
+			for(int i=0;i<schoolmates.size();i++){
+				User smate = schoolmates.get(i);
+			%>		
+			var schoolfee=document.createElement("div");
+			schoolfee.setAttribute("class","schoolfee");
+			
+			var schoolephoto=document.createElement("div");
+			schoolephoto.setAttribute("class","schoolephoto");
+			schoolephoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+<%=smate.getId()%>+")";	
+			schoolfee.appendChild(schoolephoto);
+			
+			var schoolename=document.createElement("div");
+			schoolename.setAttribute("class","schoolename");
+			schoolename.innerHTML = "<%=smate.getUserName()%>";
+			schoolfee.appendChild(schoolename);
+			
+			var schoolenclass=document.createElement("div");
+			schoolenclass.setAttribute("class","schoolenclass");
+			schoolenclass.innerHTML = "<%=smate.getGrade()%>"+"年"+"<%=smate.getBanji()%>"+"班";
+			schoolfee.appendChild(schoolenclass);
+			
+			var parent = document.getElementById("schoolfees");
+			parent.appendChild(schoolfee);
+			
+			<%
+			}
+			%>
+		}
+		
+		/**
+		*显示校友录
+		**/		
+		function showFriends(){
+			<%
+			List<Friend> friends = allFriends;
+			
+			for(int i=0;i<friends.size();i++){
+				Friend fri = friends.get(i);
+			%>
+			
+			var friendee=document.createElement("div");
+			friendee.setAttribute("class","friendee");
+			friendee.setAttribute("id","fri"+"<%=fri.getFriId()%>");
+			
+			var gfriendphoto=document.createElement("div");
+			gfriendphoto.setAttribute("class","gfriendphoto");
+			gfriendphoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+<%=fri.getFriId()%>+")";	
+			friendee.appendChild(gfriendphoto);
+			
+			var gfriendname=document.createElement("div");
+			gfriendname.setAttribute("class","gfriendname");
+			gfriendname.innerHTML = "<%=fri.getFriName()%>";
+			friendee.appendChild(gfriendname);
+			
+			var gfriendchat=document.createElement("div");
+			gfriendchat.setAttribute("class","gfriendchat");
+			gfriendchat.innerHTML = "聊天";
+			gfriendchat.setAttribute("onclick","javascript:chat('<%=user.getId()%>','<%=fri.getFriId()%>')");
+			friendee.appendChild(gfriendchat);
+			
+			var parent = document.getElementById("friendcontent");
+			parent.appendChild(friendee);
 
+			<%
+			}
+			%>			
+		}
+		
+		/**
+		*从好友界面移除好友
+		**/
+		function removeEleFromFriends(friId){
+			var parent = document.getElementById("friendcontent");
+			var child = document.getElementById("fri"+friId);
+			parent.removeChild(child);
+		}
+		
+		/**
+		*添加好友到好友界面
+		**/
+		function addEleFromFriends(friId,friName){
+			var friendee=document.createElement("div");
+			friendee.setAttribute("class","friendee");
+			friendee.setAttribute("id","fri"+friId);
+			
+			var gfriendphoto=document.createElement("div");
+			gfriendphoto.setAttribute("class","gfriendphoto");
+			gfriendphoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+friId+")";	
+			friendee.appendChild(gfriendphoto);
+			
+			var gfriendname=document.createElement("div");
+			gfriendname.setAttribute("class","gfriendname");
+			gfriendname.innerHTML = friName;
+			friendee.appendChild(gfriendname);
+			
+			var gfriendchat=document.createElement("div");
+			gfriendchat.setAttribute("class","gfriendchat");
+			gfriendchat.setAttribute("onclick","javascript:chat(\"<%=user.getId()%>\","+friId+")");
+			<%-- gfriendchat.setAttribute("onclick","javascript:chat('<%=user.getId()%>',"+friId+")"); --%>
+			gfriendchat.innerHTML = "聊天";
+			friendee.appendChild(gfriendchat);
+			
+			var parent = document.getElementById("friendcontent");
+			parent.appendChild(friendee);
+		}
+		
+		/**
+		*聊天
+		**/
+		function chat(person_sender,person_receiver){
+			alert(person_sender+" will talk to "+person_receiver);
+		}
+		
+		/**
+		*多人聊天
+		**/
+		function multichat(){
+			alert("Let's chat!!!");
+		}
+		
+		function showOnlineFriends(){
+			<%
+				for(int i=0;i<5;i++){
+			%>
+			var friendOn=document.createElement("div");
+			friendOn.setAttribute("class","friendOn");
+			friendOn.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id=2),url(/minecraft/imgs/pop.jpg)";	
+			friendOn.style.left=(<%=i%>*10)+"px";
+			friendOn.style.top=(180+<%=i%>*10)+"px";
+			
+			var parent = document.getElementById("friendsOnline");
+			parent.appendChild(friendOn);
+			<%
+				}
+			%>
+		}
         
 		checkRadio();
 		setSelectedOption("grade", <%=user.getGrade()-1%>);
 		setSelectedOption("banji", <%=user.getBanji()-1%>);
 		setUserPhoto();
 		showClassmates();
+		showSchoolmates();
+		showFriends();
+		showOnlineFriends();
 		
 	</script>
 	
