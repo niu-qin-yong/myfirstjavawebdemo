@@ -1,0 +1,111 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+
+		</style>
+		<script src="/minecraft/plugin/jquery/jquery.min.js"></script>
+	</head>
+	<body>
+		<p id="p1">this is a p</p>
+		<form id="test-form" method="get" action="#" onsubmit="">
+			username:<p><input type="text" name="username" id="un"/></p>
+			password:<p><input type="password" name="pw" id="pw"/></p>
+			<p><input type="file" name="uploadfile" id="myfile"></p>
+			<p><input type="submit" value="Submit" /></p>
+		</form>
+		
+		<form onsubmit="return sendMoment()" id="momentform">
+			<textarea name="moment-text" id="moment" cols="80" rows="3" placeholder="说点什么吧"></textarea>
+			<input type="file" name="moment-pic"/><br/>
+			<input type="submit" value="发表"/>
+		</form>
+		
+		<button onclick="jquery_ajax_post3()">btn</button>
+		<script>
+		
+			function jquery_ajax_load(){
+				$('#p1').load("http://127.0.0.1:8080/minecraft/ajax","name=hehe&city=sz",function(responseTxt,statusTxt,xhr){
+					alert(responseTxt+"\n"+statusTxt+"\n")
+				})
+			}
+function jquery_ajax_get(){
+	$.get("http://127.0.0.1:8080/minecraft/ajax?name=xixi",function(data,status){
+		alert(data+"\n"+status)
+	})
+}
+function jquery_ajax_get2(){
+	$.ajax({
+		url:"http://127.0.0.1:8080/minecraft/ajax",
+		type:"get",
+		data:"name=niu&city=bj",
+		success:function(data,status){
+			alert(data+"\n"+status)
+		},
+		error:function(data,status){
+			alert(data+"========"+status)
+		}
+	});
+}
+function jquery_ajax_post(){
+	var username = $('#un').val()
+	var pw = $('#pw').val()
+	$.post(
+		"http://127.0.0.1:8080/minecraft/ajax"
+		,{name:username,city:pw}
+		,function(data,status){
+			alert(data+"\n"+status)
+		}
+	)
+}
+function jquery_ajax_post2(){
+	var username = $('#un').val()
+	var pw = $('#pw').val()
+	var file = $('#myfile')[0].files[0]
+	
+	var formData = new FormData()
+	formData.append("name",username);
+	formData.append("pw",pw);
+	formData.append("file",file);
+	
+	
+	$.ajax({
+		url:"http://127.0.0.1:8080/minecraft/ajax",
+		type:"post",
+		data : formData, 
+		// 告诉jQuery不要去处理发送的数据
+		processData : false, 
+		// 告诉jQuery不要去设置Content-Type请求头
+		contentType : false,
+		success:function(data,status){
+			alert(data+"\n"+status)
+		},
+		error:function(data,status){
+			alert(data+"========"+status)
+		}
+	})
+}
+function jquery_ajax_post3(){
+	var form = $('#test-form')
+	var formData = new FormData(form)
+	
+	
+	$.ajax({
+		url:"http://127.0.0.1:8080/minecraft/ajax",
+		type:"post",
+		data : formData, 
+		// 告诉jQuery不要去处理发送的数据
+		processData : false, 
+		// 告诉jQuery不要去设置Content-Type请求头
+		contentType : false,
+		success:function(data,status){
+			alert(data+"\n"+status)
+		},
+		error:function(data,status){
+			alert(data+"========"+status)
+		}
+	})
+}
+		</script>
+	</body>
+</html>

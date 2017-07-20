@@ -40,7 +40,7 @@ public class AjaxServlet extends HttpServlet {
 						System.out.println("name = " + name + " ; value = "+ value+","+item.getName());
 						
 						//只输出name的值
-						if(name.equals("name_mytextinput")){
+						if(name.equals("name_")){
 							response.setCharacterEncoding("UTF-8");
 							response.getWriter().write("hello," + value+ ",from multipart form post");
 						}
@@ -66,7 +66,7 @@ public class AjaxServlet extends HttpServlet {
 			return;
 		}
 
-		response.getWriter().write("hello," + request.getParameter("name")+ ",from get or www-form post");
+		response.getWriter().write("hello," + request.getParameter("name") +"\n"+ request.getParameter("city")+ ",from get or www-form post");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

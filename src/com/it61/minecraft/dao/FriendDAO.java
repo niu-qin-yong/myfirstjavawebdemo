@@ -14,11 +14,7 @@ public class FriendDAO implements OnTransformListener<Friend>{
 	
 	
 //	public static void main(String[] args) {
-//		FriendDAO dao = new FriendDAO();
-//		User user = new User();
-//		user.setId(1);
-//		List<Friend> friends = dao.findAllFriends(user);
-//		System.out.println(friends.size()+","+friends.get(0).getFriName());
+//		
 //	}
 
 	public FriendDAO(){

@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.dao.UserDAO;
 
+/**
+ * 显示用户头像
+ * 类名应该修改为 ShowUserPhotoServlet
+ * @author Abner
+ *
+ */
 public class ShowPicServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

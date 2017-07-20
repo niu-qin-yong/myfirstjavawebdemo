@@ -4,12 +4,25 @@
 <%@page import="com.it61.minecraft.service.impl.*"%>
 <%
 User user = (User)session.getAttribute("user");
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String webName = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName+"/";
 
 //获取所有好友
 FriendService friService = new FriendServiceImpl();
 List<Friend> allFriends = friService.getAllFriends(user);
+
+//获取所有在线用户
+ArrayList<User> onlineUsers = (ArrayList<User>)getServletContext().getAttribute("online_users");
+
+//获取在线好友
+List<Friend> onlineFriends = new ArrayList<Friend>();
+for(Friend fri : allFriends){
+	for(User u : onlineUsers){
+		if(fri.getFriId() == u.getId()){
+			onlineFriends.add(fri);
+		}
+	}
+}
 %>
 
 
@@ -23,6 +36,7 @@ List<Friend> allFriends = friService.getAllFriends(user);
 		<link rel="stylesheet" href="css/classroom.css">
 		<link rel="stylesheet" href="css/schoolfellow.css">
 		<link rel="stylesheet" href="css/friend.css">
+		<script src="/minecraft/plugin/jquery/jquery.min.js"></script>
 	</head>
 	<body>
 		<!-- 用户登录部分 -->
@@ -84,8 +98,13 @@ List<Friend> allFriends = friService.getAllFriends(user);
 			<section id="contentView">
 				<div id="content">
 					<div id="friendzone" class="showcontent">
-						<!-- ******************* -->
-						<!-- 20课 -->
+						<div id="send" style="margin-bottom: 10px">
+							<form onsubmit="return sendMoment()" id="momentform">
+							     <textarea name="moment-text" id="moment" cols="80" rows="3" placeholder="说点什么吧"></textarea>
+							     <input type="file" name="moment-pic" id="moment-pic"/><br/>
+                    			 <input type="submit" value="发表"/>
+                    		</form>
+						</div>
 						<div class="remarks">
 							<!-- 作者信息 -->
 							<div class="remarks-author">
@@ -457,11 +476,12 @@ List<Friend> allFriends = friService.getAllFriends(user);
 		*上传用户头像后在本地预览
 		**/
 	 	function preView(file){
+			alert(file.files+","+file.files[0]+","+file.files[0].type)
 			if (file.files && file.files[0]) {
 				//如果上传文件不是图片类型，则不预览，实际上这里可以提示用户上传文件类型错误
               	var imageType = /^image\//;
-				if (!imageType.test(file[0].type)) {
-					  file[0] = null;
+				if (!imageType.test(file.files[0].type)) {
+					  file.files[0] = null;
 				      return;
 				}
 			
@@ -748,19 +768,68 @@ List<Friend> allFriends = friService.getAllFriends(user);
 		
 		function showOnlineFriends(){
 			<%
-				for(int i=0;i<5;i++){
+				for(int i=0;i<onlineFriends.size();i++){
 			%>
 			var friendOn=document.createElement("div");
 			friendOn.setAttribute("class","friendOn");
-			friendOn.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id=2),url(/minecraft/imgs/pop.jpg)";	
-			friendOn.style.left=(<%=i%>*10)+"px";
-			friendOn.style.top=(180+<%=i%>*10)+"px";
+			friendOn.setAttribute("title","<%=onlineFriends.get(i).getFriName()%>");
+			friendOn.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id=<%=onlineFriends.get(i).getFriId()%>),url(/minecraft/imgs/pop.jpg)";	
+			friendOn.style.left=getRandomLeft(<%=i%>);
+			friendOn.style.top=(<%=i%>*80)+"px";
 			
 			var parent = document.getElementById("friendsOnline");
 			parent.appendChild(friendOn);
 			<%
 				}
 			%>
+		}
+		
+		/**
+		*在线好友泡泡的随机left值
+		**/
+		function getRandomLeft(index){
+			var rand = Math.random();
+			var left;
+			if(index%2 != 0){
+				//1,3,5
+				left = (Math.pow(rand,3)*20)+"px";
+			}else{
+				//2,4,6
+				left = (Math.pow(rand,3)*80)+"px";
+			}
+			return left;
+		}
+		
+		/**
+		*发表朋友圈动态
+		**/		
+		function sendMoment(){
+		     var moment = $('#moment').val();
+		     var file = $('#moment-pic')[0].files[0];
+		     
+		     var formData = new FormData();
+		     formData.append("moment",moment);
+		     formData.append("pic",file);
+		     
+		     $.ajax({
+		          url:"<%=basePath%>"+"servlet/MomentServlet",
+		          type:"post",
+		          data : formData,
+		          //发送请求前执行，如果返回false取消请求
+		          beforeSend:function(xhr){
+		          },
+		          // 告诉jQuery不要去处理发送的数据
+		          processData : false,
+		          // 告诉jQuery不要去设置Content-Type请求头
+		          contentType : false,
+		          success:function(data,status){
+		              alert(data+"\n"+status);
+		          },
+		          error:function(data,status){
+		              alert(data+"========"+status);
+		          }
+		     })
+			return false;
 		}
         
 		checkRadio();
