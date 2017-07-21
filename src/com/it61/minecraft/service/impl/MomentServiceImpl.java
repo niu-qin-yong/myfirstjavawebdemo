@@ -1,10 +1,12 @@
 package com.it61.minecraft.service.impl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.it61.minecraft.bean.Moment;
 import com.it61.minecraft.dao.MomentDAO;
-import com.it61.minecraft.web.servlet.MomentService;
+import com.it61.minecraft.service.MomentService;
 
 public class MomentServiceImpl implements MomentService{
 
@@ -15,9 +17,15 @@ public class MomentServiceImpl implements MomentService{
 	}
 
 	@Override
-	public List<Moment> getMoments(int senderId) {
+	public List<Moment> getMoments(List<Integer> senderIds) {
 		MomentDAO dao = new MomentDAO();
-		return dao.getAllMoments(senderId);
+		return dao.getAllMoments(senderIds);
 	}
 
+	@Override
+	public Moment getMomentLatest(Integer senderId) {
+		MomentDAO dao = new MomentDAO();
+		return dao.findLatestBySenderId(senderId);
+	}
+	
 }

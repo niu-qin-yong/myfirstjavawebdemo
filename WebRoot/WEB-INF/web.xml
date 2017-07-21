@@ -69,17 +69,14 @@
     <servlet-name>MomentServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.MomentServlet</servlet-class>
   </servlet>
-
-
-
-
-
-
-
-
-
-
-
+  <servlet>
+    <servlet-name>ShowMomentPicServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.ShowMomentPicServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FavorServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.FavorServlet</servlet-class>
+  </servlet>
 
 
 
@@ -142,6 +139,14 @@
   <servlet-mapping>
     <servlet-name>MomentServlet</servlet-name>
     <url-pattern>/servlet/MomentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ShowMomentPicServlet</servlet-name>
+    <url-pattern>/servlet/ShowMomentPicServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FavorServlet</servlet-name>
+    <url-pattern>/servlet/FavorServlet</url-pattern>
   </servlet-mapping>
   
   <listener>

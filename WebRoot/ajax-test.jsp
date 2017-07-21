@@ -5,11 +5,11 @@ import="java.io.*"
 import="com.it61.minecraft.bean.User"
 pageEncoding="UTF-8"%>
 
-<%-- 
+<% 
 User user = (User)request.getAttribute("user");
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
---%>
+%>
 
 <%--
 File file = new File("d://mary.jpg");
@@ -50,11 +50,11 @@ is.close();
 		}
 		
 	</style>
-	<script>
-	</script>
+	<script src="/minecraft/plugin/jquery/jquery.min.js"></script>
 	</head>
 
 	<body>
+		<img id="omg" style="width:100px;height:100px" title="omg"/>
 		haha
 <%-- 		 <img src="${sout }" title="tt"><br/>
 		 <hr/>
@@ -93,7 +93,10 @@ is.close();
 			 	 }
 		 		
 		 	}
-		 	
+<%-- 		 	
+		 	$("#omg")[0].src="<%=basePath%>"+"minecraft/servlet/ShowPicServlet?id=1";  --%>
+		 	$("#omg")[0].src="/minecraft/servlet/ShowPicServlet?id=1";
+		 	alert($("#omg")[0].src)
 		 </script>
 	</body>
 </html>

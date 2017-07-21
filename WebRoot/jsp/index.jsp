@@ -23,6 +23,26 @@ for(Friend fri : allFriends){
 		}
 	}
 }
+
+//获取自己及好友的所有动态
+//获取自己及好友的id
+List<Integer> senderIds = new ArrayList<Integer>();
+senderIds.add(user.getId());
+for(Friend fri : allFriends){
+	senderIds.add(fri.getFriId());
+}
+//获取动态
+MomentService momentService = new MomentServiceImpl();
+List<Moment> moments = momentService.getMoments(senderIds);
+System.out.println("moments size:"+moments.size());
+//按时间倒序排序
+Collections.sort(moments, new Comparator<Moment>() {
+
+	@Override
+	public int compare(Moment o1, Moment o2) {
+		return o2.getStamp().compareTo(o1.getStamp());
+	}
+});
 %>
 
 
@@ -101,34 +121,9 @@ for(Friend fri : allFriends){
 						<div id="send" style="margin-bottom: 10px">
 							<form onsubmit="return sendMoment()" id="momentform">
 							     <textarea name="moment-text" id="moment" cols="80" rows="3" placeholder="说点什么吧"></textarea>
-							     <input type="file" name="moment-pic" id="moment-pic"/><br/>
+							     <input type="file" name="moment-pic" id="moment-pic" accept="image/png,image/jpeg"/><br/>
                     			 <input type="submit" value="发表"/>
                     		</form>
-						</div>
-						<div class="remarks">
-							<!-- 作者信息 -->
-							<div class="remarks-author">
-								<img src="imgs/head1.png"/>
-								<div class="author-name">Chindy</div>
-								<div class="author-class"> </div>
-							</div>
-							<!-- 说说内容 -->
-							<div class="remarks-content">
-								<div class="content-text">谁说我白，瘦，漂亮，我就跟他做好朋友。</div>
-								<div class="content-time">今天8：15</div>
-								<img src="imgs/show1.jpg"/>
-								<div class="remarks-comments">
-									<div class="comment-like">
-										<span> </span>
-										<img src="imgs/zan1.png">
-										<img src="imgs/zan2.png">
-									</div>
-									<div class="comment-text">
-										<span> </span>
-										<textarea> </textarea>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 					<div id="photo" class="showcontent">
@@ -310,7 +305,7 @@ for(Friend fri : allFriends){
 							
 							<div class="userphoto" id="userphoto">
 								<a href="javascript:;">
-									<input type="file" name="photo" accept="image/png,image/jpeg" onchange="preView(this)"/>
+									<input type="file" name="photo" accept="image/png,image/jpeg" onchange="preView(this,$('#userphoto')[0])"/>
 								</a>
 							</div>
 							
@@ -473,9 +468,9 @@ for(Friend fri : allFriends){
 		}
 		
 		/**
-		*上传用户头像后在本地预览
+		*上传图片后在本地预览
 		**/
-	 	function preView(file){
+	 	function preView(file,ele){
 			alert(file.files+","+file.files[0]+","+file.files[0].type)
 			if (file.files && file.files[0]) {
 				//如果上传文件不是图片类型，则不预览，实际上这里可以提示用户上传文件类型错误
@@ -489,7 +484,7 @@ for(Friend fri : allFriends){
 				
 				var reader = new FileReader();
 		       	reader.onload = function (evt) {
-	          		div.style.backgroundImage = "url("+evt.target.result+")";
+		       		ele.style.backgroundImage = "url("+evt.target.result+")";
 	      		}
 	      		reader.readAsDataURL(file.files[0]);
 			}
@@ -804,13 +799,14 @@ for(Friend fri : allFriends){
 		*发表朋友圈动态
 		**/		
 		function sendMoment(){
-		     var moment = $('#moment').val();
-		     var file = $('#moment-pic')[0].files[0];
+		     var content = $('#moment').val();
+		     var file = $('#moment-pic')[0];
 		     
 		     var formData = new FormData();
-		     formData.append("moment",moment);
-		     formData.append("pic",file);
+		     formData.append("moment",content);
+		     formData.append("pic",file.files[0]);
 		     
+		     /* 发送到服务端保存 */
 		     $.ajax({
 		          url:"<%=basePath%>"+"servlet/MomentServlet",
 		          type:"post",
@@ -823,14 +819,106 @@ for(Friend fri : allFriends){
 		          // 告诉jQuery不要去设置Content-Type请求头
 		          contentType : false,
 		          success:function(data,status){
-		              alert(data+"\n"+status);
+		              alert("恭喜，发表成功！\n"+data);
+		              
+		              /* 显示自己发的这条动态在最上面 */
+		              createMomentElement(JSON.parse(data),true);
 		          },
 		          error:function(data,status){
 		              alert(data+"========"+status);
 		          }
 		     })
+		     
+		     
 			return false;
 		}
+		
+		/**
+		*创建动态的DOM，并将其添加到父元素中
+		**/
+		function createMomentElement(moment,first){
+			var container = $("<div></div>");
+			container.attr("class","remarks");
+			
+			/* 动态发布者信息 */
+			var author = $("<div></div>");
+			author.attr("class","remarks-author");
+			var photo = $("<img/>");
+			photo[0].src="/minecraft/servlet/ShowPicServlet?id="+moment.senderId;
+			var authorName = $("<div></div>");
+			authorName.attr("class","author-name");
+			authorName.html(moment.senderName);
+			var authorClass = $("<div></div>");
+			authorClass.attr("class","author-class");
+			author.append(photo,authorName,authorClass);
+			
+			/* 动态内容 */
+			var content = $("<div></div>");
+			content.attr("class","remarks-content");
+			
+			var text = $("<div></div>");
+			text.attr("class","content-text");
+			text.html(moment.content);
+			var time = $("<div></div>");
+			time.attr("class","content-time");
+			time.html(moment.day+" "+moment.time);
+			var img = $("<img/>");
+			img[0].src="/minecraft/servlet/ShowMomentPicServlet?id="+moment.id;
+			
+			var remarksComments = $("<div></div>");
+			remarksComments.attr("class","remarks-comments");
+			var favor = $("<div></div>");
+			favor.attr("class","comment-like");
+			var span = $("<span></span>");
+			span.attr("data-commentId",moment.id);
+			/* 点赞点击事件 */
+						
+			
+			/* 点赞用户的头像 */
+			favor.append(span);
+			
+			var comments = $("<div></div>");
+			comments.attr("class","comment-text");
+			var span = $("<span></span>");
+			/* 发表显示留言 */
+			comments.append(span);
+			
+			remarksComments.append(favor);
+			remarksComments.append(comments);
+			content.append(text,time,img,remarksComments);
+			/* 有图片则显示img标签，没有则不显示 */
+<%-- 				if("<%=m.getPic()%>" === "null"){
+				content.append(text,time,remarksComments);
+			}else{
+				content.append(text,time,img,remarksComments);
+			} --%>
+			
+			container.append(author,content);
+			
+			/* 如果first是true，将动态显示在最上面 ，否则按顺序依次显示*/
+			if(first){
+				$('#send').after(container);
+			}else{
+				$("#friendzone").append(container);			
+			}
+		}
+		
+		
+		/**
+		*显示首页朋友圈
+		**/
+		function showMoments(){
+			<%
+			for(int i=0;i<moments.size();i++){
+				Moment m = moments.get(i);
+			%>	
+				var moment = {"id":"<%=m.getId()%>","content":"<%=m.getContent()%>","senderId":"<%=m.getSenderId()%>","senderName":"<%=m.getSenderName()%>","day":"<%=m.getDay()%>","time":"<%=m.getTime()%>","hasPic":"<%=m.getPic()==null?false:true%>"}
+				createMomentElement(moment,false);
+			<%					
+			}
+			%>
+		}
+		
         
 		checkRadio();
 		setSelectedOption("grade", <%=user.getGrade()-1%>);
@@ -840,6 +928,8 @@ for(Friend fri : allFriends){
 		showSchoolmates();
 		showFriends();
 		showOnlineFriends();
+		showMoments();
+
 		
 	</script>
 	
