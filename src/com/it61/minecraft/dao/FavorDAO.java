@@ -2,6 +2,7 @@ package com.it61.minecraft.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.it61.minecraft.bean.Favor;
 import com.it61.minecraft.common.DAOTemplate;
@@ -30,9 +31,21 @@ public class FavorDAO implements OnTransformListener<Favor> {
 		return favor;
 	}
 	
-	public void insert(Favor favor) throws Exception{
+	public void delete(Favor favor) throws Exception{
+		String sql = "delete from favors where moment_id=? and favor_id=?";
+		Object[] args = {favor.getMomentId(),favor.getFavorId()};
+		temp.update(sql, args);
+	}
+
+	public void insert(Favor favor) throws Exception {
 		String sql = "insert into favors(moment_id,favor_id,favor_name) values(?,?,?)";
 		Object[] args = {favor.getMomentId(),favor.getFavorId(),favor.getFavorName()};
 		temp.update(sql, args);
+	}
+
+	public List<Favor> findAllFavorsByMomentId(Integer momentId) {
+		String sql = "select * from favors where moment_id=?";
+		Object[] args = {momentId};
+		return temp.queryAll(sql, args);
 	}
 }

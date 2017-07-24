@@ -21,6 +21,11 @@ public class Favor {
 		this.favorId = favorId;
 		this.favorName = favorName;
 	}
+	public Favor(int momentId, int favorId) {
+		super();
+		this.momentId = momentId;
+		this.favorId = favorId;
+	}
 	public int getId() {
 		return id;
 	}

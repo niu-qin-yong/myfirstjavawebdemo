@@ -4,10 +4,25 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Moment {
 	public Moment(){
 		
+	}
+	public Moment(String content, int id, int sendId, String sendName,
+			Date day, Time time, InputStream pic,Timestamp stamp,List<Favor> favors,List<Comment> comments) {
+		super();
+		this.content = content;
+		this.id = id;
+		this.senderId = sendId;
+		this.senderName = sendName;
+		this.day = day;
+		this.time = time;
+		this.pic = pic;
+		this.stamp = stamp;
+		this.favors = favors;
+		this.comments = comments;
 	}
 	public Moment(String content, int id, int sendId, String sendName,
 			Date day, Time time, InputStream pic,Timestamp stamp) {
@@ -29,7 +44,21 @@ public class Moment {
 	private Time time;
 	private InputStream pic;
 	private Timestamp stamp;
+	private List<Favor> favors;
+	private List<Comment> comments;
 	
+	public List<Favor> getFavors() {
+		return favors;
+	}
+	public void setFavors(List<Favor> favors) {
+		this.favors = favors;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	public Timestamp getStamp() {
 		return stamp;
 	}

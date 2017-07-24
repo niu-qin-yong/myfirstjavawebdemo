@@ -11,7 +11,7 @@ import com.it61.minecraft.bean.Favor;
 import com.it61.minecraft.service.FavorService;
 import com.it61.minecraft.service.impl.FavorServiceImpl;
 
-public class FavorServlet extends HttpServlet {
+public class FavorAddServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -23,8 +23,13 @@ public class FavorServlet extends HttpServlet {
 			FavorService service = new FavorServiceImpl();
 			service.addFavor(new Favor(momentId, favorId, favorName));
 			
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write("favor-add-success");
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write("favor-add-fail");
 		}
 	}
 

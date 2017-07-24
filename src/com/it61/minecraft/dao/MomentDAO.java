@@ -108,11 +108,35 @@ public class MomentDAO implements OnTransformListener<Moment> {
 		String sql = "";
 		Object[] args = senderIds.toArray();
 		for(int i=0;i<senderIds.size();i++){
+			
 			if(i == 0){
 				sql += "select * from moments where sender_id=?";
 			}else if(i > 0){
 				sql += " UNION ALL select * from moments where sender_id=?";
 			}
+				
+			//左连接，一次查询获取动态和对应的点赞和留言
+//			if(i == 0){
+//				sql += "select moments.id,moments.content,moments.daytime,moments.sender_id,moments.sender_name"
+//					+",favors.id as fid,favors.moment_id,favors.favor_id,favors.favor_name,favors.daytime"
+//					+",comments.id as cid,comments.moment_id,comments.content,comments.commenter_id,comments.commenter_name,comments.daytime"
+//					+" from moments"
+//					+" left join favors"
+//					+" on moments.id=favors.moment_id"
+//					+" left join comments"
+//					+" on moments.id=comments.moment_id"
+//					+" where moments.sender_id=?";
+//			}else if(i > 0){
+//				sql += " UNION ALL select moments.id,moments.content,moments.daytime,moments.sender_id,moments.sender_name"
+//						+",favors.id as fid,favors.moment_id,favors.favor_id,favors.favor_name,favors.daytime"
+//						+",comments.id as cid,comments.moment_id,comments.content,comments.commenter_id,comments.commenter_name,comments.daytime"
+//						+" from moments"
+//						+" left join favors"
+//						+" on moments.id=favors.moment_id"
+//						+" left join comments"
+//						+" on moments.id=comments.moment_id"
+//						+" where moments.sender_id=?";
+//			}
 		}
 		return temp.queryAll(sql, args);
 	}

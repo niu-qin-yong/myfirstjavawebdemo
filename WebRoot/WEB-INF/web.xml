@@ -74,9 +74,19 @@
     <servlet-class>com.it61.minecraft.web.servlet.ShowMomentPicServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>FavorServlet</servlet-name>
-    <servlet-class>com.it61.minecraft.web.servlet.FavorServlet</servlet-class>
+    <servlet-name>FavorAddServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.FavorAddServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>FavorCancelServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.FavorCancelServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CommentServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.CommentServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -145,8 +155,16 @@
     <url-pattern>/servlet/ShowMomentPicServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>FavorServlet</servlet-name>
-    <url-pattern>/servlet/FavorServlet</url-pattern>
+    <servlet-name>FavorAddServlet</servlet-name>
+    <url-pattern>/servlet/FavorAddServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FavorCancelServlet</servlet-name>
+    <url-pattern>/servlet/FavorCancelServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/servlet/CommentServlet</url-pattern>
   </servlet-mapping>
   
   <listener>
