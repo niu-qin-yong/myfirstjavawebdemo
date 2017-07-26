@@ -2,7 +2,9 @@
 <%@page import="com.it61.minecraft.bean.*"%>
 <%@page import="com.it61.minecraft.service.*"%>
 <%@page import="com.it61.minecraft.service.impl.*"%>
-<%@page import="com.google.gson.*" %>
+<%@page import="com.alibaba.fastjson.*" %>
+<%@page import="com.alibaba.fastjson.serializer.*" %>
+<%@page import="java.sql.*" %>
 <%
 User user = (User)session.getAttribute("user");
 String webName = request.getContextPath();
@@ -32,9 +34,10 @@ senderIds.add(user.getId());
 for(Friend fri : allFriends){
 	senderIds.add(fri.getFriId());
 }
-//获取动态
+//获取首次显示的动态
 MomentService momentService = new MomentServiceImpl();
-List<Moment> moments = momentService.getMoments(senderIds);
+Timestamp time = new Timestamp(System.currentTimeMillis());
+List<Moment> moments = momentService.getMomentsPaging(senderIds,time.toString(),3);
 //获取动态的点赞
 FavorService favorService = new FavorServiceImpl();
 for(Moment m : moments){
@@ -46,13 +49,13 @@ for(Moment m : moments){
 	m.setComments(commentService.getAllCommentsByMomentId(m.getId()));
 }
 //动态按时间倒序排序
-Collections.sort(moments, new Comparator<Moment>() {
+/* Collections.sort(moments, new Comparator<Moment>() {
 
 	@Override
 	public int compare(Moment o1, Moment o2) {
 		return o2.getStamp().compareTo(o1.getStamp());
 	}
-});
+}); */
 %>
 
 
@@ -134,6 +137,9 @@ Collections.sort(moments, new Comparator<Moment>() {
 							     <input type="file" name="moment-pic" id="moment-pic" accept="image/png,image/jpeg"/><br/>
                     			 <input type="submit" value="发表"/>
                     		</form>
+						</div>
+						<div id="loadmore">
+							<button onclick="loadMoreMoments()">点击加载更多</button>
 						</div>
 					</div>
 					<div id="photo" class="showcontent">
@@ -830,6 +836,13 @@ Collections.sort(moments, new Comparator<Moment>() {
 		     var content = $('#moment').val();
 		     var file = $('#moment-pic')[0];
 		     
+		     /* 检测图片大小 */
+		     if(file.files[0].size > 65536){
+		    	 $('#moment-pic').val("");
+		    	 alert("您上传的图片过大，请上传小于64k的图片");
+		    	 return false;
+		     }
+		     
 		     var formData = new FormData();
 		     formData.append("moment",content);
 		     formData.append("pic",file.files[0]);
@@ -849,10 +862,15 @@ Collections.sort(moments, new Comparator<Moment>() {
 		          success:function(data,status){
 		              
 		              /* 显示自己发的这条动态在最上面 */
+		              alert("sendMoment() \n"+data)
 		              createMomentElement(JSON.parse(data),true);
+		              
+		              /* 清除文本输入框等的内容 */
+		              $('#moment').val("");
+		              $('#moment-pic').val("");
 		          },
 		          error:function(data,status){
-		              alert(data+"========"+status);
+		              alert("sendMoment()\n"+data+"========"+status);
 		          }
 		     })
 		     
@@ -863,9 +881,10 @@ Collections.sort(moments, new Comparator<Moment>() {
 		/**
 		*创建动态的DOM，并将其添加到父元素中
 		**/
-		function createMomentElement(moment,first){
+		function createMomentElement(moment,top){
 			var container = $("<div></div>");
 			container.attr("class","remarks");
+			container.attr("data-daytime",moment.stamp);
 			
 			/* 动态发布者信息 */
 			var author = $("<div></div>");
@@ -888,7 +907,7 @@ Collections.sort(moments, new Comparator<Moment>() {
 			text.html(moment.content);
 			var time = $("<div></div>");
 			time.attr("class","content-time");
-			time.html(moment.day+" "+moment.time);
+			time.html(moment.stamp);
 			var img = $("<img/>");
 			img[0].src="/minecraft/servlet/ShowMomentPicServlet?id="+moment.id;
 			
@@ -941,25 +960,30 @@ Collections.sort(moments, new Comparator<Moment>() {
 			
 			container.append(author,content);
 			
-			/* 如果first是true，将动态显示在最上面 ，否则按顺序依次显示*/
-			if(first){
+			if(top){
+			/* 如果top是true，将动态显示在发送动态框的下面*/
 				$('#send').after(container);
 			}else{
-				$("#friendzone").append(container);			
+				/* 显示在加载更多框的上面 */
+				$("#loadmore").before(container);			
 			}
 			
 			/* 显示所有点赞头像 */
 			var favors = moment.favors;
-			for(var i=0;i<favors.length;i++){
-				var favorObj = favors[i];
-				createFavorPhotoEle(favorObj.momentId,favorObj.favorId,favorObj.favorName);
+			if(favors != undefined){
+				for(var i=0;i<favors.length;i++){
+					var favorObj = favors[i];
+					createFavorPhotoEle(favorObj.momentId,favorObj.favorId,favorObj.favorName);
+				}
 			}
 			
 			/* 显示所有留言 */
 			var mms = moment.comments;
-			for(var j=0;j<mms.length;j++){
-				var commentObj = mms[j];
-				createCommentEle(commentObj);
+			if(mms != undefined){
+				for(var j=0;j<mms.length;j++){
+					var commentObj = mms[j];
+					createCommentEle(commentObj);
+				}
 			}
 		}
 		
@@ -967,6 +991,11 @@ Collections.sort(moments, new Comparator<Moment>() {
 		*判断当前用户是否点赞
 		**/
 		function checkWhetherFavor(favors){
+			/* 如果favors为undefined,返回false */
+			if(favors === undefined){
+				return false;
+			}
+			
 			var myid = "<%=user.getId()%>";
 			for(var i=0;i<favors.length;i++){
 				if(myid == favors[i].favorId){
@@ -1097,20 +1126,19 @@ Collections.sort(moments, new Comparator<Moment>() {
 			<%
 			for(int i=0;i<moments.size();i++){
 				Moment m = moments.get(i);
-				Gson gson = new GsonBuilder()
-				.setExclusionStrategies(new ExclusionStrategy() {
-					
+				PropertyFilter filter = new PropertyFilter(){
+
 					@Override
-					public boolean shouldSkipField(FieldAttributes f) {
-						return f.getName().equals("pic");
-					}
+					public boolean apply(Object obj, String name, Object value) {
+						//返回false表示过滤
+						if(name.equals("pic")){
+							return false;
+						}
+						return true;
+					}  
 					
-					@Override
-					public boolean shouldSkipClass(Class<?> arg0) {
-						return false;
-					}
-				}).create() ; 
-				String json = gson.toJson(m);
+				};
+				String json = JSON.toJSONString(m,filter,SerializerFeature.WriteDateUseDateFormat);
 				if(m.getId() == 20){
 					System.out.println("20==========="+json);
 				}
@@ -1130,6 +1158,32 @@ Collections.sort(moments, new Comparator<Moment>() {
 			%>
 		}
 		
+		/**
+		*加载下一组动态
+		**/
+		var hasMore = true;
+		function loadMoreMoments(){
+			if(!hasMore){
+				alert("亲,没有了！");
+				return;
+			}
+			
+			var lastMomentStamp = $('#loadmore').prev().attr("data-daytime");
+			var url = "<%=basePath%>"+"servlet/LoadMoreMomentServlet?stamp="+lastMomentStamp;
+			$.get(url,function(data,status){
+				var moreMoments = JSON.parse(data);
+				
+				if(moreMoments.length == 0){
+					hasMore = false;
+					alert("亲,没有了！");
+					return;
+				}
+				
+				for(var i=0;i<moreMoments.length;i++){
+				 	createMomentElement(moreMoments[i],false);
+				}
+			});
+		}
         
 		checkRadio();
 		setSelectedOption("grade", <%=user.getGrade()-1%>);

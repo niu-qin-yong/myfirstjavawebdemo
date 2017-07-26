@@ -13,6 +13,9 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.PropertyFilter;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -20,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.it61.minecraft.bean.Moment;
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.common.Constants;
+import com.it61.minecraft.common.Utils;
 import com.it61.minecraft.service.MomentService;
 import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.MomentServiceImpl;
@@ -72,23 +76,14 @@ public class MomentServlet extends HttpServlet {
 				MomentService service = new MomentServiceImpl();
 				service.sendMoment(moment);;
 				
-				//设置日期格式后，day，time里的格式仍然不是想要的格式
-				Gson gson = new GsonBuilder()
-				.setDateFormat("yyyy-MM-dd")
-				.setExclusionStrategies(new ExclusionStrategy() {
-					
-					@Override
-					public boolean shouldSkipField(FieldAttributes f) {
-						return f.getName().equals("pic");
-					}
-					
-					@Override
-					public boolean shouldSkipClass(Class<?> arg0) {
-						return false;
-					}
-				}).create() ; 
-				Moment m = service.getMomentLatest(user.getId());
-				String json = gson.toJson(m);
+				
+				
+				//获取刚发表的动态返回给界面显示
+				Moment latestMoment = service.getMomentLatest(user.getId());
+				String json = Utils.FastJsontoJsonString(latestMoment);
+				
+				System.out.println("MomentServlet:"+json);
+				
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(json);
 			} catch (Exception e) {

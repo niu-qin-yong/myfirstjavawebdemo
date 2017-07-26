@@ -1,31 +1,17 @@
 package com.it61.minecraft.dao;
 
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.PropertyFilter;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.it61.minecraft.bean.Moment;
 import com.it61.minecraft.common.DAOTemplate;
 import com.it61.minecraft.common.OnTransformListener;
@@ -39,39 +25,41 @@ public class MomentDAO implements OnTransformListener<Moment> {
 	}
 	
 	public static void main(String[] args) {
-//		
+		
 		MomentDAO dao = new MomentDAO();
 		Moment moment = dao.findById(1);
 		
-		JsonSerializer<Date> ser = new JsonSerializer<Date>() {
-			  @Override
-			  public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext 
-			             context) {
-			    return src == null ? null : new JsonPrimitive(src.getTime());
-			  }
+		//分页
+/*		List<Integer> senderIds = new ArrayList<Integer>();
+		senderIds.add(1);
+		senderIds.add(7);
+		
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		
+		List<Moment> momentsPaging = dao.getMomentsPaging(senderIds, "2017-07-25 09:30:21", 3);
+		System.out.println(momentsPaging.size());*/
+		
+		//转json
+		PropertyFilter filter = new PropertyFilter(){
 
-			};
-			
-		Gson gson = new GsonBuilder()
-		.setExclusionStrategies(new ExclusionStrategy() {
-			
 			@Override
-			public boolean shouldSkipField(FieldAttributes f) {
-				return f.getName().equals("pic");
-			}
+			public boolean apply(Object obj, String name, Object value) {
+				if(name.equals("pic")){
+					return false;
+				}
+				return true;
+			}  
 			
-			@Override
-			public boolean shouldSkipClass(Class<?> arg0) {
-				return false;
-			}
-		}).create() ; 
+		};
+//		SerializerFeature
+//		JSON.toJSONStringWithDateFormat(moment,"",);
+		JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
 		
-		String json = gson.toJson(moment);
-		System.out.println(json);
-		System.out.println("day==="+moment.getDay());
-		System.out.println("time==="+moment.getTime());
-		System.out.println("Stamp==="+moment.getStamp());
+		List<Moment> list = new ArrayList<Moment>();
+		list.add(moment);
 		
+		String jsonString = JSON.toJSONString(list,filter,SerializerFeature.WriteDateUseDateFormat);
+		System.out.println(jsonString);
 	}
 
 	@Override
@@ -97,6 +85,29 @@ public class MomentDAO implements OnTransformListener<Moment> {
 		String sql = "insert into moments(sender_id,sender_name,content,pic) values(?,?,?,?)";
 		Object[] args = {moment.getSenderId(),moment.getSenderName(),moment.getContent(),moment.getPic()};
 		temp.update(sql, args);
+	}
+	
+	/**
+	 * 分页查询获取动态
+	 * @param senderIds
+	 * @param time	
+	 * @param limit	
+	 * @return 返回 senderIds 发表的动态中发表时间晚于 time 的 limit 条记录
+	 */
+	public List<Moment> getMomentsPaging(List<Integer> senderIds,String time,int limit){
+		String sql = "";
+		Object[] args = senderIds.toArray();
+		for(int i=0;i<senderIds.size();i++){
+			if(i == 0){
+				sql += "select * from moments where sender_id=? and daytime<'_daytime_'";
+			}else if(i > 0){
+				sql += " UNION ALL select * from moments where sender_id=? and daytime<'_daytime_'";
+			}
+		}
+		//将sql语句中的_daytime_替换为真实时间，注意replaceAll操作后原来的String并没有改变，要将replaceAll的返回值再赋值给sql
+		sql = sql.replaceAll("_daytime_",time);
+		sql += " order by daytime desc limit "+limit;
+		return temp.queryAll(sql, args);
 	}
 	
 	/**
@@ -138,6 +149,10 @@ public class MomentDAO implements OnTransformListener<Moment> {
 //						+" where moments.sender_id=?";
 //			}
 		}
+		
+		//按时间倒序排序
+		sql+=" order by daytime desc";
+		
 		return temp.queryAll(sql, args);
 	}
 

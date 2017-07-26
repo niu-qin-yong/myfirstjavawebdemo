@@ -85,6 +85,11 @@
     <servlet-name>CommentServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.CommentServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>LoadMoreMomentServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.LoadMoreMomentServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -165,6 +170,10 @@
   <servlet-mapping>
     <servlet-name>CommentServlet</servlet-name>
     <url-pattern>/servlet/CommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoadMoreMomentServlet</servlet-name>
+    <url-pattern>/servlet/LoadMoreMomentServlet</url-pattern>
   </servlet-mapping>
   
   <listener>

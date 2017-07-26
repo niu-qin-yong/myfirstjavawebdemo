@@ -748,6 +748,21 @@ display: table-cell;
  	vertical-align: middle;   
 }
 
+#loadmore{
+	text-align: center;
+}
+#loadmore button{
+	width:500px;
+	height: 30px;
+	border:0px;
+	background-color:rgba(255,255,255,0.8);
+  	border-radius:10px;
+  	margin: 20px;
+}
+#loadmore button:hover{
+	cursor: pointer;
+}
+
 /************************************/
 /*右侧侧边栏部分*/
 #right-side {

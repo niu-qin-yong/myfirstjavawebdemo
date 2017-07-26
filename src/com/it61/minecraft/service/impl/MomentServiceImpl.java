@@ -28,4 +28,10 @@ public class MomentServiceImpl implements MomentService{
 		return dao.findLatestBySenderId(senderId);
 	}
 	
+	@Override
+	public List<Moment> getMomentsPaging(List<Integer> senderIds,String time,int limit){
+		MomentDAO dao = new MomentDAO();
+		return dao.getMomentsPaging(senderIds,time,limit);
+	}
+	
 }
