@@ -4,14 +4,23 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.PropertyFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.it61.minecraft.bean.Moment;
+import com.it61.minecraft.bean.WSMessage;
 
 public class Utils {
+	
+	public static void main(String[] args) {
+		String str = "{\"msgCode\":0,\"targetUserId\":\"7\",\"content\":\"我是1\"}";
+		WSMessage msg = (WSMessage) JSON.parseObject(str,WSMessage.class);
+		System.out.println(msg.getContent());
+	}
+	
+	
 	/**
-	 * 使用FastJson将Moment对象或者List<Moment>序列化为JSON string
+	 * 使用FastJson将对象或者集合序列化为JSON string
 	 * @param moment
 	 * @return
 	 */
-	public static String FastJsontoJsonString(Object momentsth){
+	public static String FastJsontoJsonString(Object myobj){
 		//过滤不需要序列化的属性
 		PropertyFilter filter = new PropertyFilter(){
 
@@ -28,7 +37,7 @@ public class Utils {
 		//设置时间格式
 		JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
 		
-		return JSON.toJSONString(momentsth,filter,SerializerFeature.WriteDateUseDateFormat);
+		return JSON.toJSONString(myobj,filter,SerializerFeature.WriteDateUseDateFormat);
 
 	}
 	

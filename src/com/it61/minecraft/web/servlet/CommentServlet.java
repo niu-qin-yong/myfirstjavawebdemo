@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.it61.minecraft.bean.Comment;
+import com.it61.minecraft.common.Utils;
 import com.it61.minecraft.service.CommentService;
 import com.it61.minecraft.service.impl.CommentServiceImpl;
 
@@ -26,8 +26,7 @@ public class CommentServlet extends HttpServlet {
 			service.addComment(new Comment(commenterId, momentId, commenterName, content));
 			
 			Comment comment = service.getCommentLatest(momentId, commenterId);
-			Gson gson = new Gson();
-			String json = gson.toJson(comment);
+			String json = Utils.FastJsontoJsonString(comment);
 			
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);

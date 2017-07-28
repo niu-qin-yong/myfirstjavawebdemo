@@ -69,6 +69,7 @@ for(Moment m : moments){
 		<link rel="stylesheet" href="css/classroom.css">
 		<link rel="stylesheet" href="css/schoolfellow.css">
 		<link rel="stylesheet" href="css/friend.css">
+		<link rel="stylesheet" href="css/chat.css">
 		<script src="/minecraft/plugin/jquery/jquery.min.js"></script>
 	</head>
 	<body>
@@ -419,6 +420,22 @@ for(Moment m : moments){
 				</div>
 			</aside>
 		</div>
+		<!-- 聊天对话框 -->
+		<div id="chatbox">
+			<div id="chatmain">
+				<div id="bar">
+					与xxx聊天中
+				</div>
+				<div id="chatborard">
+				</div>
+				<div>
+					<input type="text" id="inputcontent" placeholder="点击按钮或者按回车键发送  /  按ESC键关闭聊天"/>
+					<button id="chatsend" onclick="onSendChatMsg()">
+						发送
+					</button>
+				</div>
+			</div>
+		</div>		
 	</body>
 	<!-- 引入kalendae日历插件 -->
 	<script type="text/javascript" src="plugin/jquery/jquery.min.js"></script>
@@ -428,6 +445,7 @@ for(Moment m : moments){
 	<script src="js/commen.js"></script>
 	<script src="js/bubble.js"></script>
 	<script src="<%=request.getContextPath()%>/js/main.js"></script>
+	<script type="text/javascript" src="/minecraft/js/box-drag.js"></script>
 	
 	<script type="text/javascript">
 	
@@ -785,7 +803,8 @@ for(Moment m : moments){
 		*聊天
 		**/
 		function chat(person_sender,person_receiver){
-			alert(person_sender+" will talk to "+person_receiver);
+			$("#chatbox").css("display","block");
+			$("#inputcontent").attr("data-targetId",person_receiver);
 		}
 		
 		/**
@@ -1015,7 +1034,6 @@ for(Moment m : moments){
 			var commenterPhoto = $("<img/>");
 			commenterPhoto[0].src="/minecraft/servlet/ShowPicServlet?id="+commentObj.commenterId;
 			
-			
 			var commenterName = $("<p></p>");
 			commenterName.attr("class","commenter-name");
 			
@@ -1027,7 +1045,7 @@ for(Moment m : moments){
 			
 			var commentTime = $("<p></p>");
 			commentTime.attr("class","comment-time");
-			commentTime.html(commentObj.time);
+			commentTime.html(commentObj.stamp);
 			
 			comment.append(commenterPhoto,commenterName,commentContent,commentTime);
 			$("#comment-text"+commentObj.momentId).append(comment);			
@@ -1184,6 +1202,91 @@ for(Moment m : moments){
 				}
 			});
 		}
+		
+		/**
+		*WebSocket相关
+		**/
+		var Chat = {};
+		Chat.socket = null;
+		Chat.connect = function(host) {
+			if ('WebSocket' in window) {
+				Chat.socket = new WebSocket(host);
+			} else{
+				alert("抱歉，您的浏览器不支持WebSocket！");
+				return;
+			}
+			
+			Chat.socket.onopen = function() {
+				console.log("<%=user.getId()%>"+" 连接WebSocket服务端成功");
+				$("#inputcontent")[0].onkeydown=function(event){
+					if (event.keyCode == 13) {
+						onSendChatMsg();
+					}
+				}
+			};
+			
+			Chat.socket.onclose = function() {
+				console.log("<%=user.getId()%>"+" 断开ws连接");
+			};
+
+			Chat.socket.onmessage = function(message) {
+				console.log("<%=user.getId()%>"+" 收到服务端消息 "+message.data);
+				var board = $("#chatborard");
+				var p = $("<p></p>");
+				p.css("wordWrap","break-word");
+				p.html("<b><%=user.getUserName()%></b>:"+message.data);
+				board.append(p);
+				while (board[0].childNodes.length > 20) {
+					board[0].removeChild(board[0].firstChild);
+				}
+				board[0].scrollTop = board[0].scrollHeight;
+			};
+			
+			/**
+			*刷新、页面跳转、关闭页面等事件发生前关闭连接
+			**/
+			window.onbeforeunload = function () {
+				Chat.socket.close();
+			}
+
+		}
+		
+		Chat.sendMessage = (function(message) {
+			if (message != '') {
+				console.log("send message:"+message);
+				Chat.socket.send(message);
+			}
+		});
+		
+		Chat.initialize = function(){
+			if (window.location.protocol == 'http:') {
+				Chat.connect('ws://' + window.location.host
+						+ '/minecraft/websocket/'+"<%=user.getId()%>");
+			} else {
+				Chat.connect('wss://' + window.location.host
+						+ '/minecraft/websocket/'+"<%=user.getId()%>");
+			}
+		};
+		
+		/* 发送按钮对应点击事件 */
+		function onSendChatMsg(){
+			var targetId = $("#inputcontent").attr("data-targetId");
+			var content = $("#inputcontent").val();
+			$("#inputcontent").val("");
+			var msg = {"msgCode":0,"targetUserId":targetId,"content":content};
+			Chat.sendMessage(JSON.stringify(msg));
+		}
+		
+		/**
+		*监听按键事件
+		**/
+		window.onkeydown=function(event){
+			/* 如果按下 ESC 键，隐藏聊天对话框 */
+			if (event.keyCode == 27) {
+				$("#chatbox").css("display","none");
+			}
+		}
+		
         
 		checkRadio();
 		setSelectedOption("grade", <%=user.getGrade()-1%>);
@@ -1194,8 +1297,8 @@ for(Moment m : moments){
 		showFriends();
 		showOnlineFriends();
 		showMoments();
-
+		Chat.initialize();
+		makeChatBoxCanMove();
 		
 	</script>
-	
 </html>
