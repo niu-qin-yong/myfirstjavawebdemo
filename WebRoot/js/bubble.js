@@ -25,6 +25,11 @@ function firstShow(currentBubble){
         }
     }
     currentBubble.style.zIndex=999;
+    
+    //弹出聊天窗口
+    var toUserId = currentBubble.getAttribute("data-toUserId");
+    var toUserName = currentBubble.getAttribute("data-toUserName");
+    chat(toUserId,toUserName);
 }
 //储存每个泡泡一开始的位置，并规定初始运动方向
 function recordPosition(){

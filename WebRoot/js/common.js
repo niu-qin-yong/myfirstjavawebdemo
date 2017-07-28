@@ -20,6 +20,8 @@ function show(){
 window.onkeydown = function(event) {
 	/* 如果按下 ESC 键，隐藏聊天对话框 */
 	if (event.keyCode == 27) {
+		/*把文本输入框中的toUserId属性值置为空，这是个标志，如果有值是1v1聊天，如果为空则是多人聊天*/
+		$("#inputcontent").attr("data-toUserId","");
 		$("#chatbox").css("display", "none");
 	}
 }

@@ -7,3 +7,10 @@
 <%@page import="com.alibaba.fastjson.serializer.*" %>
 <%@page import="java.sql.*" %>
 
+<%
+//jsp脚本
+%>
+
+function foo(){
+	//js代码
+}

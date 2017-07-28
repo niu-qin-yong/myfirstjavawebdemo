@@ -89,7 +89,10 @@
     <servlet-name>LoadMoreMomentServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.LoadMoreMomentServlet</servlet-class>
   </servlet>
-
+	<servlet>
+	    <servlet-name>setting.jsp</servlet-name>
+	    <jsp-file>/js/setting.jsp</jsp-file> 
+	</servlet>
 
 
 
@@ -174,6 +177,10 @@
   <servlet-mapping>
     <servlet-name>LoadMoreMomentServlet</servlet-name>
     <url-pattern>/servlet/LoadMoreMomentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>setting.jsp</servlet-name>
+    <url-pattern>/setting.js</url-pattern>
   </servlet-mapping>
   
   <listener>

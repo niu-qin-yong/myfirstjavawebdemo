@@ -795,6 +795,9 @@ display: table-cell;
 	background-size: 100% 100%;
 	position: absolute;
 }
+.friendOn:HOVER{
+	cursor:pointer;
+}
 
 #friend1 {
 	background-image: url(../imgs/f1.gif), url(../imgs/pop.jpg);

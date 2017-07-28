@@ -20,21 +20,6 @@ List<User> classmates = service.getClassmates(user);
 %>
 
 /**
-*1v1聊天
-**/
-function chat(person_sender,person_receiver){
-	$("#chatbox").css("display","block");
-	$("#inputcontent").attr("data-targetId",person_receiver);
-}
-
-/**
-*多人聊天
-**/
-function multichat(){
-	alert("Let's chat!!!");
-}
-
-/**
 *从好友界面移除好友
 **/
 function removeEleFromFriends(friId){

@@ -56,7 +56,7 @@ function showFriends(){
 	var gfriendchat=document.createElement("div");
 	gfriendchat.setAttribute("class","gfriendchat");
 	gfriendchat.innerHTML = "聊天";
-	gfriendchat.setAttribute("onclick","javascript:chat('<%=user.getId()%>','<%=fri.getFriId()%>')");
+	gfriendchat.setAttribute("onclick","javascript:chat('<%=fri.getFriId()%>','<%=fri.getFriName()%>')");
 	friendee.appendChild(gfriendchat);
 	
 	var parent = document.getElementById("friendcontent");
@@ -94,6 +94,8 @@ function showOnlineFriends(){
 	friendOn.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id=<%=onlineFriends.get(i).getFriId()%>),url(/minecraft/imgs/pop.jpg)";	
 	friendOn.style.left=getRandomLeft(<%=i%>);
 	friendOn.style.top=(<%=i%>*80)+"px";
+	friendOn.setAttribute("data-toUserId","<%=onlineFriends.get(i).getFriId()%>");
+	friendOn.setAttribute("data-toUserName","<%=onlineFriends.get(i).getFriName()%>");
 	
 	var parent = document.getElementById("friendsOnline");
 	parent.appendChild(friendOn);
