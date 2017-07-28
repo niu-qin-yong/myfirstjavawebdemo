@@ -40,9 +40,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
     %>
     
+    <script type="text/javascript" src="/minecraft/js/nb.jsp"></script>
     <script type="text/javascript">
     	var div = document.getElementById("mydiv");
     	div.innerHTML = "hehe";
+    	
+		show();
+		iterate();
     </script>
   </body>
 </html>

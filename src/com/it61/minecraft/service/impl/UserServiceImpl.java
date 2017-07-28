@@ -10,6 +10,15 @@ import com.it61.minecraft.service.UserService;
 
 public class UserServiceImpl implements UserService {
 	public static List<User> onlineUsers = new ArrayList<User>();
+	
+	public static void main(String[] args) {
+		UserServiceImpl service = new UserServiceImpl();
+		UserDAO udao = new UserDAO();
+		User user = udao.findById(1);
+		List<User> classmates = service.getClassmates(user);
+		
+		System.out.println(classmates.size());
+	}
 
 	@Override
 	public void register(User user) throws Exception {
@@ -36,7 +45,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getClassmates(User user) {
 		UserDAO userDAO = new UserDAO();
-		return userDAO.getClassmates(user);
+		
+		List<User> classmates = userDAO.getClassmates(user);
+		
+		return classmates;
 	}
 
 	@Override
