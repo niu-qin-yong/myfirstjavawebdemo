@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String webName = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
 
+
+%>
 <!doctype html>
 <html>
  <head>
@@ -40,8 +45,8 @@
 			  </li>
 			  <li>
 				<input  type="" placeholder="请输入验证码" id="vertifycode"data-point="验证码">
-				<div class="inputprompt">验证码</div>
-				<div id="vertify"></div>
+				<div class="inputprompt" >验证码</div>
+				<div id="vertify" title="看不清?点击刷新" onclick="showValidateCode()"></div>
 				<div class="warning"></div>
 			  </li>
 			  <li>
@@ -74,6 +79,7 @@
 		</div>
 	</footer>
  </body>
+ <script src="../plugin/jquery/jquery.min.js"></script>
  <script src="../js/register.js"></script>
 </html>
     

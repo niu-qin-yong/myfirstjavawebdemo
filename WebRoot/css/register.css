@@ -34,7 +34,6 @@ hr{
     border-top:2px solid #adadad;
 }
 
-/*ÍøÒ³Í·²¿*/
 header .logo{
     width:270px;
     height:55px;
@@ -53,7 +52,6 @@ header .logo{
     left:290px;
 	/* font-weight:bold; */
 }
-/*ÍøÒ³ÖĞ²¿*/
 section{
     height:440px;
 	padding-top:10px;
@@ -72,7 +70,7 @@ section{
 	top:-420px;
 	left:740px; 
 }
-/*ÊäÈë¿ò²¿·Ö*/
+/*ï¿½ï¿½ï¿½ï¿½ò²¿·ï¿½*/
 #inputarea{
 	list-style:none;
 	width:300px;
@@ -99,7 +97,6 @@ section{
 	text-align:center;
 	color:#474747;
 }
-/*ÉèÖÃÊäÈë´íÎóºóÌáÊ¾ÎÄ×ÖÑùÊ½*/
 #inputarea li .warning{
 	display:inline-block;
 	width:180px;
@@ -138,7 +135,6 @@ section{
 	top:2.5px;
 
 }
-/*ÍøÒ³Î²²¿*/
 .fohr{
     border-top:1px solid rgba(210, 210, 210, 0.31);
 }
@@ -162,4 +158,8 @@ footer div:last-child{
     margin:5px auto;
     color:#999;
     margin-top:10px;
+}
+
+#vertify{
+	cursor: pointer;
 }
