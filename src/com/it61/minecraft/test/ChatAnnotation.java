@@ -1,4 +1,4 @@
-package com.it61.minecraft.websocket;
+package com.it61.minecraft.test;
 
 import java.io.IOException;
 import java.util.Set;

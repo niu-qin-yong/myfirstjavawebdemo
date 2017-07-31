@@ -75,7 +75,7 @@
 					</tr>
 					<tr>
 						<td class="t2"><a href="javascript:void(0)">忘记登陆密码</a><a
-							href="/minecraft/register.html">免费注册</a></td>
+							href="/minecraft/jsp/registe.jsp">免费注册</a></td>
 					</tr>
 					<tr>
 						<td class="t3"><input type="submit" class="login" value=""></td>
