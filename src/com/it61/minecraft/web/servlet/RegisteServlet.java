@@ -35,7 +35,7 @@ public class RegisteServlet extends HttpServlet {
 			
 			//注册完成，重定向到登录页面
 			String host = getServletContext().getContextPath();
-			response.sendRedirect(host+"/login.html");
+			response.sendRedirect(host+"/jsp/login.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
 			//TODO 注册失败

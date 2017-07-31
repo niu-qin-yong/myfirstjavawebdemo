@@ -13,7 +13,7 @@
 	<hr>
 	<section>
 	    <div id="section_left">
-	        <form action="" method="get" onsubmit="return check()">
+	        <form action="/minecraft/servlet/RegisteServlet" method="post" onsubmit="return check()">
 			<ul id="inputarea">
 			  <li>
 				<input  type="text" placeholder="您的用户名和登陆名" name="uname" id="username" data-point="用户名">
@@ -31,7 +31,7 @@
 				<div class="warning"></div>
 			  </li>
 			  <li>
-				<input  type="" placeholder="建议使用常用手机" id="pnumber"data-point="联系电话">
+				<input  type="" placeholder="建议使用常用手机" id="pnumber"data-point="联系电话" name="pnumber">
 				<div class="inputprompt">中国+86</div>
 				<div class="warning"></div>
 			  </li>

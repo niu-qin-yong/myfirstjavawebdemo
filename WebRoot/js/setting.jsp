@@ -42,7 +42,7 @@ function setUserPhoto(){
 }
 
 /**
-*设置select的选中项
+*设置select的选中项(年级、班级)
 **/ 
 function setSelectedOption(select,index){
 	var options = document.getElementById(select).options;

@@ -608,6 +608,8 @@ for(Moment m : moments){
 
 	
 		checkRadio();
+		alert("grade:<%=user.getGrade()-1%>")
+		alert("banji:<%=user.getBanji()-1%>")
 		setSelectedOption("grade", <%=user.getGrade()-1%>);
 		setSelectedOption("banji", <%=user.getBanji()-1%>);
 		setUserPhoto();
