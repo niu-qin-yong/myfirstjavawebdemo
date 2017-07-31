@@ -22,6 +22,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 
+	<style>
+		#mydiv{
+			border:1px solid red;
+		}
+	</style>
   </head>
   
   <body>
@@ -30,7 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	Age:<input type="text" name="age"><br/>
     	<input type="submit" value="提交">
     </form>
-    <div id="mydiv"></div>
+    <div id="mydiv">
+	    <audio id="player" autoplay="autoplay" loop="true" controls="controls"
+	    src="/minecraft/servlet/MusicServlet"></audio>
+    </div>
+    
     
     <%
     ArrayList<User> onlineUsers = (ArrayList<User>)getServletContext().getAttribute("online_users");
@@ -42,11 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <script type="text/javascript" src="/minecraft/js/nb.jsp"></script>
     <script type="text/javascript">
-    	var div = document.getElementById("mydiv");
-    	div.innerHTML = "hehe";
-    	
-		show();
-		iterate();
     </script>
   </body>
 </html>

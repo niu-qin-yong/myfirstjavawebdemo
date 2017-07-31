@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.UserServiceImpl;
+import com.mysql.jdbc.StringUtils;
 
 public final class LoginServlet extends HttpServlet {
 
@@ -31,6 +33,13 @@ public final class LoginServlet extends HttpServlet {
 			//登录成功
 			//Session中添加登录状态
 			request.getSession().setAttribute("user", user);
+			
+			//使用Cookie保存账号密码
+			//需要完善前端页面，现在先假设需要保存用户名和密码
+			Cookie cookie = new Cookie("cookie-user", uname+"-"+psw);
+			cookie.setMaxAge(3*24*60*60);
+			cookie.setPath("/minecraft/jsp/login.jsp");
+			response.addCookie(cookie);
 			
 			//如果表单提交，重定向跳转到首页
 			String host = getServletContext().getContextPath();

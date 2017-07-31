@@ -93,6 +93,11 @@
 	    <servlet-name>setting.jsp</servlet-name>
 	    <jsp-file>/js/setting.jsp</jsp-file> 
 	</servlet>
+  <servlet>
+    <servlet-name>MusicServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.MusicServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -181,6 +186,10 @@
   <servlet-mapping>
     <servlet-name>setting.jsp</servlet-name>
     <url-pattern>/setting.js</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MusicServlet</servlet-name>
+    <url-pattern>/servlet/MusicServlet</url-pattern>
   </servlet-mapping>
   
   <listener>

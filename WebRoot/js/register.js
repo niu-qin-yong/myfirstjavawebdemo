@@ -64,7 +64,7 @@ function validate(i){
 		var test = inputs[i].value;
 		if (test != "ats6") {
 			warnings[i].innerHTML = "验证码输入错误";
-			return false;	
+			return false;
 		}
 	}
 	//协议勾选
