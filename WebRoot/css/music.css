@@ -1,0 +1,113 @@
+#music {
+	width: 540px;
+	height: 400px;
+	margin-left: 65px;
+	border-radius: 40px;
+	background: rgba(255,255,255,0.7);
+}
+#music-head {
+	width: 500px;
+	height: 50px;
+}
+#music-head div {
+	float: left;
+}
+#myMusic {
+	width: 150px;
+	height: 50px;
+	background-image: url(../imgs/music_01.png);
+	background-repeat: no-repeat;
+	margin-left: 20px;
+}
+
+#music-head input {
+	width: 200px;
+	height: 30px;
+	margin: 10px 0px 0px 100px;
+	box-sizing: border-box;
+	border-radius: 15px;
+	padding-left: 30px;
+	background-image: url(../imgs/music_06.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	outline: none;
+}
+#music-content {
+	width: 510px;
+	height: 300px;
+	overflow: auto;
+}
+.music-list {
+	width: 160px;
+	height: 180px;
+	float: left;
+	margin: 0px 0px 10px 5px;
+	background: rgba(255,255,255,0.7);
+	border-radius: 30px;
+	border: 2px solid rgba(255,255,255,0.8);
+	position: relative;
+}
+.music-list span {
+	font-size: 12px;
+	float: right;
+	margin: 10px;
+	color: green;
+	font-weight: bold;
+}
+.music-poster {
+	width: 120px;
+	height: 120px;
+	margin: 30px 0px 0px 20px;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;//
+	background-image: url(../imgs/d1.png);
+}
+.photo-frame {
+	width: 120px;
+	height: 120px;
+	border: 6px solid rgba(255,255,255,0.5);
+	border-radius: 50%;
+	box-sizing: border-box;
+}
+.music-share, .music-like {
+	width: 15px;
+	height: 15px;
+	float: left;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	cursor: pointer;
+}
+.music-share {
+	margin-left: 25px;
+	background-image: url(../imgs/music_05.png);
+}
+.music-like {
+	margin-left: 80px;
+	background-image: url(../imgs/music_04.png);
+}
+.music-control {
+	position: absolute;
+	top: 67px;
+	left: 58px;
+	width: 45px;
+	height: 45px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url(../imgs/music_02.png);
+}
+.music-play {
+	background-image: url(../imgs/music_03.png);
+}
+.poster-rotate {
+	animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate{
+from {
+	transform: rotate(0deg);
+}
+to {
+	transform: rotate(360deg);
+}
+}

@@ -18,18 +18,16 @@ public class MusicServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String path = getServletContext().getRealPath("/audio/Faded.mp3");
-//		byte[] data = getBytesFromFile(new File("C:/media/final.mp4"));
-		byte[] data = getBytesFromFile(new File(path));
-		String diskfilename = "Faded.mp3";
-		response.setContentType("vaudio/mp3");
-		// response.setContentType("application/octet-stream");
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + diskfilename + "\"");
-		System.out.println("data.length " + data.length);
+		String name = request.getParameter("name");
+		System.out.println("MusicServlet:name  "+name);
+		
+		String path = getServletContext().getRealPath(name);
+		File file = new File(path);
+		byte[] data = getBytesFromFile(file);
+		
+		response.setContentType("audio/mp3");
 		response.setContentLength(data.length);
-//		response.setHeader("Content-Range", range + Integer.valueOf(data.length - 1));
-		response.setHeader("Accept-Ranges", "bytes");
-//		response.setHeader("Etag", "W/\"9767057-1323779115364\"");
+		
 		byte[] content = new byte[1024];
 		BufferedInputStream is = new BufferedInputStream(new ByteArrayInputStream(data));
 		OutputStream os = response.getOutputStream();
@@ -48,21 +46,21 @@ public class MusicServlet extends HttpServlet {
 	
 	private static byte[] getBytesFromFile(File file) throws IOException {
 		InputStream is = new FileInputStream(file);
+		
 		long length = file.length();
 		if (length > Integer.MAX_VALUE) {
 			return null;
 		}
+		
 		byte[] bytes = new byte[(int) length];
-		int offset = 0;
-		int numRead = 0;
-		while ((offset < bytes.length) && ((numRead = is.read(bytes, offset, bytes.length - offset)) >= 0)) {
-			System.out.println("getBytesFromFile "+offset);
-			offset += numRead;
-		}
+		int offset = is.read(bytes);
+		
 		if (offset < bytes.length) {
 			throw new IOException("Could not completely read file " + file.getName());
 		}
+		
 		is.close();
+		
 		return bytes;
 	}
 
