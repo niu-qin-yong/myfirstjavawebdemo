@@ -33,7 +33,13 @@ var player = {
 			if (event.keyCode == 13) {
 				self.searchMusic();
 			}
-		}	    
+		}	
+		//给转发按钮设置鼠标滑入划出事件
+		var jia = $("#jiathis");
+		jia.attr("onmouseover",'javascript:$("#jiathis").css("display","block");');
+		jia.attr("onmouseout",'javascript:$("#jiathis").css("display","none");');
+		//默认转发按钮不显示
+		self.hideRelay();   
 	  },
 	  updateView : function(source,subDivClassName){
 	    var self = this;
@@ -97,6 +103,7 @@ var player = {
 	  //参数containerId：DOM将要添加到的父元素ID，music-content或者music-search
 	  //参数subClassName：子div的class名称，music-list或者search-list
 	  createMusicNodeEle : function(jsons,containerId,subClassName){ //创建一首音乐对应的DOM
+	  	var self = this;
 			for(var i = 0;i < jsons.length;i++){
 				var musicJson = jsons[i];
 				  
@@ -106,6 +113,7 @@ var player = {
 				var item = $("<div></div>");
 				item.attr("class",subClassName);
 				item.attr("data-id",musicJson.id);
+				item.attr("data-music-name",musicJson.title);
 				content.append(item);
 		
 				var span = $("<span></span>");
@@ -117,6 +125,9 @@ var player = {
 				
 				var share = $("<div></div>");
 				share.attr("class","music-share");
+				share.attr("id","share"+musicJson.id);
+				share.attr("onmouseover","player.showRelay(this)");
+				share.attr("onmouseout","player.hideRelay()");
 				item.append(share);
 				
 				var like = $("<div></div>");
@@ -169,5 +180,31 @@ var player = {
 				//显示搜索界面
 				self.showSearchMusic();	
 			});
+		},
+		showRelay : function(ele){
+			//获取元素的相对位置，距离浏览器窗体左上角的位置
+			var left = ele.getBoundingClientRect().left;
+			var top =ele.getBoundingClientRect().top;
+			
+			//页面的垂直滚动距离
+			var scrollTop = document.body.scrollTop;  
+			
+			//设置转发DOM的位置
+			var topOffset = 15;
+			var jia = $("#jiathis");
+			jia.css("position","absolute");
+			jia.css("left",left);
+			jia.css("top",top+scrollTop+topOffset);
+			
+			//显示
+			jia.css("display","block");
+			
+			//修改转发配置变量的title值
+			var musicName = ele.parentNode.dataset.musicName;
+			jiathis_config.title = "我正在听《"+musicName+"》，不得不说真的很好听~";
+		},
+		hideRelay : function(){
+			var jia = $("#jiathis");
+			jia.css("display","none");
 		}
 }

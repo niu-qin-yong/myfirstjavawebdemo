@@ -4,6 +4,7 @@
 	margin-left: 65px;
 	border-radius: 40px;
 	background: rgba(255,255,255,0.7);
+	position: relative;
 }
 #music-head {
 	width: 500px;

@@ -446,13 +446,30 @@ String muscisJson = JSON.toJSONString(musics);
 			</div>
 		</div>
 		
+		<!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style_24x24" id="jiathis">
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+		</div>
+		<!-- JiaThis Button END -->	
 
 			
 	</body>
 	
+	<script type="text/javascript">
+		jiathis_config = {
+			title:"我做的网站哦，进来看看嘛^_^"
+		}
+	</script>
+	
 	<!-- 引入kalendae日历插件 -->
 	<script type="text/javascript" src="plugin/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="plugin/kalendae/js/kalendae.js"></script>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
 	<!-- JS引入 -->
 	<script src="<%=request.getContextPath()%>/js/elements.js"></script>
 	<script src="<%=request.getContextPath()%>/js/common.js"></script>
@@ -467,10 +484,6 @@ String muscisJson = JSON.toJSONString(musics);
 	<script src="<%=request.getContextPath()%>/setting.js"></script><!-- 客户端看起来引用的是js，实际上这只是url，映射的是Servlet -->
 	
 	<script type="text/javascript">
-	
-
-	
-	
 		checkRadio();
 		setSelectedOption("grade", <%=user.getGrade()-1%>);
 		setSelectedOption("banji", <%=user.getBanji()-1%>);
