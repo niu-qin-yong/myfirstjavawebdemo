@@ -40,6 +40,7 @@ var player = {
 		jia.attr("onmouseout",'javascript:$("#jiathis").css("display","none");');
 		//默认转发按钮不显示
 		self.hideRelay();   
+	
 	  },
 	  updateView : function(source,subDivClassName){
 	    var self = this;
@@ -132,6 +133,11 @@ var player = {
 				
 				var like = $("<div></div>");
 				like.attr("class","music-like");
+				like.attr("data-like-value",musicJson.likeCount+"喜欢");
+				//给点赞按钮设置鼠标滑入划出事件
+				like.attr("onmouseover",'player.showLike(this)');
+				like.attr("onmouseout",'player.hideLike()');
+				like.attr("onclick",'player.addLike(this)');
 				item.append(like);
 				
 				var control = $("<div></div>");
@@ -203,8 +209,54 @@ var player = {
 			var musicName = ele.parentNode.dataset.musicName;
 			jiathis_config.title = "我正在听《"+musicName+"》，不得不说真的很好听~";
 		},
-		hideRelay : function(){
+		hideRelay : function(ele){
 			var jia = $("#jiathis");
 			jia.css("display","none");
+		},
+		showLike : function(ele){
+			//获取元素的相对位置，距离浏览器窗体左上角的位置
+			var left = ele.getBoundingClientRect().left;
+			var top =ele.getBoundingClientRect().top;
+			
+			//页面的垂直滚动距离
+			var scrollTop = document.body.scrollTop;  		
+			
+			//设置DOM的位置
+			var topOffset = -20;
+			var count = $("#like-count");
+			count.css("position","absolute");
+			count.css("left",left);
+			count.css("top",top+scrollTop+topOffset);
+			
+			//设置点赞数
+			var value = ele.dataset.likeValue;
+			count.html(value);
+			
+			//显示
+			count.css("display","block");
+		},
+		hideLike : function(){
+			var count = $("#like-count");
+			count.css("display","none");
+		},
+		addLike : function(ele){
+			//1.先修改前端界面
+			var oldValue = ele.dataset.likeValue;
+			
+			var end = oldValue.indexOf("喜欢");
+			var oldCount = oldValue.substring(0,end);
+			var newCount = Number(oldCount)+Number(1);
+			
+			var count = $("#like-count");
+			count.html(newCount+"喜欢");
+			
+			$(ele).attr("data-like-value",newCount+"喜欢");
+			
+			//2.提交服务器修改数据库中的值
+			var musicId = ele.parentNode.dataset.id;
+			var url = "<%=basePath%>/servlet/AddMusicLikeServlet?id="+musicId+"&count="+newCount;
+			$.get(url,function(data,state){
+				
+			});
 		}
 }

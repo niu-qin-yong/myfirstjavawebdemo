@@ -100,6 +100,10 @@
 	margin-left: 80px;
 	background-image: url(../imgs/music_04.png);
 }
+#like-count{
+	color:#FD6A02;
+	font-size: 15px;
+}
 .music-control {
 	position: absolute;
 	top: 67px;

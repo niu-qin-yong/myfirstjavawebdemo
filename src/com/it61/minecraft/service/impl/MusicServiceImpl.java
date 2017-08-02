@@ -20,4 +20,10 @@ public class MusicServiceImpl implements MusicService{
 		return dao.searchMusic(key);
 	}
 
+	@Override
+	public void addLike(int id, int count) throws Exception {
+		MusicDAO dao = new MusicDAO();
+		dao.addLike(id,count);
+	}
+
 }

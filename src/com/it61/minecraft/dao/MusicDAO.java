@@ -31,8 +31,9 @@ public class MusicDAO implements OnTransformListener<Music> {
 			String poster = rs.getString("poster");
 			String title = rs.getString("title");
 			int id = rs.getInt("id");
+			int count = rs.getInt("like_count");
 			
-			m = new Music(id,music, poster,title);
+			m = new Music(id,music, poster,title,count);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -53,6 +54,12 @@ public class MusicDAO implements OnTransformListener<Music> {
 		String sql = "select * from musics where singer like ? or title like ? ";
 		Object[] args = {"%"+key+"%","%"+key+"%"};//注意不要加单引号，MySQL会自动加，否则加上取不到数据
 		return temp.queryAll(sql, args);
+	}
+
+	public void addLike(int id, int count) throws Exception {
+		String sql = "update musics set like_count=? where id=?";
+		Object[] args = {count,id};
+		temp.update(sql, args);
 	}
 
 }

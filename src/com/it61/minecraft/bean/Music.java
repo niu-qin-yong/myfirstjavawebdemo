@@ -11,13 +11,21 @@ public class Music {
 	private String poster;
 	private String title;
 	private int id;
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	private int likeCount;
 	
-	public Music(int id,String music, String poster,String title) {
+	public Music(int id,String music, String poster,String title,int likeCount) {
 		super();
 		this.id = id;
 		this.music = music;
 		this.poster = poster;
 		this.title = title;
+		this.likeCount = likeCount;
 	}
 	public int getId() {
 		return id;

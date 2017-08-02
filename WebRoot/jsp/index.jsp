@@ -457,6 +457,8 @@ String muscisJson = JSON.toJSONString(musics);
 		</div>
 		<!-- JiaThis Button END -->	
 
+		<!-- 音乐点赞数 -->
+		<span id="like-count"></span>
 			
 	</body>
 	
