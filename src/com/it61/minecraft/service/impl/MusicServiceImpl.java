@@ -14,4 +14,10 @@ public class MusicServiceImpl implements MusicService{
 		return dao.findAllMusic();
 	}
 
+	@Override
+	public List<Music> searchMusic(String key) {
+		MusicDAO dao = new MusicDAO();
+		return dao.searchMusic(key);
+	}
+
 }

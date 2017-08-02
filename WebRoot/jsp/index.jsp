@@ -314,12 +314,14 @@ String muscisJson = JSON.toJSONString(musics);
 					</div>
 					<div id="music" class="showcontent">
 						<div id="music-head">
-							<div id="myMusic"></div>
+							<div id="myMusic" onclick="player.showAllMusic()" title="显示全部音乐"></div>
 							<div>
-								<input type="text" placeholder="单曲/歌手/专辑/歌单">
+								<input type="text" placeholder="输入单曲或歌手,按回车键搜索" id="music_search_input">
 							</div>
 						</div>
 						<div id="music-content">
+						</div>
+						<div id="music-search">
 						</div>
 						<audio id="player" autoplay="autoplay" loop="true"></audio>
 					</div>
@@ -442,8 +444,12 @@ String muscisJson = JSON.toJSONString(musics);
 					</button>
 				</div>
 			</div>
-		</div>		
+		</div>
+		
+
+			
 	</body>
+	
 	<!-- 引入kalendae日历插件 -->
 	<script type="text/javascript" src="plugin/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="plugin/kalendae/js/kalendae.js"></script>

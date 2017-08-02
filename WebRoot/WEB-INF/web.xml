@@ -105,6 +105,11 @@
     <servlet-name>GetValidateCodeServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.GetValidateCodeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MusicSearchServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.MusicSearchServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -208,6 +213,10 @@
   <servlet-mapping>
     <servlet-name>GetValidateCodeServlet</servlet-name>
     <url-pattern>/servlet/GetValidateCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MusicSearchServlet</servlet-name>
+    <url-pattern>/servlet/MusicSearchServlet</url-pattern>
   </servlet-mapping>
   
   <listener>

@@ -9,7 +9,7 @@
 
 <%
 String webName = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName+"/";
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
 
 //获取所有音乐
 MusicService ms = new MusicServiceImpl();
@@ -26,21 +26,29 @@ var player = {
 	    var self = this;
 	    console.log('<%=muscisJson%>')
 	    self.list = JSON.parse('<%=muscisJson%>');
-	    self.showMusics();
-	    self.updateView();          //更新歌曲信息
+	    self.createMusicNodeEle(self.list,"music-content","music-list");
+	    self.updateView(self.list,"music-list");          //更新歌曲信息
+	    //监听搜索框
+		$("#music_search_input")[0].onkeydown = function(event) {
+			if (event.keyCode == 13) {
+				self.searchMusic();
+			}
+		}	    
 	  },
-	  updateView : function(){
+	  updateView : function(source,subDivClassName){
 	    var self = this;
-	    var elements = document.querySelectorAll('.music-list');
+	    var elements = document.querySelectorAll('.'+subDivClassName);
 	    for(var i = 0;i < elements.length;i++){
-	      var msg = self.list[i];
+	    	console.log("updateView "+elements[i].dataset.id);
+	    
+	      var msg = self.find(source,elements[i].dataset.id);
 	      elements[i].children[0].innerHTML=msg.title;
 	      elements[i].children[1].style.backgroundImage = "url("+msg.poster+")";
 	      //绑定播放按钮的事件
 	      elements[i].children[4].onclick = function(){
 	        self.bind(this);
 	        if(self.curMusic == null || self.curMusic != this){
-	          self.audio.src = "<%=basePath%>"+"servlet/MusicServlet?name="+self.find(this.parentNode.dataset.id).music;
+	          self.audio.src = "<%=basePath%>"+"/servlet/MusicServlet?name="+self.find(source,this.parentNode.dataset.id).music;
 	        }else{
 	          self.musicControl();
 	        }
@@ -60,11 +68,10 @@ var player = {
 	    }
 	  },
 	  //根据key值查找对应的音乐信息
-	  find : function(id){
-	    var self = this;
-	    for(var i = 0;i < self.list.length;i++){
-	      if(self.list[i].id == id){
-	        return self.list[i];
+	  find : function(source,id){
+	    for(var i = 0;i < source.length;i++){
+	      if(source[i].id == id){
+	        return source[i];
 	      }
 	    }
 	  },
@@ -86,38 +93,81 @@ var player = {
 	      ele.parentNode.children[1].className = "music-poster";
 	    }
 	  },
-	  createMusicNodeEle : function(musicJson){ //创建一首音乐对应的DOM
-			var content = $("#music-content");
-			
-			var item = $("<div></div>");
-			item.attr("class","music-list");
-			item.attr("data-id",musicJson.id);
-			content.append(item);
-	
-			var span = $("<span></span>");
-			item.append(span);
-			
-			var poster = $("<div></div>");
-			poster.attr("class","music-poster");
-			item.append(poster);
-			
-			var share = $("<div></div>");
-			share.attr("class","music-share");
-			item.append(share);
-			
-			var like = $("<div></div>");
-			like.attr("class","music-like");
-			item.append(like);
-			
-			var control = $("<div></div>");
-			control.attr("class","music-control");
-			item.append(control);
+	  //参数jsons：要显示的音乐数据，json格式
+	  //参数containerId：DOM将要添加到的父元素ID，music-content或者music-search
+	  //参数subClassName：子div的class名称，music-list或者search-list
+	  createMusicNodeEle : function(jsons,containerId,subClassName){ //创建一首音乐对应的DOM
+			for(var i = 0;i < jsons.length;i++){
+				var musicJson = jsons[i];
+				  
+				var content = $("#"+containerId);
+				console.log(content);
+				
+				var item = $("<div></div>");
+				item.attr("class",subClassName);
+				item.attr("data-id",musicJson.id);
+				content.append(item);
+		
+				var span = $("<span></span>");
+				item.append(span);
+				
+				var poster = $("<div></div>");
+				poster.attr("class","music-poster");
+				item.append(poster);
+				
+				var share = $("<div></div>");
+				share.attr("class","music-share");
+				item.append(share);
+				
+				var like = $("<div></div>");
+				like.attr("class","music-like");
+				item.append(like);
+				
+				var control = $("<div></div>");
+				control.attr("class","music-control");
+				item.append(control);
+			}
 			
 		},
-		showMusics : function(){ //创建所有音乐的DOM
+		showAllMusic : function(){
+			$("#music-search").css("display","none");
+			$("#music-content").css("display","block");
+		},
+		showSearchMusic : function(){
+			$("#music-content").css("display","none");
+			$("#music-search").css("display","block");
+		},
+		searchMusic : function(){
+			//AJAX获取搜索的音乐
 			var self = this;
-			for(var i = 0;i < self.list.length;i++){
-				self.createMusicNodeEle(self.list[i]);
-			}
+			var key = $("#music_search_input").val();
+			console.log("searchMusic key:"+key);
+			var url = "<%=basePath%>/servlet/MusicSearchServlet?key="+key;
+			$.get(url,function(data,state){
+				console.log("searchMusic data:"+data);
+				var musics = JSON.parse(data);
+				if(musics.length == 0){
+					alert("对不起，没有找到您要的歌曲，试试其他关键字搜索吧！");
+					return;
+				}
+			
+				var json = '[{"id":1,"music":"audio/Faded.mp3","poster":"poster/faded.jpg","title":"Faded"},{"id":3,"music":"audio/成都.mp3","poster":"poster/cd.jpg","title":"成都"}]';
+				
+				
+				//把之前搜索界面的DOM移除
+				$('#music-search').empty();
+				//创建新的DOM
+				self.createMusicNodeEle(musics,"music-search","search-list");
+				
+				var elements = document.querySelectorAll('.search-list');
+				 for(var i = 0;i < elements.length;i++){
+				 	console.log("searchMusic "+elements[i].dataset.id);
+				 }
+				 
+				//更新界面
+				self.updateView(musics,"search-list");
+				//显示搜索界面
+				self.showSearchMusic();	
+			});
 		}
 }

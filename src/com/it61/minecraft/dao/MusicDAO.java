@@ -11,6 +11,12 @@ import com.it61.minecraft.common.OnTransformListener;
 
 public class MusicDAO implements OnTransformListener<Music> {
 	private DAOTemplate<Music> temp;
+	
+	public static void main(String[] args) {
+		MusicDAO dao = new MusicDAO();
+		List<Music> list = dao.searchMusic("赵");
+		System.out.println(list.size());
+	}
 
 	public MusicDAO() {
 		temp = new DAOTemplate<Music>();
@@ -36,6 +42,16 @@ public class MusicDAO implements OnTransformListener<Music> {
 	public List<Music> findAllMusic(){
 		String sql = "select * from musics";
 		Object[] args = {};
+		return temp.queryAll(sql, args);
+	}
+
+	public List<Music> searchMusic(String key) {
+		//这种写法获取不到数据
+//		String sql = "select * from musics where singer like '%?%' or title like '%?%' ";
+//		Object[] args = {key,key};
+		
+		String sql = "select * from musics where singer like ? or title like ? ";
+		Object[] args = {"%"+key+"%","%"+key+"%"};//注意不要加单引号，MySQL会自动加，否则加上取不到数据
 		return temp.queryAll(sql, args);
 	}
 

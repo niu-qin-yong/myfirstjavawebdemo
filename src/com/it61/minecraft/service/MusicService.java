@@ -6,4 +6,5 @@ import com.it61.minecraft.bean.Music;
 
 public interface MusicService {
 	List<Music> getAllMusic();
+	List<Music> searchMusic(String key);
 }
