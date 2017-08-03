@@ -50,12 +50,13 @@ var player = {
 	    
 	      var msg = self.find(source,elements[i].dataset.id);
 	      elements[i].children[0].innerHTML=msg.title;
-	      elements[i].children[1].style.backgroundImage = "url("+msg.poster+")";
+	      elements[i].children[1].style.backgroundImage = "url("+msg.poster+")"; 
 	      //绑定播放按钮的事件
 	      elements[i].children[4].onclick = function(){
 	        self.bind(this);
 	        if(self.curMusic == null || self.curMusic != this){
-	          self.audio.src = "<%=basePath%>"+"/servlet/MusicServlet?name="+self.find(source,this.parentNode.dataset.id).music;
+	          <%-- self.audio.src = "<%=basePath%>"+"/servlet/MusicServlet?name="+self.find(source,this.parentNode.dataset.id).music; --%>
+	          self.audio.src = "<%=basePath%>/"+self.find(source,this.parentNode.dataset.id).music;
 	        }else{
 	          self.musicControl();
 	        }

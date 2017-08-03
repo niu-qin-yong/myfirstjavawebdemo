@@ -70,6 +70,9 @@ String muscisJson = JSON.toJSONString(musics);
 		<link rel="stylesheet" href="css/friend.css">
 		<link rel="stylesheet" href="css/chat.css">
 		<link rel="stylesheet" href="css/music.css">
+		<link rel="stylesheet" href="css/album.css">
+		<link rel="stylesheet" href="plugin/bootstrap/bootstrap.css">
+		<link rel="stylesheet" href="plugin/viewer/viewer.css">
 	</head>
 	<body>
 		<!-- 用户登录部分 -->
@@ -142,8 +145,65 @@ String muscisJson = JSON.toJSONString(musics);
 							<button onclick="loadMoreMoments()">点击加载更多</button>
 						</div>
 					</div>
-					<div id="photo" class="showcontent">
-						相册
+					<div id="album" class="showcontent">
+						<div class="album-header">
+							<button id="album-create"  data-toggle="modal" data-target="#create-album" >创建相册</button>
+							<button id="pic-upload" onclick="album.browseAlbum()">上传图片</button>
+							<!-- 创建相册的模态框 -->
+							<div class="modal fade" id="create-album" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+												&times;
+											</button>
+											<h4 class="modal-title" id="myModalLabel">
+												创建相册
+											</h4>											
+										</div>
+										<div class="modal-body">
+											<input id="ablum-name" name="ablum-name" class="form-control" placeholder="相册名称" /><br/>
+											<input id="ablum-des" name="ablum-des" class="form-control" placeholder="相册描述"/>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+											</button>
+											<button type="button" class="btn btn-primary" data-dismiss="modal" onclick='album.createListEle("album-content")'>
+												创建
+											</button>
+										</div>										
+									</div>
+								</div>
+							</div>
+							<!-- 缩略图浏览的模态框 -->
+							<div class="modal fade" id="album-brower" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+							     <div class="modal-dialog">
+							       <div class="modal-content">
+							         <div class="modal-header">
+							           <h3 class="modal-title" id="modalLabel">浏览相册</h3>
+							           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							         </div>
+							         <div class="modal-body">
+							           <div id="galley">
+							              <ul class="pictures">
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							              </ul>
+							            </div>
+							         </div>
+							         <div class="modal-footer" id="modal-footer">
+							           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							         </div>
+							       </div>
+							     </div>
+							   </div>							
+						</div>
+						<!-- 相册内容区 -->
+						<div class="album-content" id="album-content">
+							<div class="album-list" data-key="1">
+								<span class="album-name">哈哈哈</span>
+							</div>
+						</div>
 					</div>
 					<div id="dairy" class="showcontent">
 						<div id="dairyleft">
@@ -471,7 +531,12 @@ String muscisJson = JSON.toJSONString(musics);
 	<!-- 引入kalendae日历插件 -->
 	<script type="text/javascript" src="plugin/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="plugin/kalendae/js/kalendae.js"></script>
+	<!-- 第三方分享插件 -->
 	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="plugin/bootstrap/bootstrap.js"></script>
+	<!-- Viewer -->
+	<script type="text/javascript" src="plugin/viewer/viewer.js"></script>
 	<!-- JS引入 -->
 	<script src="<%=request.getContextPath()%>/js/elements.js"></script>
 	<script src="<%=request.getContextPath()%>/js/common.js"></script>
@@ -483,6 +548,7 @@ String muscisJson = JSON.toJSONString(musics);
 	<script src="<%=request.getContextPath()%>/js/friend.jsp"></script>
 	<script src="<%=request.getContextPath()%>/js/chat.jsp"></script>
 	<script src="<%=request.getContextPath()%>/js/music.jsp"></script>
+	<script src="<%=request.getContextPath()%>/js/album.jsp"></script>
 	<script src="<%=request.getContextPath()%>/setting.js"></script><!-- 客户端看起来引用的是js，实际上这只是url，映射的是Servlet -->
 	
 	<script type="text/javascript">

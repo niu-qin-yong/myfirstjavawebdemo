@@ -1,0 +1,66 @@
+#album {
+	width: 540px;
+	height: 400px;
+	margin-left: 65px;
+	border-radius: 40px;
+	background: rgba(255,255,255,0.7);
+	position: relative;
+}
+.album-header{
+	margin: 10px;
+}
+.album-content{
+	width: 510px;
+	height: 300px;
+	overflow: auto;
+}
+.album-list{
+	width: 160px;
+	height: 160px;
+	float: left;
+	margin: 0px 0px 10px 5px;
+	background: rgba(255,255,255,0.7);
+	border-radius: 30px;
+	border: 2px solid rgba(255,255,255,0.8);
+	position: relative;
+	cursor: pointer;
+}
+.album-list:HOVER {
+	background-color: rgba(0,0,0,0.2);
+}
+.album-name{
+	width:100%;
+	height:auto;
+	text-align: center;
+	font-size: 20px;
+	position: absolute;
+	left:0;
+	bottom: 0;
+	background-color:gray;
+	border-radius:0px 0px 30px 30px;
+	padding: 5px;
+	box-sizing: border-box;
+}
+.pictures {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pictures > li {
+  float: left;
+  width: 33.3%;
+  height: 33.3%;
+  margin: 0 -1px -1px 0;
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+
+.pictures > li > img {
+  width: 100%;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+#modal-footer{
+	clear:both;
+}
