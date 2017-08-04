@@ -113,6 +113,16 @@
     <servlet-name>AddMusicLikeServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.AddMusicLikeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CreateAlbumServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.CreateAlbumServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AlbumUploadServet</servlet-name>
+    <servlet-class>AlbumUploadServet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -226,6 +236,14 @@
   <servlet-mapping>
     <servlet-name>AddMusicLikeServlet</servlet-name>
     <url-pattern>/servlet/AddMusicLikeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateAlbumServlet</servlet-name>
+    <url-pattern>/servlet/CreateAlbumServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AlbumUploadServet</servlet-name>
+    <url-pattern>/servlet/AlbumUploadServet</url-pattern>
   </servlet-mapping>
   
   <listener>

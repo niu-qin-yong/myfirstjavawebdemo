@@ -20,34 +20,58 @@
 	float: left;
 	margin: 0px 0px 10px 5px;
 	background: rgba(255,255,255,0.7);
+	background-position:center;
 	border-radius: 30px;
 	border: 2px solid rgba(255,255,255,0.8);
 	position: relative;
-	cursor: pointer;
 }
-.album-list:HOVER {
-	background-color: rgba(0,0,0,0.2);
-}
-.album-name{
+.album-name,.album-upload,.album-brower{
 	width:100%;
 	height:auto;
 	text-align: center;
 	font-size: 20px;
-	position: absolute;
-	left:0;
-	bottom: 0;
-	background-color:gray;
-	border-radius:0px 0px 30px 30px;
+	background-color:rgba(0,0,0,0.2);
 	padding: 5px;
 	box-sizing: border-box;
 }
-.pictures {
+.album-name{
+	border-radius:0px 0px 30px 30px;
+	position: absolute;
+	left:0;
+	bottom: 0;
+}
+.album-upload{
+	border-radius:30px 30px 0px 0px;
+	position: absolute;
+	left:0;
+	top: 0;
+	cursor: pointer;
+}
+.album-upload > input{
+	width:100%;
+	height:100%;
+	opacity:0;
+	position: absolute;
+	left:0;
+	top:0;
+	cursor: pointer;
+	font-size:0
+}
+.album-brower{
+	border-radius:0px 0px 30px 30px;
+	position: absolute;
+	left:0;
+	bottom: 0;
+	cursor: pointer;
+}
+
+.album-pictures {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.pictures > li {
+.album-pictures > li {
   float: left;
   width: 33.3%;
   height: 33.3%;
@@ -56,11 +80,8 @@
   overflow: hidden;
 }
 
-.pictures > li > img {
+.album-pictures > li > img {
   width: 100%;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
-}
-#modal-footer{
-	clear:both;
 }

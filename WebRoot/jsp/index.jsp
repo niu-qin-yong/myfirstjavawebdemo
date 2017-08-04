@@ -71,9 +71,10 @@ String muscisJson = JSON.toJSONString(musics);
 		<link rel="stylesheet" href="css/chat.css">
 		<link rel="stylesheet" href="css/music.css">
 		<link rel="stylesheet" href="css/album.css">
-		<link rel="stylesheet" href="plugin/bootstrap/bootstrap.css">
+		<link rel="stylesheet" href="plugin/bootstrap/bootstrap.min-4.0.0-alpha.6.css">
 		<link rel="stylesheet" href="plugin/viewer/viewer.css">
-	</head>
+	
+ 	</head>
 	<body>
 		<!-- 用户登录部分 -->
 		<%
@@ -154,21 +155,21 @@ String muscisJson = JSON.toJSONString(musics);
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-												&times;
-											</button>
 											<h4 class="modal-title" id="myModalLabel">
 												创建相册
 											</h4>											
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+												&times;
+											</button>
 										</div>
 										<div class="modal-body">
-											<input id="ablum-name" name="ablum-name" class="form-control" placeholder="相册名称" /><br/>
-											<input id="ablum-des" name="ablum-des" class="form-control" placeholder="相册描述"/>
+											<input id="album-create-name" name="ablum-name" class="form-control" placeholder="相册名称" /><br/>
+											<input id="album-create-des" name="ablum-des" class="form-control" placeholder="相册描述"/>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 											</button>
-											<button type="button" class="btn btn-primary" data-dismiss="modal" onclick='album.createListEle("album-content")'>
+											<button type="button" class="btn btn-primary" data-dismiss="modal" onclick='album.createAlbum()'>
 												创建
 											</button>
 										</div>										
@@ -180,16 +181,26 @@ String muscisJson = JSON.toJSONString(musics);
 							     <div class="modal-dialog">
 							       <div class="modal-content">
 							         <div class="modal-header">
-							           <h3 class="modal-title" id="modalLabel">浏览相册</h3>
+							           <h4 class="modal-title" id="modalLabel">浏览相册</h4>
 							           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							         </div>
 							         <div class="modal-body">
 							           <div id="galley">
-							              <ul class="pictures">
+							              <ul class="album-pictures">
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
 							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
 							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
 							              </ul>
 							            </div>
+							            
 							         </div>
 							         <div class="modal-footer" id="modal-footer">
 							           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -200,8 +211,10 @@ String muscisJson = JSON.toJSONString(musics);
 						</div>
 						<!-- 相册内容区 -->
 						<div class="album-content" id="album-content">
-							<div class="album-list" data-key="1">
-								<span class="album-name">哈哈哈</span>
+							<div class="album-list">
+								<span class="album-upload">上传照片</span>
+								<span class="album-name">呵呵</span>
+								<span class="album-brower">浏览相册</span>
 							</div>
 						</div>
 					</div>
@@ -534,7 +547,7 @@ String muscisJson = JSON.toJSONString(musics);
 	<!-- 第三方分享插件 -->
 	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
 	<!-- Bootstrap -->
-	<script type="text/javascript" src="plugin/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="plugin/bootstrap/bootstrap.min-4.0.0-alpha.6.js"></script>
 	<!-- Viewer -->
 	<script type="text/javascript" src="plugin/viewer/viewer.js"></script>
 	<!-- JS引入 -->
@@ -552,6 +565,7 @@ String muscisJson = JSON.toJSONString(musics);
 	<script src="<%=request.getContextPath()%>/setting.js"></script><!-- 客户端看起来引用的是js，实际上这只是url，映射的是Servlet -->
 	
 	<script type="text/javascript">
+	
 		checkRadio();
 		setSelectedOption("grade", <%=user.getGrade()-1%>);
 		setSelectedOption("banji", <%=user.getBanji()-1%>);
@@ -564,6 +578,7 @@ String muscisJson = JSON.toJSONString(musics);
 		Chat.initialize();
 		makeChatBoxCanMove();
 		player.init();    //音乐播放
+		album.initAlbum(); //相册
 		
 	</script>
 </html>

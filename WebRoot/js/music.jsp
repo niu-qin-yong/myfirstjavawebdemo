@@ -24,7 +24,7 @@ var player = {
 	  audio : document.getElementById('player'),
 	  init : function(){
 	    var self = this;
-	    console.log('<%=muscisJson%>')
+	    //console.log('<%=muscisJson%>')
 	    self.list = JSON.parse('<%=muscisJson%>');
 	    self.createMusicNodeEle(self.list,"music-content","music-list");
 	    self.updateView(self.list,"music-list");          //更新歌曲信息
@@ -46,7 +46,6 @@ var player = {
 	    var self = this;
 	    var elements = document.querySelectorAll('.'+subDivClassName);
 	    for(var i = 0;i < elements.length;i++){
-	    	console.log("updateView "+elements[i].dataset.id);
 	    
 	      var msg = self.find(source,elements[i].dataset.id);
 	      elements[i].children[0].innerHTML=msg.title;
@@ -110,7 +109,6 @@ var player = {
 				var musicJson = jsons[i];
 				  
 				var content = $("#"+containerId);
-				console.log(content);
 				
 				var item = $("<div></div>");
 				item.attr("class",subClassName);
@@ -159,10 +157,10 @@ var player = {
 			//AJAX获取搜索的音乐
 			var self = this;
 			var key = $("#music_search_input").val();
-			console.log("searchMusic key:"+key);
+			//console.log("searchMusic key:"+key);
 			var url = "<%=basePath%>/servlet/MusicSearchServlet?key="+key;
 			$.get(url,function(data,state){
-				console.log("searchMusic data:"+data);
+				//console.log("searchMusic data:"+data);
 				var musics = JSON.parse(data);
 				if(musics.length == 0){
 					alert("对不起，没有找到您要的歌曲，试试其他关键字搜索吧！");
@@ -179,7 +177,7 @@ var player = {
 				
 				var elements = document.querySelectorAll('.search-list');
 				 for(var i = 0;i < elements.length;i++){
-				 	console.log("searchMusic "+elements[i].dataset.id);
+				 	//console.log("searchMusic "+elements[i].dataset.id);
 				 }
 				 
 				//更新界面
