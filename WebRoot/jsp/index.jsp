@@ -72,7 +72,7 @@ String muscisJson = JSON.toJSONString(musics);
 		<link rel="stylesheet" href="css/music.css">
 		<link rel="stylesheet" href="css/album.css">
 		<link rel="stylesheet" href="plugin/bootstrap/bootstrap.min-4.0.0-alpha.6.css">
-		<link rel="stylesheet" href="plugin/viewer/viewer.css">
+		<link rel="stylesheet" href="plugin/viewer/viewer-v-js.css">
 	
  	</head>
 	<body>
@@ -186,21 +186,9 @@ String muscisJson = JSON.toJSONString(musics);
 							         </div>
 							         <div class="modal-body">
 							           <div id="galley">
-							              <ul class="album-pictures">
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
-							                <li><img data-original="<%=basePath%>poster/ll.jpg" src="<%=basePath%>poster/ll.jpg" alt="Cuo Na Lake"></li>
+							              <ul class="album-pictures" id="pictures-container">
 							              </ul>
 							            </div>
-							            
 							         </div>
 							         <div class="modal-footer" id="modal-footer">
 							           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -549,7 +537,7 @@ String muscisJson = JSON.toJSONString(musics);
 	<!-- Bootstrap -->
 	<script type="text/javascript" src="plugin/bootstrap/bootstrap.min-4.0.0-alpha.6.js"></script>
 	<!-- Viewer -->
-	<script type="text/javascript" src="plugin/viewer/viewer.js"></script>
+	<script type="text/javascript" src="plugin/viewer/viewer-v-js.js"></script>
 	<!-- JS引入 -->
 	<script src="<%=request.getContextPath()%>/js/elements.js"></script>
 	<script src="<%=request.getContextPath()%>/js/common.js"></script>
@@ -579,6 +567,8 @@ String muscisJson = JSON.toJSONString(musics);
 		makeChatBoxCanMove();
 		player.init();    //音乐播放
 		album.initAlbum(); //相册
+		
+	
 		
 	</script>
 </html>

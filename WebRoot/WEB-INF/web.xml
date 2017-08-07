@@ -119,7 +119,7 @@
   </servlet>
   <servlet>
     <servlet-name>AlbumUploadServet</servlet-name>
-    <servlet-class>AlbumUploadServet</servlet-class>
+    <servlet-class>com.it61.minecraft.web.servlet.AlbumUploadServet</servlet-class>
   </servlet>
 
 

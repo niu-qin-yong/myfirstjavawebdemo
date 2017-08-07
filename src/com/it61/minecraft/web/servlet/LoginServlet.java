@@ -1,11 +1,9 @@
 package com.it61.minecraft.web.servlet;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.UserServiceImpl;
-import com.mysql.jdbc.StringUtils;
 
 public final class LoginServlet extends HttpServlet {
 

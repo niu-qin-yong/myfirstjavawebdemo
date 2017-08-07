@@ -9,9 +9,19 @@ public class Album {
 	private int userId;
 	private String name;
 	private String des;
-	private List<String> pics;
+	private List<Picture> pics;
 	private Timestamp createTime;
 	
+	public Album(int userId,int id){
+		this.id=id;
+		this.userId=userId;
+	}
+	
+	public Album(int userId,int id,String name){
+		this.id=id;
+		this.userId=userId;
+		this.name = name;
+	}
 	
 	public Album(int userId, String name, String des) {
 		super();
@@ -58,10 +68,10 @@ public class Album {
 	public void setDes(String des) {
 		this.des = des;
 	}
-	public List<String> getPics() {
+	public List<Picture> getPics() {
 		return pics;
 	}
-	public void setPics(List<String> pics) {
+	public void setPics(List<Picture> pics) {
 		this.pics = pics;
 	}
 }

@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.it61.minecraft.bean.Album;
+import com.it61.minecraft.bean.Picture;
 import com.it61.minecraft.common.DAOTemplate;
 import com.it61.minecraft.common.OnTransformListener;
 
@@ -14,10 +15,11 @@ public class AlbumDAO implements OnTransformListener<Album> {
 	
 	public static void main(String[] args) {
 		AlbumDAO dao = new AlbumDAO();
-		Album album = new Album(1,"happy","fight!");
+		Object[] ids = {1,1,"cd.jpg",1,2,"ll.jpg"};
 		try {
-			dao.addAlbum(album);
+			dao.addPictures(ids);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -60,4 +62,22 @@ public class AlbumDAO implements OnTransformListener<Album> {
 		Object[] args = {userId};
 		return temp.queryAll(sql,args);
 	}
+
+	public void addPictures(Object[] args) throws Exception {
+		/**
+		 * MySQL一次插入多条记录的方式
+		 * insert into pictures(user_id,album_id,pic_name) values(1,2,"1.png"),(1,3,"2.png");
+		 * values值之间用逗号隔开
+		 */
+		String sql = "insert into pictures(user_id,album_id,pic_name) values";
+		for(int i=0;i<args.length/3;i++){
+			sql += "(?,?,?),";
+		}
+		//去掉最后一个逗号
+		sql = sql.substring(0,sql.length()-1);
+		
+		temp.update(sql,args);
+	}
+
+	
 }

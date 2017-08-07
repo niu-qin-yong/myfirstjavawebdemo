@@ -16,6 +16,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 AlbumService service = new AlbumServiceImpl();
 List<Album> allAlbums = service.getAllAlbums(user.getId());
 
+//获取相册包含的图片
+PictureService picService = new PictureServiceImpl();
+for(int i=0;i<allAlbums.size();i++){
+	Album album = allAlbums.get(i);
+	List<Picture> pics = picService.getPictures(album);
+	album.setPics(pics);
+}
+
 JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
 String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.WriteDateUseDateFormat);
 %>
@@ -50,9 +58,19 @@ var album = {
 		var container = $("#album-content");
 		
 		var list = $("<div></div>");
+		list.attr("id",albumObj.id);
 		list.attr("class","album-list");
 		list.attr("title","浏览相册"); 
-		//list.css("backgroundImage","url(<%=basePath%>/imgs/cover-default.png)");
+		//图片路径  pictures/1-2-xx.png  userid-albumid-picname.png
+		if(albumObj.pics != null && albumObj.pics != undefined && albumObj.pics.length != 0){
+			//取第一张图片做封面
+			var picPath = albumObj.userId+"-"+albumObj.id+"-"+albumObj.pics[0].name;
+			//显示封面
+			list.css("backgroundImage","url(<%=basePath%>/pictures/"+picPath+")");
+		}else{
+			//显示默认封面
+			list.css("backgroundImage","url(<%=basePath%>/imgs/default-photo.png)");
+		}
 		list.on("mouseover",function(event){
 			//显示选项
 			var opts = $(".opt"+albumObj.id);
@@ -75,7 +93,6 @@ var album = {
 		container.append(list);
 		
 		var uploadOpt = $("<div></div>");
-		uploadOpt.attr("href","javascript:;");
 		uploadOpt.attr("class","album-upload"+" opt"+albumObj.id);
 		uploadOpt.css("display","none");
 		uploadOpt.html("上传图片");
@@ -90,6 +107,11 @@ var album = {
 			// 实例化一个表单数据对象
 			var formData = new FormData();
 			
+			//哪个用户的哪个相册
+			formData.append("userId","<%=user.getId()%>");
+			formData.append("albumId",albumObj.id);
+			formData.append("albumName",albumObj.name);
+			
 			//获取选择的图片
 			var files = $(this)[0].files;
 			for(var i = 0;i < files.length;i++){
@@ -97,8 +119,9 @@ var album = {
 				formData.append($(this).attr("name"),file);
 			}
 			
+			//AJAX异步上传图片
 			$.ajax({
-			         url:"<%=basePath%>/AlbumUploadServet",
+			         url:"<%=basePath%>/servlet/AlbumUploadServet",
 			         type:"post",
 			         async: false,//同步 ，true 异步，默认异步
 			         data : formData,
@@ -107,7 +130,21 @@ var album = {
 			         // 告诉jQuery不要去设置Content-Type请求头
 			         contentType : false,
 			         success:function(data,status){
-			             alert(data+"\n"+status)
+			         	var obj = JSON.parse(data);
+			         	console.log("上传图片成功后，服务端返回的数据："+data);
+			         	 
+						//更新封面
+						//取第一张图片做封面
+						var picPath = obj.userId+"-"+obj.id+"-"+obj.pics[0].name;
+						//显示封面
+						$("#"+obj.id).css("backgroundImage","url(<%=basePath%>/pictures/"+picPath+")");
+						
+						//神奇的地方
+						albumObj = obj;
+
+						if(status == "success"){
+							alert("恭喜，上传成功!");
+						}
 			         },
 			         error:function(data,status){
 			             alert(data+"========"+status)
@@ -123,7 +160,12 @@ var album = {
 		browerOpt.css("display","none");
 		browerOpt.html("浏览相册");
 		browerOpt.on("click",function(event){
-			$("#album-brower").modal('show');
+			if(albumObj.pics == undefined || albumObj.pics == null || albumObj.pics.length == 0){
+				alert("没有照片可以浏览！\n亲，请上传你的玉照吧！");
+				return;
+			}
+			
+			album.createBrowserNodeEleAndShow(albumObj);
 		});
 		list.append(browerOpt);
 		
@@ -132,6 +174,31 @@ var album = {
 		nameSpan.attr("class","album-name");
 		nameSpan.html(albumObj.name);
 		list.append(nameSpan);				
+	},
+	//创建浏览相册需要的DOM，并显示模态框
+	createBrowserNodeEleAndShow : function(obj){
+		console.log("createBrowserNodeEleAndShow "+JSON.stringify(obj));
+		
+		var ul = $("#pictures-container");
+		//先清除之前的DOM
+		ul.empty();
+				
+		//创建新的
+		var picsArray = obj.pics;
+		for(var i=0;i < obj.pics.length;i++){
+			var picObj = obj.pics[i];
+			var li = $("<li></li>");
+			ul.append(li);
+			var img = $("<img />");
+			li.append(img);
+			//原图
+			img.attr("data-original","<%=basePath%>/pictures/"+picObj.userId+"-"+picObj.albumId+"-"+picObj.name);
+			//缩略图
+			img.attr("src","<%=basePath%>/pictures/"+picObj.userId+"-"+picObj.albumId+"-"+picObj.name);
+			img.attr("alt",picObj.name);
+		}
+		
+		$("#album-brower").modal('show');
 	},
 	//初始化相册
 	initAlbum : function(){
@@ -143,12 +210,17 @@ var album = {
 }
 
 window.addEventListener('DOMContentLoaded', function () {
-	 var galley = document.getElementById('galley');
+	 var $galley = $(".album-pictures");
 	 var viewer;
 	
 	 $('#album-brower').on('shown.bs.modal', function () {
+	 	alert("shown.bs.modal");
 	   viewer = new Viewer(galley, {
-	     url: 'data-original',
+	     url: 'data-original'
 	   });
-	 });
+	 }).on('hidden.bs.modal', function () {
+	 	alert("hidden.bs.modal");
+        viewer.destroy();
+      });
 });
+
