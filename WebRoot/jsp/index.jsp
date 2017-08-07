@@ -187,6 +187,8 @@ String muscisJson = JSON.toJSONString(musics);
 							         <div class="modal-body">
 							           <div id="galley">
 							              <ul class="album-pictures" id="pictures-container">
+							              	<li><img src="/minecraft/poster/ll.jpg" data-original="/minecraft/poster/ll.jpg" alt="hehe"/></li>
+							              	<li><img src="/minecraft/poster/ll.jpg" data-original="/minecraft/poster/ll.jpg" alt="hehe"/></li>
 							              </ul>
 							            </div>
 							         </div>

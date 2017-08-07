@@ -32,6 +32,7 @@ var albumArray = JSON.parse('<%=allAlbumsJsonString%>');
 var album = {
 	//创建相册
 	createAlbum : function(){
+		
 		var self = this;
 		//数据
 		var name = $("#album-create-name").val();
@@ -166,6 +167,7 @@ var album = {
 			}
 			
 			album.createBrowserNodeEleAndShow(albumObj);
+			//$("#album-brower").modal('show');
 		});
 		list.append(browerOpt);
 		
@@ -198,7 +200,11 @@ var album = {
 			img.attr("alt",picObj.name);
 		}
 		
+		//显示模态框
 		$("#album-brower").modal('show');
+		
+		//填充了图片后再创建Viewer对象才有效
+		this.initViewer();
 	},
 	//初始化相册
 	initAlbum : function(){
@@ -206,21 +212,50 @@ var album = {
 			var albumObj = albumArray[i];
 			this.createEleNode(albumObj);	
 		}
+		
+	},
+	//初始化Viewer
+	initViewer : function(){
+		var options = {
+			url: 'data-original',
+	        build: function (e) {
+	          console.log(e.type);
+	        },
+	        built: function (e) {
+	          console.log(e.type);
+	        },
+	        show: function (e) {
+	          console.log(e.type);
+	        },
+	        shown: function (e) {
+	          console.log(e.type);
+	        },
+	        hide: function (e) {
+	          console.log(e.type);
+	        },
+	        hidden: function (e) {
+	          console.log(e.type);
+	        },
+	        view: function (e) {
+	          console.log(e.type);
+	        },
+	        viewed: function (e) {
+	          console.log(e.type);
+	        }			
+		};
+		
+		var galley = document.getElementById('galley');
+		var viewer = new Viewer(galley,options);	
 	}
 }
 
 window.addEventListener('DOMContentLoaded', function () {
-	 var $galley = $(".album-pictures");
-	 var viewer;
 	
-	 $('#album-brower').on('shown.bs.modal', function () {
-	 	alert("shown.bs.modal");
-	   viewer = new Viewer(galley, {
-	     url: 'data-original'
-	   });
+	$('#album-brower').on('shown.bs.modal', function () {
+	 	console.log("shown.bs.modal");
 	 }).on('hidden.bs.modal', function () {
-	 	alert("hidden.bs.modal");
-        viewer.destroy();
-      });
+	 	console.log("hidden.bs.modal");
+     });
+
 });
 
