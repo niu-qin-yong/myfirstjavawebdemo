@@ -201,11 +201,6 @@ String muscisJson = JSON.toJSONString(musics);
 						</div>
 						<!-- 相册内容区 -->
 						<div class="album-content" id="album-content">
-							<div class="album-list">
-								<span class="album-upload">上传照片</span>
-								<span class="album-name">呵呵</span>
-								<span class="album-brower">浏览相册</span>
-							</div>
 						</div>
 					</div>
 					<div id="dairy" class="showcontent">

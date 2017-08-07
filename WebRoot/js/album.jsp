@@ -65,9 +65,9 @@ var album = {
 		//图片路径  pictures/1-2-xx.png  userid-albumid-picname.png
 		if(albumObj.pics != null && albumObj.pics != undefined && albumObj.pics.length != 0){
 			//取第一张图片做封面
-			var picPath = albumObj.userId+"-"+albumObj.id+"-"+albumObj.pics[0].name;
-			//显示封面
-			list.css("backgroundImage","url(<%=basePath%>/pictures/"+picPath+")");
+			var cover = "<%=basePath%>/pictures/"+albumObj.userId+"/"+albumObj.id+"/thumb/"+albumObj.pics[0].name;
+			list.css("backgroundImage","url("+cover+")");
+			console.log("lala:"+list.css("backgroundImage"));
 		}else{
 			//显示默认封面
 			list.css("backgroundImage","url(<%=basePath%>/imgs/default-photo.png)");
@@ -102,7 +102,7 @@ var album = {
 		var input = $("<input />");
 		input.attr("name","album-pictures");
 		input.attr("type","file");
-		input.attr("accept","image/png,image/jpg");
+		input.attr("accept","image/png,image/jpeg");
 		input.attr("multiple","multiple");
 		input.on("change",function(event){
 			// 实例化一个表单数据对象
@@ -136,9 +136,8 @@ var album = {
 			         	 
 						//更新封面
 						//取第一张图片做封面
-						var picPath = obj.userId+"-"+obj.id+"-"+obj.pics[0].name;
-						//显示封面
-						$("#"+obj.id).css("backgroundImage","url(<%=basePath%>/pictures/"+picPath+")");
+						var cover = "<%=basePath%>/pictures/"+obj.userId+"/"+obj.id+"/thumb/"+obj.pics[0].name;
+						$("#"+obj.id).css("backgroundImage","url("+cover+")");
 						
 						//神奇的地方
 						albumObj = obj;
@@ -194,9 +193,9 @@ var album = {
 			var img = $("<img />");
 			li.append(img);
 			//原图
-			img.attr("data-original","<%=basePath%>/pictures/"+picObj.userId+"-"+picObj.albumId+"-"+picObj.name);
+			img.attr("data-original","<%=basePath%>/pictures/"+picObj.userId+"/"+picObj.albumId+"/"+picObj.name);
 			//缩略图
-			img.attr("src","<%=basePath%>/pictures/"+picObj.userId+"-"+picObj.albumId+"-"+picObj.name);
+			img.attr("src","<%=basePath%>/pictures/"+picObj.userId+"/"+picObj.albumId+"/thumb/"+picObj.name);
 			img.attr("alt",picObj.name);
 		}
 		

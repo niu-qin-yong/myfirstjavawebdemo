@@ -1,4 +1,5 @@
 package com.it61.minecraft.web.servlet;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.it61.minecraft.bean.Album;
 import com.it61.minecraft.bean.Picture;
 import com.it61.minecraft.common.Constants;
+import com.it61.minecraft.common.ImageResize;
 import com.it61.minecraft.common.Utils;
 import com.it61.minecraft.service.AlbumService;
 import com.it61.minecraft.service.PictureService;
@@ -84,17 +87,19 @@ public class AlbumUploadServet extends HttpServlet {
 							pic.setAlbumId(Integer.valueOf(albumId));
 							
 							//保存图片在文件中
-							//2种思路，一种是所有图片放在一个文件夹下，通过名称来区分
-							//另一种是一个相册的图片放在一个目录下，用户名id，相册id分别作为目录名
+							//一个相册的图片放在一个目录下，用户名id，相册id分别作为目录名
 							String realPath = getServletContext().getRealPath("/pictures");
 							
-							String fileName = pic.getUserId()+"-"+pic.getAlbumId()+"-"+item.getName();
-							File file = new File(realPath+"/"+fileName);
+							String filePath = realPath+"/"+pic.getUserId()+"/"+pic.getAlbumId();
+							File pathFile = new File(filePath);
+							if(!pathFile.exists()){
+								//如果目錄不存在則创建
+								pathFile.mkdirs();
+							}
 							
-							System.out.println(fileName);
-							
+							File picFile = new File(filePath+"/"+item.getName());
 							BufferedInputStream bis = new BufferedInputStream(item.getInputStream());
-							BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+							BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(picFile));
 							
 							byte[] buf = new byte[1024*4];
 							int len = -1;
@@ -104,6 +109,18 @@ public class AlbumUploadServet extends HttpServlet {
 							
 							bos.close();
 							bis.close();
+							
+							//检测缩略图目录是否存在
+							String thumbFilePath = filePath+"/thumb";
+							File thumbPathFile = new File(thumbFilePath);
+							if(!thumbPathFile.exists()){
+								thumbPathFile.mkdirs();
+							}
+							//生成缩略图并保存在文件
+							ImageResize.setWidthHeight(160, 160);
+							BufferedImage img = ImageResize.resize(picFile.getAbsolutePath());
+							String fileName = item.getName();
+							ImageIO.write(img, fileName.substring(fileName.indexOf(".")+1), new File(thumbFilePath+"/"+fileName));
 							
 							//图片数据,存储数据库时用到
 							datas.add(pic.getUserId());
