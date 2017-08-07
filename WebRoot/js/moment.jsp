@@ -161,6 +161,18 @@ function createMomentElement(moment,top){
 	authorName.html(moment.senderName);
 	var authorClass = $("<div></div>");
 	authorClass.attr("class","author-class");
+	
+	var levelImg = $("<img />");
+	var level = "<%=user.getLevel()%>";
+	var levelUrl = "<%=basePath%>/imgs/star-level-1.png";
+	if(Math.floor(level/30) == 2){
+		levelUrl = "<%=basePath%>/imgs/star-level-2.png";
+	}else if(Math.floor(level/30) == 3){
+		levelUrl = "<%=basePath%>/imgs/star-level-3.png";
+	}
+	levelImg.attr("src",levelUrl);
+	
+	authorClass.append(levelImg);
 	author.append(photo,authorName,authorClass);
 	
 	/* 动态内容 */

@@ -67,6 +67,7 @@ public class MomentDAO implements OnTransformListener<Moment> {
 		try {
 			int id = rs.getInt("id");
 			int sId = rs.getInt("sender_id");
+			int sLevel = rs.getInt("sender_level");
 			Date day = rs.getDate("daytime");
 			Time time = rs.getTime("daytime");
 			InputStream pic = rs.getBinaryStream("pic");
@@ -74,7 +75,7 @@ public class MomentDAO implements OnTransformListener<Moment> {
 			String content = rs.getString("content");
 			Timestamp stamp = rs.getTimestamp("daytime");
 			
-			return new Moment(content,id,sId,sName,day,time,pic,stamp);
+			return new Moment(content,id,sId,sName,day,time,pic,stamp,sLevel);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -82,8 +83,8 @@ public class MomentDAO implements OnTransformListener<Moment> {
 	}
 	
 	public void insert(Moment moment) throws Exception{
-		String sql = "insert into moments(sender_id,sender_name,content,pic) values(?,?,?,?)";
-		Object[] args = {moment.getSenderId(),moment.getSenderName(),moment.getContent(),moment.getPic()};
+		String sql = "insert into moments(sender_id,sender_name,content,pic,sender_level) values(?,?,?,?,?)";
+		Object[] args = {moment.getSenderId(),moment.getSenderName(),moment.getContent(),moment.getPic(),moment.getSenderLevel()};
 		temp.update(sql, args);
 	}
 	

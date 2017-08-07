@@ -25,7 +25,7 @@ public class Moment {
 		this.comments = comments;
 	}
 	public Moment(String content, int id, int sendId, String sendName,
-			Date day, Time time, InputStream pic,Timestamp stamp) {
+			Date day, Time time, InputStream pic,Timestamp stamp,int senderLevel) {
 		super();
 		this.content = content;
 		this.id = id;
@@ -35,6 +35,7 @@ public class Moment {
 		this.time = time;
 		this.pic = pic;
 		this.stamp = stamp;
+		this.senderLevel = senderLevel;
 	}
 	private String content;
 	private int id;
@@ -46,7 +47,14 @@ public class Moment {
 	private Timestamp stamp;
 	private List<Favor> favors;
 	private List<Comment> comments;
+	private int senderLevel;
 	
+	public int getSenderLevel() {
+		return senderLevel;
+	}
+	public void setSenderLevel(int senderLevel) {
+		this.senderLevel = senderLevel;
+	}
 	public List<Favor> getFavors() {
 		return favors;
 	}

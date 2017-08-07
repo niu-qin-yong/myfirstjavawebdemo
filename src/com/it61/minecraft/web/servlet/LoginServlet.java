@@ -17,6 +17,7 @@ public final class LoginServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// 获取表单数据
 		String uname = request.getParameter("uname");
 		String psw = request.getParameter("pw");

@@ -396,7 +396,9 @@ String muscisJson = JSON.toJSONString(musics);
 							<div class="username">
 								<%=user.getUserName() %>
 							</div>
-							<div class="userlevel"> </div>
+							<div > 
+								<img id="userlevel"/>
+							</div>
 						</div>
 						<div id="edit">
 							<div id="nick">
@@ -551,10 +553,7 @@ String muscisJson = JSON.toJSONString(musics);
 	
 	<script type="text/javascript">
 	
-		checkRadio();
-		setSelectedOption("grade", <%=user.getGrade()-1%>);
-		setSelectedOption("banji", <%=user.getBanji()-1%>);
-		setUserPhoto();
+		setting.init();
 		showClassmates();
 		showSchoolmates();
 		showFriends();

@@ -83,8 +83,9 @@ public class UserDAO implements OnTransformListener<User>{
 			String star = rs.getString("star");
 			String email = rs.getString("email");
 			int grade = rs.getInt("grade");
+			int level = rs.getInt("level");
 			
-			user = new User(id,username,password,nick_name,gender,age,birth,banji,phonenumber,photo,star,email,grade);
+			user = new User(id,username,password,nick_name,gender,age,birth,banji,phonenumber,photo,star,email,grade,level);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -92,7 +93,7 @@ public class UserDAO implements OnTransformListener<User>{
 	}
 
 	public List<User> getClassmates(User user) {
-		String sql = "select * from users where grade=? and class=?";
+		String sql = "select * from users where grade=? and class=? order by level desc";
 		Object[] args = {user.getGrade(),user.getBanji()};
 		List<User> classmates = temp.queryAll(sql, args);
 		return classmates;

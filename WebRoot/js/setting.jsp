@@ -8,6 +8,8 @@
 <%@page import="java.sql.*" %>
 
 <%
+String webName = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
 User user = (User)session.getAttribute("user");
 %>
 
@@ -84,4 +86,29 @@ function ajax_submit_setting(){
 	
 	//返回false阻止表单提交
 	return false;
+}
+
+//设置用户等级
+function setUserLevel(){
+	var level = "<%=user.getLevel()%>";
+	var userLevel = document.querySelector("#userlevel")
+	
+	var levelUrl = "<%=basePath%>/imgs/star-level-1.png";
+	if(Math.floor(level/30) == 2){
+		levelUrl = "<%=basePath%>/imgs/star-level-2.png";
+	}else if(Math.floor(level/30) == 3){
+		levelUrl = "<%=basePath%>/imgs/star-level-3.png";
+	}
+	
+	userLevel.setAttribute("src",levelUrl);
+}
+
+var setting = {
+	init : function(){
+		checkRadio();
+		setSelectedOption("grade", <%=user.getGrade()-1%>);
+		setSelectedOption("banji", <%=user.getBanji()-1%>);
+		setUserPhoto();
+		setUserLevel();	
+	}
 }

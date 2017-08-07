@@ -37,6 +37,7 @@ public class MomentServlet extends HttpServlet {
 			Moment moment = new Moment();
 			moment.setSenderId(user.getId());
 			moment.setSenderName(user.getUserName());
+			moment.setSenderLevel(user.getLevel());
 			
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);

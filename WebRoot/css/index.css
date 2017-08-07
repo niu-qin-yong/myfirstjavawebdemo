@@ -179,14 +179,12 @@ nav {
     position:absolute;
     top:-20px;
     left : 45px;
-
 }
 .userinfo div{
     width:90px;
     height:90px;
     float:left;                      
     margin-right:15px;
-
 }
 .userinfo .userphoto{
     background-size:100% 100%;
@@ -220,19 +218,19 @@ nav {
    opacity:0;
 }
 .userinfo .username{
-    width:95px;
+    width:auto;
     height:36px;
     margin-top:45px;
     font-size:27px;
     font-weight:bold;                
     color:#30b0ef;
 }
-.userinfo .userlevel{
+.userinfo #userlevel{
     height:25px;
-    width : 75px;
+    width : auto;
     margin-top:50px;
-    background:url(../imgs/star.png) no-repeat;
-    background-size:100% 100%;
+    margin-left:10px;
+    background-repeat: no-repeat;
 }
 .userinfo .unitgame{
     height:30px;
@@ -643,8 +641,13 @@ nav {
   height:24px;
   margin-top:20px;
   float:left;
-  background-image:url(../imgs/star.png);
 }
+.author-class > img{
+	width:auto;
+	height:auto;
+}
+
+
 /*内容区域 */
 .remarks-content{
   width:500px;

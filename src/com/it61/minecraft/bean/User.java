@@ -17,7 +17,16 @@ public class User {
 	private String star;
 	private String email;
 	private int grade;
+	private int level;
 	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public User(){
 		
 	}
@@ -96,7 +105,7 @@ public class User {
 	 */
 	public User(int id, String userName, String passWord, String nickName,
 			String gender, int age, String birth, int banji,
-			String phonenumber, InputStream photo,String star,String email,int grade) {
+			String phonenumber, InputStream photo,String star,String email,int grade,int level) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -111,6 +120,7 @@ public class User {
 		this.star = star;
 		this.email = email;
 		this.grade = grade;
+		this.level = level;
 	}
 	public String getStar() {
 		return star;
