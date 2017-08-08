@@ -57,4 +57,10 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getAllUsers();
 	}
 
+	@Override
+	public void addExperience(User user) throws Exception{
+		UserDAO userDAO = new UserDAO();
+		userDAO.addExperience(user);
+	}
+
 }

@@ -112,7 +112,7 @@ String muscisJson = JSON.toJSONString(musics);
 			</header>
 			<!--左边快速导航栏-->
 			<aside id="left-side">
-				<div id="signIn"> </div>
+				<div id="signIn" onclick="sign()"> </div>
 				<ul id="lnav">
 					<li id="friends5" class="lnavc">
 						<a href="#" > </a>
@@ -552,6 +552,13 @@ String muscisJson = JSON.toJSONString(musics);
 	<script src="<%=request.getContextPath()%>/setting.js"></script><!-- 客户端看起来引用的是js，实际上这只是url，映射的是Servlet -->
 	
 	<script type="text/javascript">
+	
+		function sign(){
+			var url = "<%=basePath%>servlet/SignServlet";
+			$.get(url,function(data,status){
+				alert(data);
+			});
+		}
 	
 		setting.init();
 		showClassmates();

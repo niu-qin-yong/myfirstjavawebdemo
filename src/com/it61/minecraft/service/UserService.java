@@ -10,4 +10,9 @@ public interface UserService {
 	void updateInfo(User user) throws Exception; 
 	List<User> getClassmates(User user);
 	List<User> getAllUsers();
+	/**
+	 * 用户打卡后，增加经验值
+	 * @param user
+	 */
+	void addExperience(User user)throws Exception;
 }

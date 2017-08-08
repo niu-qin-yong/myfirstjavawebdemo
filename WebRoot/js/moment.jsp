@@ -163,7 +163,7 @@ function createMomentElement(moment,top){
 	authorClass.attr("class","author-class");
 	
 	var levelImg = $("<img />");
-	var level = "<%=user.getLevel()%>";
+	var level = moment.senderLevel;
 	var levelUrl = "<%=basePath%>/imgs/star-level-1.png";
 	if(Math.floor(level/30) == 2){
 		levelUrl = "<%=basePath%>/imgs/star-level-2.png";

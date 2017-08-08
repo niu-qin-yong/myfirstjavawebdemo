@@ -105,5 +105,16 @@ public class UserDAO implements OnTransformListener<User>{
 		return temp.queryAll(sql, args);
 	}
 
+	/**
+	 * 增加经验值，打卡一次，经验值加10
+	 * @param user
+	 * @throws Exception
+	 */
+	public void addExperience(User user) throws Exception {
+		String sql = "update users set level=level+10 where id=?";
+		Object[] args = {user.getId()};
+		temp.update(sql, args);
+	}
+
 
 }

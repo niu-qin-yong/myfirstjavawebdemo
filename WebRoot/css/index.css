@@ -88,6 +88,7 @@ nav {
 	background: url(../imgs/signin.gif) no-repeat;
 	background-size: 100% 100%;
 	margin-top: 52px;
+	cursor: pointer;
 }
 #lnav {
 	width: 184px;
