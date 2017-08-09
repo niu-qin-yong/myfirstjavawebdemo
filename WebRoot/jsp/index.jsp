@@ -553,13 +553,6 @@ String muscisJson = JSON.toJSONString(musics);
 	
 	<script type="text/javascript">
 	
-		function sign(){
-			var url = "<%=basePath%>servlet/SignServlet";
-			$.get(url,function(data,status){
-				alert(data);
-			});
-		}
-	
 		setting.init();
 		showClassmates();
 		showSchoolmates();

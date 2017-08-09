@@ -29,6 +29,12 @@ public class MomentDAO implements OnTransformListener<Moment> {
 		MomentDAO dao = new MomentDAO();
 		Moment moment = dao.findById(1);
 		
+		List<Integer> senderIds = new ArrayList<Integer>();
+		senderIds.add(1);
+		senderIds.add(7);
+		List<Moment> allMoments = dao.getAllMoments(senderIds);
+		System.out.println(allMoments.size());
+		
 		//分页
 /*		List<Integer> senderIds = new ArrayList<Integer>();
 		senderIds.add(1);
@@ -40,26 +46,26 @@ public class MomentDAO implements OnTransformListener<Moment> {
 		System.out.println(momentsPaging.size());*/
 		
 		//转json
-		PropertyFilter filter = new PropertyFilter(){
-
-			@Override
-			public boolean apply(Object obj, String name, Object value) {
-				if(name.equals("pic")){
-					return false;
-				}
-				return true;
-			}  
-			
-		};
+//		PropertyFilter filter = new PropertyFilter(){
+//
+//			@Override
+//			public boolean apply(Object obj, String name, Object value) {
+//				if(name.equals("pic")){
+//					return false;
+//				}
+//				return true;
+//			}  
+//			
+//		};
 //		SerializerFeature
 //		JSON.toJSONStringWithDateFormat(moment,"",);
-		JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
-		
-		List<Moment> list = new ArrayList<Moment>();
-		list.add(moment);
-		
-		String jsonString = JSON.toJSONString(list,filter,SerializerFeature.WriteDateUseDateFormat);
-		System.out.println(jsonString);
+//		JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
+//		
+//		List<Moment> list = new ArrayList<Moment>();
+//		list.add(moment);
+//		
+//		String jsonString = JSON.toJSONString(list,filter,SerializerFeature.WriteDateUseDateFormat);
+//		System.out.println(jsonString);
 	}
 
 	@Override
@@ -96,6 +102,7 @@ public class MomentDAO implements OnTransformListener<Moment> {
 	 * @return 返回 senderIds 发表的动态中发表时间晚于 time 的 limit 条记录
 	 */
 	public List<Moment> getMomentsPaging(List<Integer> senderIds,String time,int limit){
+		//TODO 同样这个也应该用 in 替换 union  
 		String sql = "";
 		Object[] args = senderIds.toArray();
 		for(int i=0;i<senderIds.size();i++){
@@ -117,15 +124,18 @@ public class MomentDAO implements OnTransformListener<Moment> {
 	 * @return
 	 */
 	public List<Moment> getAllMoments(List<Integer> senderIds){
-		String sql = "";
+		String sql = "select * from moments where sender_id in (";
 		Object[] args = senderIds.toArray();
 		for(int i=0;i<senderIds.size();i++){
 			
-			if(i == 0){
-				sql += "select * from moments where sender_id=?";
-			}else if(i > 0){
-				sql += " UNION ALL select * from moments where sender_id=?";
-			}
+			sql+="?,";
+			
+			//用 union 可以，但实际上应该仍然是多条查询，不如替换成 in
+//			if(i == 0){
+//				sql += "select * from moments where sender_id=?";
+//			}else if(i > 0){
+//				sql += " UNION ALL select * from moments where sender_id=?";
+//			}
 				
 			//左连接，一次查询获取动态和对应的点赞和留言
 //			if(i == 0){
@@ -150,6 +160,10 @@ public class MomentDAO implements OnTransformListener<Moment> {
 //						+" where moments.sender_id=?";
 //			}
 		}
+		
+		//去掉最后多余的逗号
+		sql = sql.substring(0, sql.length()-1);
+		sql += ")";
 		
 		//按时间倒序排序
 		sql+=" order by daytime desc";

@@ -103,6 +103,14 @@ function setUserLevel(){
 	userLevel.setAttribute("src",levelUrl);
 }
 
+//签到功能
+function sign(){
+	var url = "<%=basePath%>/servlet/SignServlet";
+	$.get(url,function(data,status){
+		alert(data);
+	});
+}
+
 var setting = {
 	init : function(){
 		checkRadio();
