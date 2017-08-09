@@ -25,7 +25,6 @@ public class SignServlet extends HttpServlet {
 			SignService signService = new SignServiceImpl();
 			boolean hasSign = signService.hasSign(user);
 			
-			response.setCharacterEncoding("UTF-8");
 			if(hasSign){
 				response.getWriter().write("亲，今天已经打过卡了！");
 			}else{

@@ -98,7 +98,6 @@ public class SettingServlet extends HttpServlet {
 				service.updateInfo(user);
 				
 				//更新成功
-				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write("恭喜，修改成功！");
 			} catch (Exception e) {
 				e.printStackTrace();

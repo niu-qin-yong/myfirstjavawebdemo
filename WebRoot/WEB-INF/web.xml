@@ -125,19 +125,16 @@
     <servlet-name>SignServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.SignServlet</servlet-class>
   </servlet>
+	<filter>
+		<filter-name>CharactorFilter</filter-name>
+		<filter-class>com.it61.minecraft.web.filter.CharactorFilter</filter-class>
+	</filter>
 
 
-
-
-
-
-
-
-
-
-
-
-
+	<filter-mapping>
+		<filter-name>CharactorFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
   <servlet-mapping>
     <servlet-name>uploadimg</servlet-name>
     <url-pattern>/servlet/uploadimg</url-pattern>
@@ -261,6 +258,9 @@
   <listener>
   	<listener-class>com.it61.minecraft.web.listener.ContextListenerImpl</listener-class>
   </listener>
+  
+
+
   
   	
   <welcome-file-list>

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.it61.minecraft.bean.User;
+
 public class LogoutServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -15,6 +17,9 @@ public class LogoutServlet extends HttpServlet {
 		//移除Session中的属性
 		HttpSession session = request.getSession(false);
 		if(session != null){
+			User user = (User) session.getAttribute("user");
+			System.out.println(user.getUserName()+"下线");
+			
 			session.removeAttribute("user");
 			session.invalidate();
 		}
