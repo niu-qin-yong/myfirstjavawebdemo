@@ -391,6 +391,9 @@ nav {
   font-size: 18px;
   border-radius: 5px;
 }
+#edit #star select {
+	width: auto;
+}
 #edit #sex input {
   width: 30px;
   height: 15px;

@@ -67,6 +67,8 @@ public class SettingServlet extends HttpServlet {
 							if(!"".equals(value)){
 								user.setPassWord(value);
 							}
+						}else if(name.equals("star")){
+							user.setStar(value);
 						}
 					}else{
 						//type 是 file 的表单项

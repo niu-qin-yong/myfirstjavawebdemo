@@ -17,7 +17,7 @@ public class User {
 	private String star;
 	private String email;
 	private int grade;
-	private int level;
+	private int level = 30;
 	
 	public int getLevel() {
 		return level;

@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*"  pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="com.it61.minecraft.bean.*"%>
+<%@page import="com.it61.minecraft.common.*"%>
 <%@page import="com.it61.minecraft.service.*"%>
 <%@page import="com.it61.minecraft.service.impl.*"%>
 <%@page import="com.alibaba.fastjson.*" %>
@@ -415,7 +416,19 @@ String muscisJson = JSON.toJSONString(musics);
 							</div>
 							<div id="star">
 								<span> </span>
-								<input type="text" name="star" value="<%=user.getStar()%>"/>
+								<select name="star" id="star-select">
+									<option value="<%=Stars.BYZ%>"><%=Stars.BYZ%></option>
+									<option value="<%=Stars.JNZ%>"><%=Stars.JNZ%></option>
+									<option value="<%=Stars.SHUANGZZ%>"><%=Stars.SHUANGZZ%></option>
+									<option value="<%=Stars.JXZ%>"><%=Stars.JXZ%></option>
+									<option value="<%=Stars.SHIZZ%>"><%=Stars.SHIZZ%></option>
+									<option value="<%=Stars.TCZ%>"><%=Stars.TCZ%></option>
+									<option value="<%=Stars.TXZ%>"><%=Stars.TXZ%></option>
+									<option value="<%=Stars.SSZ%>"><%=Stars.SSZ%></option>
+									<option value="<%=Stars.MJZ%>"><%=Stars.MJZ%></option>
+									<option value="<%=Stars.SPZ%>"><%=Stars.SPZ%></option>
+									<option value="<%=Stars.SYZ%>"><%=Stars.SYZ%></option>
+								</select>
 							</div>
 							<div id="mail">
 								<span> </span>

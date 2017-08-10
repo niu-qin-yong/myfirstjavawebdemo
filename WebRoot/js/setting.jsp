@@ -44,11 +44,16 @@ function setUserPhoto(){
 }
 
 /**
-*设置select的选中项(年级、班级)
+*设置select的选中项(年级、班级、星座)
 **/ 
-function setSelectedOption(select,index){
+function setSelectedOption(select,value){
 	var options = document.getElementById(select).options;
-	options[index].selected = true;		
+	for(var i=0;i < options.length;i++){
+		if(options[i].value == value){
+			options[i].selected = true;
+			break;
+		}
+	}	
 }
 
 /**
@@ -111,11 +116,23 @@ function sign(){
 	});
 }
 
+//设置星座
+function setStarSelect(starText){
+	var options = document.querySelector("#star-select").options;
+	for(var i=0;i < options.length;i++){
+		if(options[i].value == starText){
+			options[i].selected = true;
+			break;
+		}
+	}
+}
+
 var setting = {
 	init : function(){
 		checkRadio();
-		setSelectedOption("grade", <%=user.getGrade()-1%>);
-		setSelectedOption("banji", <%=user.getBanji()-1%>);
+		setSelectedOption("grade", <%=user.getGrade()%>);
+		setSelectedOption("banji", <%=user.getBanji()%>);
+		setSelectedOption("star-select","<%=user.getStar()%>");
 		setUserPhoto();
 		setUserLevel();	
 	}
