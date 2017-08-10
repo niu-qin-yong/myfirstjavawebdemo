@@ -12,6 +12,11 @@ function bindingOnblur(i) {
 }
 // 遍历每一个输入框进行判断
 function validate(i) {
+	//邀请码可以不填
+	if(i == 5){
+		return true;
+	}
+	
 	warnings[i].innerHTML = "";
 	var reg = /^(\s)*$/;
 	var empty = inputs[i].value;
@@ -70,12 +75,14 @@ function validate(i) {
 			return false;
 		}
 		
+		//检查验证码是否正确，将用户输入的验证码提交给服务器，服务器返回判断结果
 		$.ajax({
-			url:"/minecraft/servlet/GetValidateCodeServlet",
+			url:"/minecraft/servlet/CheckValidateCodeServlet",
 			async: false,
 			type:'post',
+			data:{'code':value},
 			success:function(data,status){
-	              if (value != data) {
+	              if (data == 'false') {
 					warnings[i].innerHTML = "验证码输入错误";
 					showValidateCode();
 					return false;
@@ -87,13 +94,15 @@ function validate(i) {
 		});
 		
 	}
+	
 	// 协议勾选
-	if (i == 5) {
+	if (i == 6) {
 		if (!inputs[i].checked) {
 			warnings[i].innerHTML = "请阅读童程注册协议"
 			return false;
 		}
 	}
+	
 	return true;
 }
 
@@ -105,14 +114,14 @@ function check() {
 			result++;
 		}
 	}
-	if (result == 6) {
+	if (result == 7) {
 		return true;
 	} else {
 		return false;
 	}
 }
 
-
+//显示动态验证码,首次显示注册页面，用户点击验证码,注册失败这些情况下都更新验证码
 function showValidateCode() {
 	var div = document.querySelector("#vertify");
 	div.style.backgroundImage = "url(/minecraft/servlet/ValidateCodeServlet?randomId="

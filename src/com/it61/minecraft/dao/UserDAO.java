@@ -26,9 +26,9 @@ public class UserDAO implements OnTransformListener<User>{
 	 */
 	public void add(User user) throws Exception{
 		String sql = "insert into "
-				+ "users(username,password,phonenumber)"
-				+ "values(?,?,?)";
-		Object[] args = {user.getUserName(),user.getPassWord(),user.getPhonenumber()};
+				+ "users(username,password,phonenumber,level)"
+				+ "values(?,?,?,?)";
+		Object[] args = {user.getUserName(),user.getPassWord(),user.getPhonenumber(),user.getLevel()};
 		temp.update(sql, args);
 	}
 	

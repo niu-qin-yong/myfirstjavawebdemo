@@ -50,6 +50,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="warning"></div>
 			  </li>
 			  <li>
+				<input  type="text" placeholder="请输入邀请码,如果有的话" id="invitecode"data-point="邀请码" name="invitecode">
+				<div class="inputprompt" >邀请码</div>
+				<div class="warning"></div>
+			  </li>
+			  <li>
 				<input  type="checkbox" id="agreement" name="agree"data-point="认同协议">
 				<span>我已阅读并同意<a href="#">《童程用户注册协议》</a></span>
 				<div class="warning"></div>

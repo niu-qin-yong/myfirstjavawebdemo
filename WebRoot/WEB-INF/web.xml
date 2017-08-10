@@ -102,8 +102,8 @@
     <servlet-class>com.it61.minecraft.web.servlet.ValidateCodeServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>GetValidateCodeServlet</servlet-name>
-    <servlet-class>com.it61.minecraft.web.servlet.GetValidateCodeServlet</servlet-class>
+    <servlet-name>CheckValidateCodeServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.CheckValidateCodeServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>MusicSearchServlet</servlet-name>
@@ -132,10 +132,10 @@
 	<filter>
 		<filter-name>WhetherLogFilter</filter-name>
 		<filter-class>com.it61.minecraft.web.filter.WhetherLogFilter</filter-class>
-		<!-- 不需要WhetherLogFilter过滤的页面 -->
+		<!-- 不需要WhetherLogFilter过滤的页面,与注册登录相关的请求都不需要过滤 -->
 		<init-param>    
 			<param-name>excludedPages</param-name>    
-			<param-value>/index.html,/jsp/login.jsp,/servlet/LoginServlet</param-value>    
+			<param-value>/index.html,/jsp/login.jsp,/servlet/LoginServlet,/jsp/registe.jsp,/servlet/RegisteServlet,/servlet/ValidateCodeServlet,/servlet/CheckValidateCodeServlet</param-value>    
 		</init-param>  
 	</filter>
 
@@ -258,8 +258,8 @@
     <url-pattern>/servlet/ValidateCodeServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>GetValidateCodeServlet</servlet-name>
-    <url-pattern>/servlet/GetValidateCodeServlet</url-pattern>
+    <servlet-name>CheckValidateCodeServlet</servlet-name>
+    <url-pattern>/servlet/CheckValidateCodeServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>MusicSearchServlet</servlet-name>

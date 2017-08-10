@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.it61.minecraft.bean.User;
+import com.it61.minecraft.bean.VIPUser;
 import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.UserServiceImpl;
 
@@ -22,8 +23,14 @@ public class RegisteServlet extends HttpServlet {
 		String rpsw = request.getParameter("rpw");
 		String pnumber = request.getParameter("pnumber");
 		String vcode = request.getParameter("vcode");
-		//将数据封装到User
-		User user = new User(uname,psw,pnumber);
+		String invitecode = request.getParameter("invitecode");
+		//将数据封装到JavaBean
+		User user = null;
+		if(invitecode.equals("我的世界")){
+			user = new VIPUser(uname,psw,pnumber);
+		}else{
+			user = new User(uname,psw,pnumber);
+		}
 		
 		//TODO 数据合法性检测
 		
