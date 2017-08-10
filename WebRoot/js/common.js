@@ -43,6 +43,27 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 
+//重写JQuery的ajax方法，如果服务器返回的响应内容是登录页，说明以后已经掉线，让其重新登录
+//重写的好处是不需要在每个ajax方法里判断是否需要跳转登录页，这里是入口函数，统一处理掉
+jQuery(function($){
+    // 备份jquery的ajax方法  
+    var _ajax=$.ajax;
+    // 重写ajax方法，先推断登录在运行success函数 
+    $.ajax=function(opt){
+    	var _success = opt && opt.success || function(a, b){};
+        var _opt = $.extend(opt, {
+        	success:function(data, textStatus){
+        		// 假设后台将请求重定向到了登录页，则data里面存放的就是登录页的源代码，这里须要找到data是登录页的证据(标记)
+        		if(data.indexOf('iamloginpage') != -1) {
+        			window.location.href= "/minecraft/jsp/login.jsp";
+        			return;
+        		}
+        		_success(data, textStatus);  
+            }  
+        });
+        _ajax(_opt);
+    };
+});
 
 
 

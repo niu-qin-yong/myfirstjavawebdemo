@@ -28,6 +28,9 @@ public class IndexServlet extends HttpServlet {
 			//已登录跳转到首页
 			request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 		}
+		
+		//添加权限过滤器后，如果将Session登录判断(上面的的代码)放到过滤器中,这里直接转发首页即可，上面代码全部注释掉
+	//	request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

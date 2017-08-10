@@ -41,6 +41,7 @@
 <link rel="stylesheet" href="/minecraft/css/login.css">
 </head>
 <body>
+	<div id="logtag">iamloginpage,but you can't see me!</div>
 	<header>
 		<div class="logo left">
 			<a href="about:blank"><img src="../imgs/logo.gif" alt="logo"></a>

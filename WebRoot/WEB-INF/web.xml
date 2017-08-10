@@ -129,12 +129,42 @@
 		<filter-name>CharactorFilter</filter-name>
 		<filter-class>com.it61.minecraft.web.filter.CharactorFilter</filter-class>
 	</filter>
-
+	<filter>
+		<filter-name>WhetherLogFilter</filter-name>
+		<filter-class>com.it61.minecraft.web.filter.WhetherLogFilter</filter-class>
+		<!-- 不需要WhetherLogFilter过滤的页面 -->
+		<init-param>    
+			<param-name>excludedPages</param-name>    
+			<param-value>/index.html,/jsp/login.jsp,/servlet/LoginServlet</param-value>    
+		</init-param>  
+	</filter>
 
 	<filter-mapping>
-		<filter-name>CharactorFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<filter-name>WhetherLogFilter</filter-name>
+		<url-pattern>/servlet/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WhetherLogFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WhetherLogFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>CharactorFilter</filter-name>
+		<url-pattern>/servlet/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CharactorFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CharactorFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
   <servlet-mapping>
     <servlet-name>uploadimg</servlet-name>
     <url-pattern>/servlet/uploadimg</url-pattern>

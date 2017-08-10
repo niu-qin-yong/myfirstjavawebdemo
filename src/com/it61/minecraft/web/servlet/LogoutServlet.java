@@ -24,7 +24,7 @@ public class LogoutServlet extends HttpServlet {
 			session.invalidate();
 		}
 		//重定向到index.html
-		response.sendRedirect(request.getContextPath()+"/index.html");
+		response.sendRedirect(request.getContextPath()+"/jsp/login.jsp");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
