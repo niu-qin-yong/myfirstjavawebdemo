@@ -116,17 +116,6 @@ function sign(){
 	});
 }
 
-//设置星座
-function setStarSelect(starText){
-	var options = document.querySelector("#star-select").options;
-	for(var i=0;i < options.length;i++){
-		if(options[i].value == starText){
-			options[i].selected = true;
-			break;
-		}
-	}
-}
-
 var setting = {
 	init : function(){
 		checkRadio();

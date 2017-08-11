@@ -41,7 +41,9 @@ public final class LoginServlet extends HttpServlet {
 			
 			//如果表单提交，重定向跳转到首页
 			String host = getServletContext().getContextPath();
-			response.sendRedirect(host+"/index.html");
+			//防止浏览器禁用Cookie,重写所有请求的URL
+//			response.sendRedirect(host+"/index.html");
+			response.sendRedirect(response.encodeRedirectURL(host+"/index.html"));
 			
 			//如果ajax提交，把要跳转的地址传回去，由js进行跳转
 //			String webName = request.getContextPath();

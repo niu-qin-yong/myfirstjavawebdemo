@@ -23,7 +23,9 @@ public class IndexServlet extends HttpServlet {
 //			response.getWriter().write("您还未登录,2秒后将跳转到登录页面");
 			
 			String host = getServletContext().getContextPath();
-			response.sendRedirect(host+"/jsp/login.jsp");
+			//防止浏览器禁用Cookie,重写URL
+//			response.sendRedirect(host+"/jsp/login.jsp");
+			response.sendRedirect(response.encodeRedirectURL(host+"/jsp/login.jsp"));
 		}else{
 			//已登录跳转到首页
 			request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
