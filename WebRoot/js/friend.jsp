@@ -9,6 +9,8 @@
 
 <%
 User user = (User)session.getAttribute("user");
+String webName = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
 
 //获取所有好友
 FriendService friService = new FriendServiceImpl();
@@ -45,7 +47,7 @@ function showFriends(){
 	
 	var gfriendphoto=document.createElement("div");
 	gfriendphoto.setAttribute("class","gfriendphoto");
-	gfriendphoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+<%=fri.getFriId()%>+")";	
+	gfriendphoto.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id="+<%=fri.getFriId()%>+")";	
 	friendee.appendChild(gfriendphoto);
 	
 	var gfriendname=document.createElement("div");
@@ -91,7 +93,7 @@ function showOnlineFriends(){
 	var friendOn=document.createElement("div");
 	friendOn.setAttribute("class","friendOn");
 	friendOn.setAttribute("title","<%=onlineFriends.get(i).getFriName()%>");
-	friendOn.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id=<%=onlineFriends.get(i).getFriId()%>),url(/minecraft/imgs/pop.jpg)";	
+	friendOn.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id=<%=onlineFriends.get(i).getFriId()%>),url(/minecraft/imgs/pop.jpg)";	
 	friendOn.style.left=getRandomLeft(<%=i%>);
 	friendOn.style.top=(<%=i%>*80)+"px";
 	friendOn.setAttribute("data-toUserId","<%=onlineFriends.get(i).getFriId()%>");

@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" 
-	xmlns="http://java.sun.com/xml/ns/javaee" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name></display-name>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
-    
     <servlet-name>uploadimg</servlet-name>
     <servlet-class>com.it61.minecraft.test.UploadImgServelet</servlet-class>
-    
   </servlet>
   <servlet>
     <servlet-name>SimpleServlet</servlet-name>
@@ -89,10 +83,10 @@
     <servlet-name>LoadMoreMomentServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.LoadMoreMomentServlet</servlet-class>
   </servlet>
-	<servlet>
-	    <servlet-name>setting.jsp</servlet-name>
-	    <jsp-file>/js/setting.jsp</jsp-file> 
-	</servlet>
+  <servlet>
+    <servlet-name>setting.jsp</servlet-name>
+    <jsp-file>/js/setting.jsp</jsp-file>
+  </servlet>
   <servlet>
     <servlet-name>MusicServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.MusicServlet</servlet-class>
@@ -126,49 +120,45 @@
     <servlet-class>com.it61.minecraft.web.servlet.SignServlet</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>login</servlet-name>
-  	<jsp-file>/jsp/login.jsp</jsp-file>
+    <servlet-name>login</servlet-name>
+    <jsp-file>/jsp/login.jsp</jsp-file>
   </servlet>
-	<filter>
-		<filter-name>CharactorFilter</filter-name>
-		<filter-class>com.it61.minecraft.web.filter.CharactorFilter</filter-class>
-	</filter>
-	<filter>
-		<filter-name>WhetherLogFilter</filter-name>
-		<filter-class>com.it61.minecraft.web.filter.WhetherLogFilter</filter-class>
-		<!-- 不需要WhetherLogFilter过滤的页面,与注册登录相关的请求都不需要过滤 -->
-		<init-param>    
-			<param-name>excludedPages</param-name>    
-			<param-value>/index.html,/jsp/login.jsp,/servlet/LoginServlet,/jsp/registe.jsp,/servlet/RegisteServlet,/servlet/ValidateCodeServlet,/servlet/CheckValidateCodeServlet</param-value>    
-		</init-param>  
-	</filter>
-
-	<filter-mapping>
-		<filter-name>WhetherLogFilter</filter-name>
-		<url-pattern>/servlet/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>WhetherLogFilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>WhetherLogFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	
-	<filter-mapping>
-		<filter-name>CharactorFilter</filter-name>
-		<url-pattern>/servlet/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CharactorFilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CharactorFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-
+  <filter>
+    <filter-name>CharactorFilter</filter-name>
+    <filter-class>com.it61.minecraft.web.filter.CharactorFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>WhetherLogFilter</filter-name>
+    <filter-class>com.it61.minecraft.web.filter.WhetherLogFilter</filter-class>
+    <init-param>
+      <param-name>excludedPages</param-name>
+      <param-value>/index.html,/jsp/login.jsp,/servlet/LoginServlet,/jsp/registe.jsp,/servlet/RegisteServlet,/servlet/ValidateCodeServlet,/servlet/CheckValidateCodeServlet</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>WhetherLogFilter</filter-name>
+    <url-pattern>/servlet/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>WhetherLogFilter</filter-name>
+    <url-pattern>*.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>WhetherLogFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CharactorFilter</filter-name>
+    <url-pattern>/servlet/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CharactorFilter</filter-name>
+    <url-pattern>*.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CharactorFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
   <servlet-mapping>
     <servlet-name>uploadimg</servlet-name>
     <url-pattern>/servlet/uploadimg</url-pattern>
@@ -212,7 +202,7 @@
   <servlet-mapping>
     <servlet-name>ShowImgServlet</servlet-name>
     <url-pattern>/servlet/ShowImgServlet</url-pattern>
-  </servlet-mapping>	
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ShowPicServlet</servlet-name>
     <url-pattern>/servlet/ShowPicServlet</url-pattern>
@@ -285,31 +275,24 @@
     <servlet-name>SignServlet</servlet-name>
     <url-pattern>/servlet/SignServlet</url-pattern>
   </servlet-mapping>
-  <!-- 一个Servlet匹配多个请求URL -->
   <servlet-mapping>
-  	<servlet-name>login</servlet-name>
-  	<url-pattern>/login</url-pattern>
+    <servlet-name>login</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>login</servlet-name>
-  	<url-pattern>/login.html</url-pattern>
+    <servlet-name>login</servlet-name>
+    <url-pattern>/login.html</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>login</servlet-name>
-  	<url-pattern>/login.htm</url-pattern>
+    <servlet-name>login</servlet-name>
+    <url-pattern>/login.htm</url-pattern>
   </servlet-mapping>
-  
   <listener>
-  	<listener-class>com.it61.minecraft.web.listener.OnlineListener</listener-class>
+    <listener-class>com.it61.minecraft.web.listener.OnlineListener</listener-class>
   </listener>
   <listener>
-  	<listener-class>com.it61.minecraft.web.listener.ContextListenerImpl</listener-class>
+    <listener-class>com.it61.minecraft.web.listener.ContextListenerImpl</listener-class>
   </listener>
-  
-
-
-  
-  	
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

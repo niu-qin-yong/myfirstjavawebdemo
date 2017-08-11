@@ -103,7 +103,7 @@ function onCancelFavor(ele){
 	var momentId = ele.getAttribute("data-commentId");
 	var favorId = "<%=user.getId()%>";
 	
-	$.post("/minecraft/servlet/FavorCancelServlet"
+	$.post("<%=basePath%>servlet/FavorCancelServlet"
 			,{"momentId":momentId,"favorId":favorId}
 			,function(data,status){
 				if(data == "favor-cancel-success"){
@@ -111,7 +111,7 @@ function onCancelFavor(ele){
 					$("#favor"+momentId+favorId).remove();
 					/* 改变点赞元素背景和点击事件，再次点击可以点赞 */
 					ele.setAttribute("title","点赞");
-					ele.style.backgroundImage="url(/minecraft/imgs/like.jpg)";
+					ele.style.backgroundImage="url(<%=basePath%>imgs/like.jpg)";
 					ele.setAttribute("onclick","onFavor(this)");							
 				}else{
 					alert("favor-cancel-fail");
@@ -128,7 +128,7 @@ function onFavor(ele){
 	var favorId = "<%=user.getId()%>";
 	var favorName = "<%=user.getUserName()%>";
 	
-	$.post("/minecraft/servlet/FavorAddServlet"
+	$.post("<%=basePath%>servlet/FavorAddServlet"
 			,{"momentId":momentId,"favorId":favorId,"favorName":favorName}
 			,function(data,status){
 				if(data == "favor-add-success"){
@@ -136,7 +136,7 @@ function onFavor(ele){
 					createFavorPhotoEle(momentId,favorId,favorName);
 					/* 改变点赞元素背景和点击事件，再次点击取消点赞 */
 					ele.setAttribute("title","取消点赞");
-					ele.style.backgroundImage="url(/minecraft/imgs/like-cancel.jpg)";
+					ele.style.backgroundImage="url(<%=basePath%>imgs/like-cancel.jpg)";
 					ele.setAttribute("onclick","onCancelFavor(this)");
 				}else{
 					alert("favor-add-fail");
@@ -155,7 +155,7 @@ function createMomentElement(moment,top){
 	var author = $("<div></div>");
 	author.attr("class","remarks-author");
 	var photo = $("<img/>");
-	photo[0].src="/minecraft/servlet/ShowPicServlet?id="+moment.senderId;
+	photo[0].src="<%=basePath%>servlet/ShowPicServlet?id="+moment.senderId;
 	var authorName = $("<div></div>");
 	authorName.attr("class","author-name");
 	authorName.html(moment.senderName);
@@ -186,7 +186,7 @@ function createMomentElement(moment,top){
 	time.attr("class","content-time");
 	time.html(moment.stamp);
 	var img = $("<img/>");
-	img[0].src="/minecraft/servlet/ShowMomentPicServlet?id="+moment.id;
+	img[0].src="<%=basePath%>servlet/ShowMomentPicServlet?id="+moment.id;
 	
 	var remarksComments = $("<div></div>");
 	remarksComments.attr("class","remarks-comments");
@@ -199,7 +199,7 @@ function createMomentElement(moment,top){
 		/* 已点赞，显示取消 */
 		span.attr("data-commentId",moment.id);
 		span.attr("onclick","onCancelFavor(this)");
-		span[0].style.backgroundImage="url(/minecraft/imgs/like-cancel.jpg)";
+		span[0].style.backgroundImage="url(<%=basePath%>imgs/like-cancel.jpg)";
 		span.attr("title","取消点赞");
 	}else{
 		/* 未点赞，显示可点赞 */
@@ -290,7 +290,7 @@ function createCommentEle(commentObj){
 	comment.attr("class","comment-style");
 	
 	var commenterPhoto = $("<img/>");
-	commenterPhoto[0].src="/minecraft/servlet/ShowPicServlet?id="+commentObj.commenterId;
+	commenterPhoto[0].src="<%=basePath%>servlet/ShowPicServlet?id="+commentObj.commenterId;
 	
 	var commenterName = $("<p></p>");
 	commenterName.attr("class","commenter-name");
@@ -319,7 +319,7 @@ function onComment(btn){
 	var commenterId = "<%=user.getId()%>";
 	var commenterName = "<%=user.getUserName()%>";
 	
-	$.post("/minecraft/servlet/CommentServlet"
+	$.post("<%=basePath%>servlet/CommentServlet"
 			,{"content":content,"momentId":momentId,"commenterId":commenterId,"commenterName":commenterName}
 			,function(data,status){
 				
@@ -342,7 +342,7 @@ function createFavorPhotoEle(momentId,favorId,favorName){
 	var favorPhoto = $("<img/>");
 	favorPhoto.attr("id","favor"+momentId+favorId);
 	favorPhoto.attr("title",favorName);
-	favorPhoto[0].src="/minecraft/servlet/ShowPicServlet?id="+favorId; 
+	favorPhoto[0].src="<%=basePath%>servlet/ShowPicServlet?id="+favorId; 
 	$("#comment-like"+momentId).append(favorPhoto);
 }
 

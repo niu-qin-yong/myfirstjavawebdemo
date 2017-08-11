@@ -82,7 +82,7 @@ String muscisJson = JSON.toJSONString(musics);
 		String username = user.getUserName();
 		if(username != null){
 		%>
-		<div>欢迎&nbsp;<b><%=username %></b>&nbsp;<a href="/minecraft/servlet/LogoutServlet">注销</a></div>
+		<div>欢迎&nbsp;<b><%=username %></b>&nbsp;<a href="<%=basePath%>servlet/LogoutServlet">注销</a></div>
 		<%}%>
 		<!--外部框架-->
 		<div id="base">
@@ -188,8 +188,6 @@ String muscisJson = JSON.toJSONString(musics);
 							         <div class="modal-body">
 							           <div id="galley">
 							              <ul class="album-pictures" id="pictures-container">
-							              	<li><img src="/minecraft/poster/ll.jpg" data-original="/minecraft/poster/ll.jpg" alt="hehe"/></li>
-							              	<li><img src="/minecraft/poster/ll.jpg" data-original="/minecraft/poster/ll.jpg" alt="hehe"/></li>
 							              </ul>
 							            </div>
 							         </div>

@@ -40,7 +40,7 @@ User user = (User)session.getAttribute("user");
 **/
 function setUserPhoto(){
 	var div = document.getElementById("userphoto");
-	div.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+<%=user.getId()%>+")";
+	div.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id="+<%=user.getId()%>+")";
 }
 
 /**
@@ -86,7 +86,7 @@ function ajax_submit_setting(){
 	  		alert(xmlhttp.responseText);
 	  	}
 	  };
-	  xmlhttp.open("post","/minecraft/servlet/SettingServlet",true);
+	  xmlhttp.open("post","<%=basePath%>/servlet/SettingServlet",true);
 	  xmlhttp.send(formData);
 	
 	//返回false阻止表单提交

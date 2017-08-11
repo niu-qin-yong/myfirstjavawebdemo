@@ -9,6 +9,9 @@
 
 <%
 User user = (User)session.getAttribute("user");
+String webName = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
+
 
 //获取所有好友
 FriendService friService = new FriendServiceImpl();
@@ -38,7 +41,7 @@ function addEleFromFriends(friId,friName){
 	
 	var gfriendphoto=document.createElement("div");
 	gfriendphoto.setAttribute("class","gfriendphoto");
-	gfriendphoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+friId+")";	
+	gfriendphoto.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id="+friId+")";	
 	friendee.appendChild(gfriendphoto);
 	
 	var gfriendname=document.createElement("div");
@@ -74,7 +77,7 @@ function showSchoolmates(){
 	
 	var schoolephoto=document.createElement("div");
 	schoolephoto.setAttribute("class","schoolephoto");
-	schoolephoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+<%=smate.getId()%>+")";	
+	schoolephoto.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id="+<%=smate.getId()%>+")";	
 	schoolfee.appendChild(schoolephoto);
 	
 	var schoolename=document.createElement("div");
@@ -126,7 +129,7 @@ function showClassmates(){
 		
 		var classmatephoto=document.createElement("div");
 		classmatephoto.setAttribute("class","classmatephoto");
-		classmatephoto.style.backgroundImage="url(/minecraft/servlet/ShowPicServlet?id="+<%=mate.getId()%>+")";	
+		classmatephoto.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id="+<%=mate.getId()%>+")";	
 		
 		var classmatename=document.createElement("div");
 		classmatename.setAttribute("class","classmatename");

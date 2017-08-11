@@ -3,6 +3,8 @@
 
 <%
 User user = (User)session.getAttribute("user");
+String webName = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
 %>
 
 /**
@@ -149,10 +151,10 @@ User user = (User)session.getAttribute("user");
 
 	Chat.initialize = function() {
 		if (window.location.protocol == 'http:') {
-			Chat.connect('ws://' + window.location.host + '/minecraft/websocket/'
+			Chat.connect('ws://' + window.location.host + '/mc/websocket/'
 					+ "<%=user.getId()%>");
 		} else {
-			Chat.connect('wss://' + window.location.host + '/minecraft/websocket/'
+			Chat.connect('wss://' + window.location.host + '/mc/websocket/'
 					+ "<%=user.getId()%>");
 		}
 	};

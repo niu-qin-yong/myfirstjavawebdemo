@@ -1,5 +1,9 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.it61.minecraft.common.*" %>
+<%
+String webName = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
+%>
 
 <%-- 读取cookie --%>
 <%
@@ -38,13 +42,13 @@
 <meta name="Keywords" content="">
 <meta name="Description" content="">
 <title>Document</title>
-<link rel="stylesheet" href="/minecraft/css/login.css">
+<link rel="stylesheet" href="<%=basePath %>/css/login.css">
 </head>
 <body>
 	<div id="logtag">iamloginpage,but you can't see me!</div>
 	<header>
 		<div class="logo left">
-			<a href="about:blank"><img src="/minecraft/imgs/logo.gif" alt="logo"></a>
+			<a href="about:blank"><img src="<%=basePath %>/imgs/logo.gif" alt="logo"></a>
 		</div>
 		<div class="welcome left">欢迎登录</div>
 	</header>
@@ -53,7 +57,7 @@
 			<div class="saoma"></div>
 			<div class="loginbiao">账户登录</div>
 
-			<form action="/minecraft/servlet/LoginServlet" method="post">
+			<form action="<%=basePath %>/servlet/LoginServlet" method="post">
 				<table class="tb">
 					<tr>
 						<td class="t1 user">
