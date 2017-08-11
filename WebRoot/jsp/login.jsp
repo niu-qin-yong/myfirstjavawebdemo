@@ -44,7 +44,7 @@
 	<div id="logtag">iamloginpage,but you can't see me!</div>
 	<header>
 		<div class="logo left">
-			<a href="about:blank"><img src="../imgs/logo.gif" alt="logo"></a>
+			<a href="about:blank"><img src="/minecraft/imgs/logo.gif" alt="logo"></a>
 		</div>
 		<div class="welcome left">欢迎登录</div>
 	</header>
