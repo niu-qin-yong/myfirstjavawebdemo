@@ -24,14 +24,6 @@ aside {
 	height: 660px;
 	box-sizing: border-box;
 }
-nav {
-	width: 629px;
-	height: 40px;
-	position: absolute;
-	bottom: -8px;
-	right: -115px;
-	z-index: 10;
-}
 #base {
 	width: 1190px;
 	height: 660px;
@@ -44,38 +36,58 @@ nav {
 	height: 81px;
 	margin: auto;
 }
+nav {
+	width: 629px;
+	height: 40px;
+	position: relative;
+	bottom:-25px;
+	left:250px;
+	z-index: 0;
+}
 .navct {
 	width: 117px;
 	height: 37px;
 	display: inline-block;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	position: relative;
+	position: absolute;
+	bottom: 0px;
 }
-#friendzone0 {
+#friendzone0{
 	background-image: url(../imgs/friendzone.png);
+	left:-65px;
 	z-index: -1;
 }
 #photo1 {
 	background-image: url(../imgs/photo.png);
-	left: -35px;
+	left: 40px;
 	z-index: -2;
 }
 #dairy2 {
 	background-image: url(../imgs/dairy.png);
 	z-index: -3;
-	left: -70px;
+	left: 150px;
 }
 #plan3 {
 	background-image: url(../imgs/plan.png);
 	z-index: -2;
-	left: -105px;
+	left: 240px;
 }
 #mgame4 {
 	background-image: url(../imgs/mgame.png);
 	z-index: -1;
-	left: -140px;
+	left: 350px;
 }
+#friendzone0:hover,#photo1:hover,#plan3:hover,#dairy2:hover,#mgame4:hover{
+    z-index:500;
+    width:127px;
+    height:43px;
+}
+nav #friendzone0:hover{ background-image:url(../imgs/friendzone.gif);}
+nav #photo1:hover{ background-image:url(../imgs/photo2.gif);}
+nav #dairy2:hover{ background-image:url(../imgs/dairy.gif);}
+nav #plane3:hover{ background-image:url(../imgs/planew.gif);}
+nav #mgame4:hover{ background-image:url(../imgs/mgame.gif);}
 /*左侧导航栏部分*/
 #left-side {
 	position: absolute;
@@ -105,6 +117,15 @@ nav {
 	list-style: none;
 	position: absolute;
 	right: -40px;
+	transition: transform 0.2s;
+    -moz-transition:transform 0.2s;	/* Firefox 4 */
+    -webkit-transition:transform 0.2s;	/* Safari 和 Chrome */
+    -o-transition: transform 0.2s;	/* Opera */
+}
+.lnavc:hover{
+	-moz-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    z-index:706;
 }
 #friends5 {
 	background: url(../imgs/friend.png) no-repeat;
@@ -113,7 +134,6 @@ nav {
 	top: 37px;
 	z-index: 705;
 }
-
 #classname6 {
 	background: url(../imgs/class.gif) no-repeat;
 	background-size: 100% 100%;
@@ -143,6 +163,7 @@ nav {
 	top: 303px;
 	z-index: 701;
 }
+
 /*主题内容部分*/
 #contentView {
 	width: 820px;
