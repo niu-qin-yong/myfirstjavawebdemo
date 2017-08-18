@@ -4,3 +4,4 @@
 .mymetadata
 .project
 *.class
+WebRoot/WEB-INF/classes/

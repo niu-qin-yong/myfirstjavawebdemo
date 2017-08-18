@@ -55,7 +55,7 @@ jQuery(function($){
         	success:function(data, textStatus){
         		// 假设后台将请求重定向到了登录页，则data里面存放的就是登录页的源代码，这里须要找到data是登录页的证据(标记)
         		if(data.indexOf('iamloginpage') != -1) {
-        			window.location.href= "/minecraft/jsp/login.jsp";
+        			window.location.href= "/mc/jsp/login.jsp";
         			return;
         		}
         		_success(data, textStatus);  

@@ -29,9 +29,9 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
-	public void addPictures(Object[] args) throws Exception{
+	public void addPictures(List<Picture> pics) throws Exception{
 		AlbumDAO dao = new AlbumDAO();
-		dao.addPictures(args);
+		dao.addPictures(pics);
 	}
 
 }

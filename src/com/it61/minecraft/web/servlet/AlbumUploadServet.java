@@ -50,7 +50,7 @@ public class AlbumUploadServet extends HttpServlet {
 			try {
 				List<FileItem> items = upload.parseRequest(request);
 				//依次存放userid，albumid，picname
-				List<Object> datas = new ArrayList<Object>();
+				List<Picture> datas = new ArrayList<Picture>();
 
 				for (FileItem item : items) {
 					// 普通表单项
@@ -85,6 +85,7 @@ public class AlbumUploadServet extends HttpServlet {
 							Picture pic = new Picture();
 							pic.setUserId(Integer.valueOf(userId));
 							pic.setAlbumId(Integer.valueOf(albumId));
+							pic.setName(item.getName());
 							
 							//保存图片在文件中
 							//一个相册的图片放在一个目录下，用户名id，相册id分别作为目录名
@@ -123,9 +124,7 @@ public class AlbumUploadServet extends HttpServlet {
 							ImageIO.write(img, fileName.substring(fileName.indexOf(".")+1), new File(thumbFilePath+"/"+fileName));
 							
 							//图片数据,存储数据库时用到
-							datas.add(pic.getUserId());
-							datas.add(pic.getAlbumId());
-							datas.add(item.getName());
+							datas.add(pic);
 						}
 
 					}
@@ -133,7 +132,7 @@ public class AlbumUploadServet extends HttpServlet {
 				
 				//保存图片数据到数据库
 				AlbumService service = new AlbumServiceImpl();
-				service.addPictures(datas.toArray());
+				service.addPictures(datas);
 				
 				//将相册数据作为响应返回给客户端
 				Album album = new Album(Integer.valueOf(userId),Integer.valueOf(albumId),albumName);
@@ -143,10 +142,10 @@ public class AlbumUploadServet extends HttpServlet {
 				album.setPics(pictures);
 				
 				JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
-				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(JSON.toJSONString(album,SerializerFeature.WriteDateUseDateFormat));
 			} catch (Exception e) {
 				e.printStackTrace();
+				response.getWriter().write("上传失败\n"+e.getMessage());
 			}
 		}
 	}

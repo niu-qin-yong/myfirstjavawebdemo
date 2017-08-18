@@ -12,4 +12,10 @@ public interface PictureService {
 	 * @return
 	 */
 	List<Picture> getPictures(Album album);
+	/**
+	 * 获取相册里的照片(方法重载)
+	 * @param album
+	 * @return
+	 */
+	List<Picture> getPictures(int userId,int albumId);
 }
