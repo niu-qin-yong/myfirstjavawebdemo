@@ -30,6 +30,20 @@ String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.Write
 var albumArray = JSON.parse('<%=allAlbumsJsonString%>');
 
 var album = {
+	//显示创建相册弹出框
+	showAlbumCreate : function(){
+		$("#album-create").animate({top:'100px'},200,function(){
+		
+		});
+	},
+	//隐藏创建相册弹出框
+	hideAlbumCreate : function(){
+		$("#album-create").animate({top:'-300px'},200,function(){
+			//隐藏后将原有输入数据清空
+			$("#album-create-name").val("");
+			$("#album-create-des").val("");
+		});	
+	},
 	//创建相册
 	createAlbum : function(){
 		
@@ -37,6 +51,14 @@ var album = {
 		//数据
 		var name = $("#album-create-name").val();
 		var des = $("#album-create-des").val();
+		
+		if(name == undefined || name == ""){
+			alert("亲，相册名不能为空");
+			return;
+		}
+		
+		//点击创建后隐藏弹出框
+		album.hideAlbumCreate();
 		
 		$.post(
 			"<%=basePath%>"+"/servlet/CreateAlbumServlet",
