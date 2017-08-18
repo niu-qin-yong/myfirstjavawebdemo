@@ -149,9 +149,9 @@ String muscisJson = JSON.toJSONString(musics);
 					</div>
 					<div id="album" class="showcontent">
 						<div class="album-header">
-							<button id="album-create"  data-toggle="modal" data-target="#create-album" >创建相册</button>
-							<button id="pic-upload" onclick="album.browseAlbum()">上传图片</button>
-							<!-- 创建相册的模态框 -->
+							<button onclick="album.showAlbumCreate()">创建相册</button>
+							<!-- <button id="album-create"  data-toggle="modal" data-target="#create-album" >创建相册</button>
+							创建相册的模态框
 							<div class="modal fade" id="create-album" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -176,7 +176,7 @@ String muscisJson = JSON.toJSONString(musics);
 										</div>										
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<!-- 缩略图浏览的模态框 -->
 							<div class="modal fade" id="album-brower" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
 							     <div class="modal-dialog">
@@ -516,6 +516,26 @@ String muscisJson = JSON.toJSONString(musics);
 				</div>
 			</div>
 		</div>
+		<!-- 创建相册对话框 -->
+		<div id="album-create">
+			<div id="ac-header">
+				<div id="ac-header-title">
+					创建相册
+				</div>
+			</div>
+			<div id="ac-body">
+				<input id="album-create-name" placeholder="相册名称"/>
+				<input id="album-create-des" placeholder="相册描述" />
+			</div>
+			<div id="ac-footer">
+				<button id="al-create" onclick="album.hideAlbumCreate()">
+					关闭
+				</button>
+				<button id="al-close" onclick="album.createAlbum()">
+					创建
+				</button>
+			</div>
+		</div>		
 		
 		<!-- JiaThis Button BEGIN -->
 		<div class="jiathis_style_24x24" id="jiathis">
@@ -571,7 +591,7 @@ String muscisJson = JSON.toJSONString(musics);
 		showOnlineFriends();
 		showMoments();
 		Chat.initialize();
-		makeChatBoxCanMove();
+		makeChatBoxCanMove();//使聊天框可拖动
 		player.init();    //音乐播放
 		album.initAlbum(); //相册
 		
