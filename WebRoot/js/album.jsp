@@ -30,19 +30,27 @@ String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.Write
 var albumArray = JSON.parse('<%=allAlbumsJsonString%>');
 
 var album = {
+	viewer : null,
 	//显示创建相册弹出框
 	showAlbumCreate : function(){
-		$("#album-create").animate({top:'100px'},200,function(){
+		$("#album-create").animate({top:'100px'},300,function(){
 		
 		});
 	},
 	//隐藏创建相册弹出框
 	hideAlbumCreate : function(){
-		$("#album-create").animate({top:'-300px'},200,function(){
+		$("#album-create").animate({top:'-300px'},300,function(){
 			//隐藏后将原有输入数据清空
 			$("#album-create-name").val("");
 			$("#album-create-des").val("");
 		});	
+	},
+	//隐藏相册浏览弹出框
+	hideAlbumBrowser : function(){
+		$("#album-browser").animate({top:'-1000px'},500,function(){
+			//弹出框隐藏后销毁Viewer
+			album.destroyViewer();
+		});			
 	},
 	//创建相册
 	createAlbum : function(){
@@ -187,7 +195,8 @@ var album = {
 				return;
 			}
 			
-			album.createBrowserNodeEleAndShow(albumObj);
+//			album.createBrowserNodeEleAndShow(albumObj);
+			album.createBrowserNodeEleAndShow22(albumObj);
 			//$("#album-brower").modal('show');
 		});
 		list.append(browerOpt);
@@ -198,7 +207,37 @@ var album = {
 		nameSpan.html(albumObj.name);
 		list.append(nameSpan);				
 	},
-	//创建浏览相册需要的DOM，并显示模态框
+	//创建相册浏览需要的DOM，并显示弹出框
+	createBrowserNodeEleAndShow22 : function(obj){
+		console.log("createBrowserNodeEleAndShow "+JSON.stringify(obj));
+		
+		var ul = $("#pictures-container");
+		//先清除之前的DOM
+		ul.empty();
+				
+		//创建新的
+		var picsArray = obj.pics;
+		for(var i=0;i < obj.pics.length;i++){
+			var picObj = obj.pics[i];
+			var li = $("<li></li>");
+			ul.append(li);
+			var img = $("<img />");
+			li.append(img);
+			//原图
+			img.attr("data-original","<%=basePath%>/pictures/"+picObj.userId+"/"+picObj.albumId+"/"+picObj.name);
+			//缩略图
+			img.attr("src","<%=basePath%>/pictures/"+picObj.userId+"/"+picObj.albumId+"/thumb/"+picObj.name);
+			img.attr("alt",picObj.name);
+		}
+		
+		//显示弹出框
+		$("#album-browser").animate({top:'60px'},500,function(){
+			//填充了图片后再创建Viewer对象才有效
+			album.initViewer();
+		});
+		
+	},
+	//创建相册浏览需要的DOM，并显示模态框
 	createBrowserNodeEleAndShow : function(obj){
 		console.log("createBrowserNodeEleAndShow "+JSON.stringify(obj));
 		
@@ -237,6 +276,7 @@ var album = {
 	},
 	//初始化Viewer
 	initViewer : function(){
+		var self = this;
 		var options = {
 			url: 'data-original',
 	        build: function (e) {
@@ -265,8 +305,13 @@ var album = {
 	        }			
 		};
 		
-		var galley = document.getElementById('galley');
-		var viewer = new Viewer(galley,options);	
+		var galley = document.getElementById('pictures-container');
+		self.viewer = new Viewer(galley,options);	
+	},
+	//销毁viewer对象
+	destroyViewer : function(){
+		var self = this;
+		self.viewer.destroy();
 	}
 }
 
