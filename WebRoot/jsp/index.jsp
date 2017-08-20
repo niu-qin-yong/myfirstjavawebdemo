@@ -178,7 +178,7 @@ String muscisJson = JSON.toJSONString(musics);
 								</div>
 							</div> -->
 							<!-- 缩略图浏览的模态框 -->
-							<div class="modal fade" id="album-brower" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+<!-- 							<div class="modal fade" id="album-brower" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
 							     <div class="modal-dialog">
 							       <div class="modal-content">
 							         <div class="modal-header">
@@ -196,7 +196,7 @@ String muscisJson = JSON.toJSONString(musics);
 							         </div>
 							       </div>
 							     </div>
-							   </div>							
+							   </div> -->							
 						</div>
 						<!-- 相册内容区 -->
 						<div class="album-content" id="album-content">
@@ -516,7 +516,7 @@ String muscisJson = JSON.toJSONString(musics);
 				</div>
 			</div>
 		</div>
-		<!-- 创建相册对话框 -->
+		<!-- 相册创建对话框 -->
 		<div id="album-create">
 			<div id="ac-header">
 				<div id="ac-header-title">
@@ -536,7 +536,25 @@ String muscisJson = JSON.toJSONString(musics);
 				</button>
 			</div>
 		</div>		
-		
+		<!-- 相册浏览对话框 -->
+		<div id="album-browser">
+			<div id="ab-header">
+				<div id="ab-header-title">
+					浏览相册
+				</div>
+			</div>
+			<div class="scroll_wrap">
+				<div id="ab-body">
+					<ul class="album-pictures" id="pictures-container">
+	              	</ul>
+				</div>
+			</div>
+			<div id="ab-footer">
+				<button id="ab-close" onclick="album.hideAlbumBrowser()">
+					关闭
+				</button>
+			</div>
+		</div>		
 		<!-- JiaThis Button BEGIN -->
 		<div class="jiathis_style_24x24" id="jiathis">
 			<a class="jiathis_button_qzone"></a>
