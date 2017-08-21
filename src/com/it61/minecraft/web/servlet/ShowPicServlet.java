@@ -41,8 +41,14 @@ public class ShowPicServlet extends HttpServlet {
 			//如果用户么有上传头像，则使用默认头像
 			InputStream is = getServletContext().getResourceAsStream("/imgs/default-photo.png");
 			bis = new BufferedInputStream(is);
+			
+			//设置响应大小
+			response.setContentLength(is.available());
 		}else{
 			bis = new BufferedInputStream(user.getPhoto());
+			
+			//设置响应大小
+			response.setContentLength(bis.available());
 		}
 		//将图片二进制流输出到response的输出流
 		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
