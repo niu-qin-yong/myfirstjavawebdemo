@@ -19,7 +19,7 @@ User user = (User)session.getAttribute("user");
 	function preView(file,ele){
 	if (file.files && file.files[0]) {
 		//如果上传文件不是图片类型，则不预览，实际上这里可以提示用户上传文件类型错误
-            	var imageType = /^image\//;
+        var imageType = /^image\//;
 		if (!imageType.test(file.files[0].type)) {
 			  file.files[0] = null;
 		      return;
@@ -31,7 +31,7 @@ User user = (User)session.getAttribute("user");
        	reader.onload = function (evt) {
        		ele.style.backgroundImage = "url("+evt.target.result+")";
      		}
-     		reader.readAsDataURL(file.files[0]);
+     	reader.readAsDataURL(file.files[0]);
 	}
 }
 
@@ -86,8 +86,8 @@ function ajax_submit_setting(){
 	  		alert(xmlhttp.responseText);
 	  	}
 	  };
-	  xmlhttp.open("post","<%=basePath%>/servlet/SettingServlet",true);
-	  xmlhttp.send(formData);
+	xmlhttp.open("post","<%=basePath%>/servlet/SettingServlet",true);
+	xmlhttp.send(formData);
 	
 	//返回false阻止表单提交
 	return false;
