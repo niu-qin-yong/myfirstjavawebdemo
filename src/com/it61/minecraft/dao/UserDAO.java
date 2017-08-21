@@ -46,7 +46,10 @@ public class UserDAO implements OnTransformListener<User>{
 				,user.getBanji(),user.getPhonenumber(),user.getPhoto()
 				,user.getStar(),user.getEmail(),user.getGrade()
 				,user.getId()};
+		
 		temp.update(sql, args);
+		
+		user.getPhoto().reset();
 	}
 	
 	public User findById(int id){

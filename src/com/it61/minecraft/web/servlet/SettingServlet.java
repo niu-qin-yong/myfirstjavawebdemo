@@ -79,6 +79,7 @@ public class SettingServlet extends HttpServlet {
 						//判断类型，保证是图片，且大小不为0
 						if((type.equals(Constants.MIME_IMAGE_JPEG) || type.equals(Constants.MIME_IMAGE_PNG))
 								&& item.getSize() > 0){
+							System.out.println("Setting servlet  setPhoto================item.getSize() =="+item.getSize());
 							user.setPhoto(item.getInputStream());
 						}
 						
