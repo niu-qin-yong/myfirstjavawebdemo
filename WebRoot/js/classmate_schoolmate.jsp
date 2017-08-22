@@ -118,13 +118,13 @@ function showClassmates(){
 		jiangpai.setAttribute("class","jiangpai");
 		if(rank==0){
 			//gold
-			jiangpai.style.backgroundImage="url(/minecraft/imgs/golden.png)";
+			jiangpai.style.backgroundImage="url("+basePath+"imgs/golden.png)";
 		}else if(rank==1){
 			//silver
-			jiangpai.style.backgroundImage="url(/minecraft/imgs/sliver.png)";
+			jiangpai.style.backgroundImage="url("+basePath+"imgs/sliver.png)";
 		}else if(rank==2){
 			//copper
-			jiangpai.style.backgroundImage="url(/minecraft/imgs/tong.png)";
+			jiangpai.style.backgroundImage="url("+basePath+"imgs/tong.png)";
 		}
 		
 		var classmatephoto=document.createElement("div");
@@ -147,7 +147,7 @@ function showClassmates(){
 				//如果是好友，取消好友
 				addfriend.setAttribute("title","取消好友");
 				addfriend.setAttribute("data-friId",<%=mate.getId()%>);
-				addfriend.style.backgroundImage="url(/minecraft/imgs/friends-each-other.png)";
+				addfriend.style.backgroundImage="url("+basePath+"imgs/friends-each-other.png)";
 				addfriend.setAttribute("onclick","removeFriend(this)");
 			}else{
 				//如果不是好友，添加好友
@@ -183,7 +183,7 @@ function addFriend(a){
     xmlhttp.onreadystatechange = function(){
        if(xmlhttp.readyState==4 && xmlhttp.status == 200){
     	   if(xmlhttp.responseText == "add_friend_ok"){
-     	    a.style.backgroundImage="url(/minecraft/imgs/friends-each-other.png)";
+     	    a.style.backgroundImage="url("+basePath+"imgs/friends-each-other.png)";
 			a.setAttribute("title","移除好友");
 			a.setAttribute("data-friId",a.getAttribute("data-friId"));
 			a.setAttribute("onclick",'removeFriend(this)');  
@@ -193,7 +193,7 @@ function addFriend(a){
     	   }
        }
     }
-    xmlhttp.open("post","/minecraft/servlet/AddFriendServlet",true);
+    xmlhttp.open("post",basePath+"servlet/AddFriendServlet",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("friendId="+friId+"&friendName="+friName);
 }
@@ -223,7 +223,7 @@ function removeFriend(a){
     xmlhttp.onreadystatechange = function(){
        if(xmlhttp.readyState==4 && xmlhttp.status == 200){
     	   if(xmlhttp.responseText == "remove_friend_ok"){
-     	    a.style.backgroundImage="url(/minecraft/imgs/jiafriend.png)";
+     	    a.style.backgroundImage="url("+basePath+"imgs/jiafriend.png)";
 	a.setAttribute("title","添加好友");
 	a.setAttribute("onclick",'addFriend(this)'); 
 	
@@ -232,7 +232,7 @@ function removeFriend(a){
     	   }
        }
     }
-    xmlhttp.open("post","/minecraft/servlet/RemoveFriendServlet",true);
+    xmlhttp.open("post",basePath+"servlet/RemoveFriendServlet",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("owerId="+owerId+"&friId="+friId);			
 }
