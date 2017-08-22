@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<hr>
 	<section>
 	    <div id="section_left">
-	        <form action="/minecraft/servlet/RegisteServlet" method="post" onsubmit="return check()">
+	        <form action="/mc/servlet/RegisteServlet" method="post" onsubmit="return check()">
 			<ul id="inputarea">
 			  <li>
 				<input  type="text" placeholder="您的用户名和登陆名" name="uname" id="username" data-point="用户名">

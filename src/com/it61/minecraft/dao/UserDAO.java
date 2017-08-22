@@ -49,6 +49,7 @@ public class UserDAO implements OnTransformListener<User>{
 		
 		temp.update(sql, args);
 		
+		//重置流的位置，否则下次提交用户头像回变空
 		user.getPhoto().reset();
 	}
 	

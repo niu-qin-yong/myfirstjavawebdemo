@@ -15,4 +15,10 @@ public interface UserService {
 	 * @param user
 	 */
 	void addExperience(User user)throws Exception;
+	/**
+	 * 该用户名是否已经存在
+	 * @param userName
+	 * @return
+	 */
+	boolean userNameExist(String userName);
 }

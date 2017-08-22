@@ -33,6 +33,25 @@ function validate(i) {
 			warnings[i].innerHTML = "用户名为3~10个字符";
 			return false;
 		}
+		
+		//检测用户名是否唯一
+		var unique = true;
+		$.ajax(
+				{url:"/mc/servlet/CheckUserNameExsitServlet",
+				type:"post",
+				async:false,
+				data:{"user_name":userName},
+				success:function(data,status){
+					if(data == 'true'){
+						warnings[i].innerHTML = "该用户名已存在";
+						unique = false;
+					}
+				},
+				error:function(data,status){
+					alert("register.js CheckUserNameServlet \r\n"+status+"\r\n"+data);
+				}}
+		);
+		return unique;
 	}
 	// 密码
 	if (i == 1) {
@@ -77,7 +96,7 @@ function validate(i) {
 		
 		//检查验证码是否正确，将用户输入的验证码提交给服务器，服务器返回判断结果
 		$.ajax({
-			url:"/minecraft/servlet/CheckValidateCodeServlet",
+			url:"/mc/servlet/CheckValidateCodeServlet",
 			async: false,
 			type:'post',
 			data:{'code':value},
@@ -110,7 +129,8 @@ function check() {
 	var result = 0;
 	for (var i = 0; i < inputs.length - 1; i++) {
 		// 检查所有的内容是否都通过
-		if (validate(i)) {
+		var pass = validate(i);
+		if (pass) {
 			result++;
 		}
 	}
@@ -124,7 +144,7 @@ function check() {
 //显示动态验证码,首次显示注册页面，用户点击验证码,注册失败这些情况下都更新验证码
 function showValidateCode() {
 	var div = document.querySelector("#vertify");
-	div.style.backgroundImage = "url(/minecraft/servlet/ValidateCodeServlet?randomId="
+	div.style.backgroundImage = "url(/mc/servlet/ValidateCodeServlet?randomId="
 			+ Math.random() + ")";
 }
 

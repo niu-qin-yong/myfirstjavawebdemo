@@ -63,4 +63,11 @@ public class UserServiceImpl implements UserService {
 		userDAO.addExperience(user);
 	}
 
+	@Override
+	public boolean userNameExist(String userName) {
+		UserDAO userDAO = new UserDAO();
+		User user = userDAO.findByUserName(userName);
+		return user == null ? false : true;
+	}
+
 }
