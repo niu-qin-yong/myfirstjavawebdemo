@@ -85,10 +85,12 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 	<body>
 		<!-- 初始化JavaScript变量 -->
 		<script>
+			/* 应用路径 */
 			var basePath = "<%=basePath%>";
 			
-			var bannerPicsObj = JSON.parse('<%=bannerPicsString%>');
+			/* 相册轮播图 */
 			var bannerPhotoes = [];
+			var bannerPicsObj = JSON.parse('<%=bannerPicsString%>');
 			for(var i=0;i<bannerPicsObj.length;i++){
 				var picObj = bannerPicsObj[i];
 				var picUrl = basePath+"pictures/"+picObj.userId+"/"+picObj.albumId+"/"+picObj.name;
