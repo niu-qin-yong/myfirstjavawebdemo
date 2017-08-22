@@ -58,7 +58,10 @@ List<Music> musics = ms.getAllMusic();
 String muscisJson = JSON.toJSONString(musics);
 
 //获取轮播图图片，规则：默认最多5张随机图片，不包含重复的
-
+AlbumService albumService = new AlbumServiceImpl();
+int count = 5;
+List<Picture> bannerPics = albumService.getBannerPics(user.getId(), count);
+String bannerPicsString = JSON.toJSONString(bannerPics);
 %>
 
 
@@ -80,6 +83,21 @@ String muscisJson = JSON.toJSONString(musics);
 	
  	</head>
 	<body>
+		<!-- 初始化JavaScript变量 -->
+		<script>
+			var basePath = "<%=basePath%>";
+			
+			var bannerPicsObj = JSON.parse('<%=bannerPicsString%>');
+			var bannerPhotoes = [];
+			for(var i=0;i<bannerPicsObj.length;i++){
+				var picObj = bannerPicsObj[i];
+				var picUrl = basePath+"pictures/"+picObj.userId+"/"+picObj.albumId+"/"+picObj.name;
+				var photo = {"i":i+1,"img":picUrl};
+				bannerPhotoes.push(photo);
+			}
+
+		</script>
+		
 		<!-- 用户登录部分 -->
 		<%
 		String username = user.getUserName();

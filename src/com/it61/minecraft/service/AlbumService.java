@@ -33,5 +33,5 @@ public interface AlbumService {
 	 * @param userId 用户ID
 	 * @param size	图片个数
 	 */
-	List<Picture> getBannerPics(int userId,int size);
+	List<Picture> getBannerPics(int userId,int count);
 }

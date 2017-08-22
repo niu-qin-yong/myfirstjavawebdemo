@@ -11,6 +11,13 @@ import com.it61.minecraft.service.PictureService;
 
 
 public class AlbumServiceImpl implements AlbumService {
+	public static void main(String[] args) {
+		AlbumServiceImpl service = new AlbumServiceImpl();
+		List<Picture> bannerPics = service.getBannerPics(1, 4);
+		for(Picture pic : bannerPics){
+			System.out.println("getBannerPics:"+pic.getName());
+		}
+	}
 
 	@Override
 	public void addAlbum(Album album) throws Exception {
@@ -46,7 +53,7 @@ public class AlbumServiceImpl implements AlbumService {
 		//获取的图片个数
 		for(Album album : allAlbums){
 			List<Picture> pictures = picService.getPictures(album);
-			//TODO 把重复的图片去除
+			//把重复的图片去除
 			for(Picture pic : bannerPics){
 				if(pictures.contains(pic)){
 					pictures.remove(pic);

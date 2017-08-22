@@ -51,4 +51,16 @@ public class Picture {
 		this.createTime = createTime;
 	}
 	
+	/**
+	 * 
+	 * 重新equals方法
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Picture){
+			Picture picture = (Picture) obj;
+			return this.getName().equals(picture.getName());
+		}
+		return super.equals(obj);
+	}
 }

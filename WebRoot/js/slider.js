@@ -1,5 +1,5 @@
 function sliderConfig() {
-	slider.photos = [];
+	slider.photos = bannerPhotoes;
 	
 	//如果没有图片轮播，则不显示任何DOM
 	if(slider.photos.length == 0){
