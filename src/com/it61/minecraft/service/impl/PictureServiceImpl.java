@@ -20,5 +20,10 @@ public class PictureServiceImpl implements PictureService{
 		PictureDAO dao = new PictureDAO();
 		return dao.getPictures(userId,albumId);
 	}
+	
+	public List<Picture> getPictures(Album album, int size) {
+		PictureDAO dao = new PictureDAO();
+		return dao.getPictures(album,size);
+	}
 
 }
