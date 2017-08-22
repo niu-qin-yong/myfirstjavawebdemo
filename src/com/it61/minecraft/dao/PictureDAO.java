@@ -48,4 +48,10 @@ public class PictureDAO implements OnTransformListener<Picture> {
 		Object[] args = {album.getUserId(),album.getId()};
 		return temp.queryAll(sql,args);
 	}
+	
+	public List<Picture> getPictures(Album album,int size) {
+		String sql = "select * from pictures where user_id=? and album_id=? limit ?";
+		Object[] args = {album.getUserId(),album.getId(),size};
+		return temp.queryAll(sql,args);
+	}
 }

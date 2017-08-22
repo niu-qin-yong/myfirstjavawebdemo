@@ -7,9 +7,16 @@ import com.it61.minecraft.bean.Picture;
 
 public interface PictureService {
 	/**
-	 * 获取相册里的照片
+	 * 获取相册里的所有照片
 	 * @param album
 	 * @return
 	 */
 	List<Picture> getPictures(Album album);
+	/**
+	 * 获取相册里部分图片
+	 * @param album
+	 * @param size
+	 * @return
+	 */
+	List<Picture> getPictures(Album album,int size);
 }

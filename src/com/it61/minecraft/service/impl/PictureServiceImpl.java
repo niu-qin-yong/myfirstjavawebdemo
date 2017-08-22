@@ -15,4 +15,10 @@ public class PictureServiceImpl implements PictureService{
 		return dao.getPictures(album);
 	}
 
+	@Override
+	public List<Picture> getPictures(Album album, int size) {
+		PictureDAO dao = new PictureDAO();
+		return dao.getPictures(album,size);
+	}
+
 }

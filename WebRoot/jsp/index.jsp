@@ -56,6 +56,9 @@ for(Moment m : moments){
 MusicService ms = new MusicServiceImpl();
 List<Music> musics = ms.getAllMusic();
 String muscisJson = JSON.toJSONString(musics);
+
+//获取轮播图图片，规则：默认最多5张随机图片，不包含重复的
+
 %>
 
 
@@ -198,6 +201,10 @@ String muscisJson = JSON.toJSONString(musics);
 							     </div>
 							   </div> -->							
 						</div>
+						<!-- 相册轮播图 -->
+						<div id="slider">
+
+						</div>						
 						<!-- 相册内容区 -->
 						<div class="album-content" id="album-content">
 						</div>
@@ -592,6 +599,7 @@ String muscisJson = JSON.toJSONString(musics);
 	<script src="<%=request.getContextPath()%>/js/bubble.js"></script>
 	<script src="<%=request.getContextPath()%>/js/main.js"></script>
 	<script src="<%=request.getContextPath()%>/js/box-drag.js"></script>
+	<script src="<%=request.getContextPath()%>/js/slider.js"></script>
 	<script src="<%=request.getContextPath()%>/js/moment.jsp"></script>
 	<script src="<%=request.getContextPath()%>/js/classmate_schoolmate.jsp"></script>
 	<script src="<%=request.getContextPath()%>/js/friend.jsp"></script>
@@ -612,7 +620,7 @@ String muscisJson = JSON.toJSONString(musics);
 		makeChatBoxCanMove();//使聊天框可拖动
 		player.init();    //音乐播放
 		album.initAlbum(); //相册
-		
+		sliderConfig();   //图片轮播配置
 	
 		
 	</script>
