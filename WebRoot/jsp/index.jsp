@@ -88,9 +88,9 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 			/* 应用路径 */
 			var basePath = "<%=basePath%>";
 			
-			/* 相册轮播图 */
-			var bannerPhotoes = [];
+			/* 轮播图图片 */
 			var bannerPicsObj = JSON.parse('<%=bannerPicsString%>');
+			var bannerPhotoes = [];
 			for(var i=0;i<bannerPicsObj.length;i++){
 				var picObj = bannerPicsObj[i];
 				var picUrl = basePath+"pictures/"+picObj.userId+"/"+picObj.albumId+"/"+picObj.name;
@@ -641,7 +641,5 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		player.init();    //音乐播放
 		album.initAlbum(); //相册
 		sliderConfig();   //图片轮播配置
-	
-		
 	</script>
 </html>
