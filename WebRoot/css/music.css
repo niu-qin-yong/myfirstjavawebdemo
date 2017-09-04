@@ -1,7 +1,9 @@
 #music {
-	width: 540px;
-	height: 400px;
-	margin-left: 65px;
+	width:100%;
+	height:100%;
+/* 	width: 540px;
+	height: 400px; 
+	margin-left: 65px;*/
 	border-radius: 40px;
 	background: rgba(255,255,255,0.7);
 	position: relative;
@@ -12,10 +14,10 @@
 }
 #music-head div {
 	float: left;
-}
-#myMusic {
-	width: 150px;
+	width: 90px;
 	height: 50px;
+}
+#allMusic {
 	background-image: url(../imgs/music_01.png);
 	background-repeat: no-repeat;
 	margin-left: 20px;
@@ -25,26 +27,28 @@
 #music-head input {
 	width: 200px;
 	height: 30px;
-	margin: 10px 0px 0px 100px;
+	margin: 10px 0px 0px 10px;
+	padding-left:30px;
+	float:left;
 	box-sizing: border-box;
 	border-radius: 15px;
-	padding-left: 30px;
 	background-image: url(../imgs/music_06.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	outline: none;
 }
-#music-content,#music-search{
-	width: 510px;
+.music-container{
+	width: 100%;
 	height: 300px;
 	overflow: auto;
 }
 
-#music-search {
+#music-search,#music-mine,#music-friend {
 	display: none;
+	position: relative;
 }
 
-.music-list,.search-list {
+.music-list,.search-list,.music-mine-list,.music-friend-list{
 	width: 160px;
 	height: 180px;
 	float: left;
@@ -54,20 +58,20 @@
 	border: 2px solid rgba(255,255,255,0.8);
 	position: relative;
 }
-.music-list span {
+.music-list span,.search-list span,.music-mine-list span,.music-friend-list span{
 	font-size: 12px;
 	float: right;
 	margin: 10px;
 	color: green;
 	font-weight: bold;
 }
-.search-list span {
+/* .search-list span {
 	font-size: 12px;
 	float: right;
 	margin: 10px;
 	color: green;
 	font-weight: bold;
-}
+} */
 .music-poster {
 	width: 120px;
 	height: 120px;
@@ -120,6 +124,92 @@
 .poster-rotate {
 	animation: rotate 15s linear infinite;
 }
+
+/*音乐上传弹出框*/
+#music-upload {
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0 0 5px black;
+	width:500px;
+	position: fixed;
+	margin:auto;
+	left:0;
+	right:0;
+	top:-500px;
+}
+#mu-header {
+	width: 500px;
+}
+#mu-header-title {
+	font-size: x-large;
+	margin: 20px;
+}
+#mu-body {
+	width: 500px;
+}
+
+#music-upload-audio,#music-upload-poster {
+	width:100%;
+	height: 100%;
+	position: absolute;
+	left:0;
+	top:0;
+	opacity:0;
+}
+
+.music-upload-item-wrap,#music-upload-singer{
+	display:block;
+	width: 90%;
+	height: 40px;
+	margin: auto;
+	margin-top: 10px;
+	border-radius: 5px;
+	border: 1px solid #cccccc;
+	outline-width: 0;
+	padding-left: 5px;
+	transition: box-shadow 0.2s ;	
+	position: relative;	
+}
+
+.mu-item-hint{
+	display:inline-block;
+    font-weight: normal;
+    font-size: 100%;
+    color:#7D7D7D;
+    margin-top: 10px;
+}
+
+#mu-body input:focus {
+	box-shadow: 0 0 8px rgba(82, 168, 236, 1);
+}
+
+#mu-footer {
+	width: 500px;
+	height: 70px;
+	margin-top: 20px;
+}
+#mu-footer button {
+	padding: 5px;
+	width:100px;
+	height:40px;
+	float:right;
+	margin-right: 20px;
+	border:0;
+	border-radius: 5px;
+}
+
+#mu-footer button:hover{
+	background-color: rgba(0,0,255,0.2);
+}
+
+#mu-footer button:focus{
+	outline:none;
+}
+
+#mu-footer button:mutive{
+	box-shadow: 0 0  5px blue;
+}
+/*音乐上传弹出框*/
 
 @keyframes rotate{
 from {

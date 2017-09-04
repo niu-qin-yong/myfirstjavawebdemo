@@ -10,7 +10,37 @@ public class Music {
 	 */
 	private String poster;
 	private String title;
+	private String singer;
+	public String getSinger() {
+		return singer;
+	}
+
+	public void setSinger(String singer) {
+		this.singer = singer;
+	}
 	private int id;
+	private int userId;
+	private int serverSide;
+	
+	
+	public int getServerSide() {
+		return serverSide;
+	}
+
+	public void setServerSide(int serverSide) {
+		this.serverSide = serverSide;
+	}
+
+	public Music(){
+		
+	}
+	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public int getLikeCount() {
 		return likeCount;
 	}
@@ -19,9 +49,10 @@ public class Music {
 	}
 	private int likeCount;
 	
-	public Music(int id,String music, String poster,String title,int likeCount) {
+	public Music(int id,int userId,String music, String poster,String title,int likeCount) {
 		super();
 		this.id = id;
+		this.userId = userId;
 		this.music = music;
 		this.poster = poster;
 		this.title = title;

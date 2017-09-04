@@ -5,7 +5,7 @@ window.onload = function(){
 		bindingNav();
         kalendae();
         //进入页面默认显示朋友圈页面
-        $("#friendzone0").click();
+        $("#music8").click();
 }
 
 function kalendae(){

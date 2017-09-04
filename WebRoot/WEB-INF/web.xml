@@ -127,6 +127,10 @@
     <servlet-name>CheckUserNameExsitServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.CheckUserNameExsitServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MusicUploadServet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.MusicUploadServet</servlet-class>
+  </servlet>
 
   <filter>
     <filter-name>CharactorFilter</filter-name>
@@ -295,6 +299,10 @@
   <servlet-mapping>
     <servlet-name>CheckUserNameExsitServlet</servlet-name>
     <url-pattern>/servlet/CheckUserNameExsitServlet</url-pattern>
+   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MusicUploadServet</servlet-name>
+    <url-pattern>/servlet/MusicUploadServet</url-pattern>
   </servlet-mapping>
   <listener>
     <listener-class>com.it61.minecraft.web.listener.OnlineListener</listener-class>
