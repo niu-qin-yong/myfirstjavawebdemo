@@ -52,11 +52,6 @@ for(Moment m : moments){
 	m.setComments(commentService.getAllCommentsByMomentId(m.getId()));
 }
 
-//获取所有音乐
-MusicService ms = new MusicServiceImpl();
-List<Music> musics = ms.getAllMusic();
-String muscisJson = JSON.toJSONString(musics);
-
 //获取轮播图图片，规则：默认最多5张随机图片，不包含重复的
 AlbumService albumService = new AlbumServiceImpl();
 int count = 5;
@@ -398,14 +393,21 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					</div>
 					<div id="music" class="showcontent">
 						<div id="music-head">
-							<div id="myMusic" onclick="player.showAllMusic()" title="显示全部音乐"></div>
+							<div id="allMusic" onclick="player.showMusics('music-content')" title="显示全部音乐"></div>
+							<div onclick="player.showMusics('music-mine')">我的音乐</div>
+							<div onclick="player.showMusics('music-friend')">好友音乐</div>
+							<input type="text" placeholder="输入单曲或歌手,按回车键搜索" id="music_search_input">
+						</div>
+						<div id="music-content" class="music-container">
+						</div>
+						<div id="music-mine" class="music-container">
 							<div>
-								<input type="text" placeholder="输入单曲或歌手,按回车键搜索" id="music_search_input">
+								<button id="music-upload-btn" onclick="showMusicUpload()">上传歌曲</button>
 							</div>
 						</div>
-						<div id="music-content">
+						<div id="music-friend" class="music-container">好友音乐
 						</div>
-						<div id="music-search">
+						<div id="music-search" class="music-container">
 						</div>
 						<audio id="player" autoplay="autoplay" loop="true"></audio>
 					</div>
@@ -581,7 +583,35 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					关闭
 				</button>
 			</div>
-		</div>		
+		</div>	
+		<!-- 音乐上传弹出框 -->
+		<div id="music-upload">
+			<div id="mu-header">
+				<div id="mu-header-title">
+					歌曲上传
+				</div>
+			</div>
+			<div id="mu-body">
+				<input id="music-upload-singer" placeholder="歌手名称"/>
+				<div class="music-upload-item-wrap">
+					<span class="mu-item-hint" id="mu-item-hint-audio">选择歌曲</span>
+					<input type="file" accept="audio/mpeg" id="music-upload-audio"/>
+				</div>
+				<div class="music-upload-item-wrap">
+					<span class="mu-item-hint" id="mu-item-hint-poster">选择封面</span>
+					<input type="file" accept="image/png,image/jpeg" id="music-upload-poster" />
+				</div>
+			</div>
+			<div id="mu-footer">
+				<button id="al-create" onclick="hideMusicUpload()">
+					关闭
+				</button>
+				<button id="al-close" onclick="onMusicUpload()">
+					上传
+				</button>
+			</div>
+		</div>	
+				
 		<!-- JiaThis Button BEGIN -->
 		<div class="jiathis_style_24x24" id="jiathis">
 			<a class="jiathis_button_qzone"></a>
@@ -626,9 +656,12 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 	<script src="<%=request.getContextPath()%>/js/chat.jsp"></script>
 	<script src="<%=request.getContextPath()%>/js/music.jsp"></script>
 	<script src="<%=request.getContextPath()%>/js/album.jsp"></script>
-	<script src="<%=request.getContextPath()%>/setting.js"></script><!-- 客户端看起来引用的是js，实际上这只是url，映射的是Servlet -->
+	<!-- 客户端看起来引用的是js，实际上这只是url，映射的是Servlet -->
+	<script src="<%=request.getContextPath()%>/setting.js"></script>
 	
 	<script type="text/javascript">
+	
+
 	
 		setting.init();
 		showClassmates();

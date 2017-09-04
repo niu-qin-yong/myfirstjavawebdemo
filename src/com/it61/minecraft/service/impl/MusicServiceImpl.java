@@ -8,11 +8,6 @@ import com.it61.minecraft.service.MusicService;
 
 public class MusicServiceImpl implements MusicService{
 
-	@Override
-	public List<Music> getAllMusic() {
-		MusicDAO dao = new MusicDAO();
-		return dao.findAllMusic();
-	}
 
 	@Override
 	public List<Music> searchMusic(String key) {
@@ -24,6 +19,36 @@ public class MusicServiceImpl implements MusicService{
 	public void addLike(int id, int count) throws Exception {
 		MusicDAO dao = new MusicDAO();
 		dao.addLike(id,count);
+	}
+
+	@Override
+	public void addMusics(Music musics) throws Exception {
+		MusicDAO dao = new MusicDAO();
+		dao.addMusics(musics);
+	}
+
+	@Override
+	public Music getLatestMusic(int userId) {
+		MusicDAO dao = new MusicDAO();
+		return dao.getLatestMusic(userId);
+	}
+
+	@Override
+	public List<Music> getSystemMusic() {
+		MusicDAO dao = new MusicDAO();
+		return dao.findSystemMusic();
+	}
+
+	@Override
+	public List<Music> getMineMusic(int userId) {
+		MusicDAO dao = new MusicDAO();
+		return dao.getMineMusic(userId);
+	}
+
+	@Override
+	public List<Music> getFriendMusic(List<Integer> userIds) {
+		MusicDAO dao = new MusicDAO();
+		return dao.getFriendMusic(userIds);
 	}
 
 }
