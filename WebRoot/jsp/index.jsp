@@ -167,7 +167,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					</div>
 					<div id="album" class="showcontent">
 						<div class="album-header">
-							<button onclick="album.showAlbumCreate()">创建相册</button>
+							<div id="show-album-create" onclick="album.showAlbumCreate()"></div>
 							<!-- <button id="album-create"  data-toggle="modal" data-target="#create-album" >创建相册</button>
 							创建相册的模态框
 							<div class="modal fade" id="create-album" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -549,7 +549,6 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		<div id="album-create">
 			<div id="ac-header">
 				<div id="ac-header-title">
-					创建相册
 				</div>
 			</div>
 			<div id="ac-body">
@@ -557,12 +556,10 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 				<input id="album-create-des" placeholder="相册描述" />
 			</div>
 			<div id="ac-footer">
-				<button id="al-create" onclick="album.hideAlbumCreate()">
-					关闭
-				</button>
-				<button id="al-close" onclick="album.createAlbum()">
-					创建
-				</button>
+				<div id="al-create" onclick="album.createAlbum()">
+				</div>
+				<div id="al-close" onclick="album.hideAlbumCreate()">
+				</div>
 			</div>
 		</div>		
 		<!-- 相册浏览对话框 -->

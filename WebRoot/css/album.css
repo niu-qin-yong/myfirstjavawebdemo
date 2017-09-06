@@ -84,34 +84,38 @@
 
 /*相册创建弹出框*/
 #album-create {
-	background-color: white;
-	border-radius: 5px;
-	box-shadow: 0 0 5px black;
-	width:500px;
-	position: fixed;
+	width: 542px; /*宽高是背景图片宽高图片的0.7*/
+	height: 318px;
+	background: url(../imgs/album-create-bg.png) no-repeat;
+	background-size: contain;
 	margin:auto;
+	position: fixed;
 	left:0;
 	right:0;
-	top:-300px;
+	top:-500px;
+	box-sizing: border-box;
 }
 #ac-header {
-	width: 500px;
+	width: 100%;
+	margin-top: 8px;
 }
 #ac-header-title {
-	font-size: x-large;
-	margin: 20px;
+	width:210px;
+	height:46px;
+	background: url(../imgs/album-create-title.png) no-repeat;
+	background-size: contain;
 }
 #ac-body {
-	width: 500px;
-	height: 130px;
+	width: 100%;
+	margin-top: 20px;
 }
 
 #ac-body input {
 	display: block;
-	width: 90%;
-	height: 40px;
+	width: 488px;
+	height: 57px;
 	margin: auto;
-	margin-top: 10px;
+	margin-top: 20px;
 	border-radius: 5px;
 	border: 1px solid #cccccc;
 	outline-width: 0;
@@ -124,30 +128,39 @@
 }
 
 #ac-footer {
-	width: 500px;
-	height: 70px;
+	width: 100%;
+	position: absolute;
+	right:0;
+	bottom:20px;
 }
-#ac-footer button {
-	padding: 5px;
-	width:100px;
-	height:40px;
+#ac-footer div {
+	width:84px;
+	height:42px;
+	background-size:contain;
 	float:right;
 	margin-right: 20px;
 	border:0;
 	border-radius: 5px;
 }
 
-
-#ac-footer button:hover{
-	background-color: rgba(0,0,255,0.2);
+#al-create{
+	background:url(../imgs/make.png) no-repeat;
 }
 
-#ac-footer button:focus{
+#al-close{
+	background:url(../imgs/close.png) no-repeat;
+}
+
+#ac-footer div:hover{
+	background-color: rgba(0,0,0,0.2);
+}
+
+#ac-footer div:focus{
 	outline:none;
 }
 
-#ac-footer button:active{
-	box-shadow: 0 0  5px blue;
+#ac-footer div:active{
+	box-shadow: 0 0  5px gray;
 }
 
 /*相册浏览弹出框*/
@@ -260,4 +273,13 @@
 }
 #index .current {
 	background-color: #b61b1f;
+}
+
+/* 创建相册 */
+#show-album-create{
+	width: 250px;
+	height:58px;
+	background: url(../imgs/create_album.png);
+	background-position: center;
+	background-repeat: no-repeat;
 }
