@@ -39,7 +39,12 @@ public class ShowPicServlet extends HttpServlet {
 		BufferedInputStream bis = null;
 		if(user.getPhoto() ==  null){
 			//如果用户么有上传头像，则使用默认头像
-			InputStream is = getServletContext().getResourceAsStream("/imgs/default-photo.png");
+			//默认是男性
+			InputStream is = getServletContext().getResourceAsStream("/imgs/default-photo-boy.png");
+			if("female".equals(user.getGender())){
+				//如果是女性
+				is = getServletContext().getResourceAsStream("/imgs/default-photo-girl.png");
+			}
 			bis = new BufferedInputStream(is);
 			
 			//设置响应大小
