@@ -147,7 +147,7 @@ function showClassmates(){
 				//如果是好友，取消好友
 				addfriend.setAttribute("title","取消好友");
 				addfriend.setAttribute("data-friId",<%=mate.getId()%>);
-				addfriend.style.backgroundImage="url("+basePath+"imgs/friends-each-other.png)";
+				addfriend.style.backgroundImage="url("+basePath+"imgs/removefriend.png)";
 				addfriend.setAttribute("onclick","removeFriend(this)");
 			}else{
 				//如果不是好友，添加好友
@@ -183,7 +183,7 @@ function addFriend(a){
     xmlhttp.onreadystatechange = function(){
        if(xmlhttp.readyState==4 && xmlhttp.status == 200){
     	   if(xmlhttp.responseText == "add_friend_ok"){
-     	    a.style.backgroundImage="url("+basePath+"imgs/friends-each-other.png)";
+     	    a.style.backgroundImage="url("+basePath+"imgs/removefriend.png)";
 			a.setAttribute("title","移除好友");
 			a.setAttribute("data-friId",a.getAttribute("data-friId"));
 			a.setAttribute("onclick",'removeFriend(this)');  
