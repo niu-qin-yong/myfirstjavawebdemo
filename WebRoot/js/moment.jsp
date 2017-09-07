@@ -231,7 +231,7 @@ function createMomentElement(moment,top){
 	var span = $("<span></span>");
 	span.attr("class","comment-icon");
 	commentHead.append(span);
-	var tarea = $("<textarea> </textarea>");
+	var tarea = $("<textarea></textarea>");
 	tarea.attr("data-momentId",moment.id);
 	commentHead.append(tarea);
 	var commentSend = $("<span></span>");
@@ -331,6 +331,15 @@ function createCommentEle(commentObj){
 function onComment(btn){
 	var textarea = $(btn).prev();
 	var content = textarea.val();
+	
+	//去除两边的空格
+	content = content.replace(/(^\s*)|(\s*$)/g, "");
+	//检查留言内容是否为空
+	if(content.length == 0){
+		alert("亲，留言内容不能为空~");
+		return;
+	}
+	
 	var momentId = textarea.attr("data-momentId");
 	var commenterId = "<%=user.getId()%>";
 	var commenterName = "<%=user.getUserName()%>";

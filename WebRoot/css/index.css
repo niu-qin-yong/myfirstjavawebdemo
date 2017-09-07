@@ -748,6 +748,7 @@ nav #mgame4:hover{ background-image:url(../imgs/mgame.gif);}
 .comment-text textarea{
   width:350px;
   height:27px;
+  padding-left:5px;
   font-size:16px;
   resize:none;              /*知识点：设置文本域不可拖动*/
   border: none;
