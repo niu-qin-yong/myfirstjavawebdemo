@@ -156,9 +156,13 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					<div id="friendzone" class="showcontent">
 						<div id="send" style="margin-bottom: 10px">
 							<form onsubmit="return sendMoment()" id="momentform">
-							     <textarea name="moment-text" id="moment" cols="80" rows="3" placeholder="说点什么吧"></textarea>
-							     <input type="file" name="moment-pic" id="moment-pic" accept="image/png,image/jpeg"/><br/>
-                    			 <input type="submit" value="发表"/>
+								 <textarea name="moment-text" id="moment_txt_content"  placeholder="说点什么吧"></textarea><br/>
+								 <div id="moment-pic-wrap">
+								 	<input type="file" name="moment-pic" id="moment-pic" accept="image/png,image/jpeg"/>
+								 </div>
+								 <div id="moment-send-wrap">
+									 <input id="moment-send" type="submit" value="发表"/>
+								 </div>                    			 
                     		</form>
 						</div>
 						<div id="loadmore">

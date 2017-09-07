@@ -226,15 +226,19 @@ function createMomentElement(moment,top){
 	var comments = $("<div></div>");
 	comments.attr("class","comment-text");
 	comments.attr("id","comment-text"+moment.id);
+	var commentHead = $("<div></div>");
+	commentHead.attr("class","comment-head");
 	var span = $("<span></span>");
-	comments.append(span);
+	span.attr("class","comment-icon");
+	commentHead.append(span);
 	var tarea = $("<textarea> </textarea>");
 	tarea.attr("data-momentId",moment.id);
-	comments.append(tarea);
-	var btn = $("<button></button>");
-	btn.html("发表");
-	btn.attr("onclick","onComment(this)");
-	comments.append(btn);
+	commentHead.append(tarea);
+	var commentSend = $("<span></span>");
+	commentSend.attr("class","comment-send");
+	commentSend.attr("onclick","onComment(this)");
+	commentHead.append(commentSend);
+	comments.append(commentHead);
 
 	
 	remarksComments.append(favor);
@@ -362,10 +366,20 @@ function createFavorPhotoEle(momentId,favorId,favorName){
 *发表朋友圈动态
 **/		
 function sendMoment(){
-     var content = $('#moment').val();
+     var content = $('#moment_txt_content').val();
      var file = $('#moment-pic')[0];
      
+     /* 检测文本 */
+     if(content == "" | content == null | content.length == 0){
+      	 alert("亲，输入点内容吧");
+    	 return false;
+     }
+    
      /* 检测图片大小 */
+     if(file.files.length == 0){
+     	alert("亲，选择个图片吧");
+    	return false;
+     }
      if(file.files[0].size > 65536){
     	 $('#moment-pic').val("");
     	 alert("您上传的图片过大，请上传小于64k的图片");
@@ -394,7 +408,7 @@ function sendMoment(){
               createMomentElement(JSON.parse(data),true);
               
               /* 清除文本输入框等的内容 */
-              $('#moment').val("");
+              $('#moment_txt_content').val("");
               $('#moment-pic').val("");
           },
           error:function(data,status){
