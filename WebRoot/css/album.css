@@ -26,7 +26,10 @@
 	height:auto;
 	text-align: center;
 	font-size: 20px;
-	background-color:rgba(0,0,0,0.2);
+	font-family:"mini-simple";
+	/*#EEB422*/
+	background-color:rgba(238,180,34,0.8);
+	color:white;
 	padding: 5px;
 	box-sizing: border-box;
 }

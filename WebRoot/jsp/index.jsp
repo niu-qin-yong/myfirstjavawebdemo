@@ -397,9 +397,9 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					</div>
 					<div id="music" class="showcontent">
 						<div id="music-head">
-							<div id="allMusic" onclick="player.showMusics('music-content')" title="显示全部音乐"></div>
-							<div onclick="player.showMusics('music-mine')">我的音乐</div>
-							<div onclick="player.showMusics('music-friend')">好友音乐</div>
+							<div id="allMusic" onclick="player.showMusics('music-content')" ></div>
+							<div id="friendMusic" onclick="player.showMusics('music-friend')" ></div>
+							<div id="mineMusic" onclick="player.showMusics('music-mine')" ></div>
 							<input type="text" placeholder="输入单曲或歌手,按回车键搜索" id="music_search_input">
 						</div>
 						<div id="music-content" class="music-container">
@@ -409,7 +409,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 								<button id="music-upload-btn" onclick="showMusicUpload()">上传歌曲</button>
 							</div>
 						</div>
-						<div id="music-friend" class="music-container">好友音乐
+						<div id="music-friend" class="music-container">
 						</div>
 						<div id="music-search" class="music-container">
 						</div>

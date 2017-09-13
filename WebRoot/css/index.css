@@ -969,3 +969,9 @@ nav #mgame4:hover{ background-image:url(../imgs/mgame.gif);}
 	left: 95px;
 	top: 300px;
 } */
+
+/*迷你简少儿字体*/
+@font-face{
+	font-family:"mini-simple";
+	src:url("../font/迷你简太极.ttf");
+}
