@@ -169,6 +169,18 @@ function createMomentElement(moment,top){
 		levelUrl = "<%=basePath%>/imgs/star-level-2.png";
 	}else if(Math.floor(level/30) == 3){
 		levelUrl = "<%=basePath%>/imgs/star-level-3.png";
+	}else if(Math.floor(level/30) == 4){
+		levelUrl = "<%=basePath%>/imgs/star-level-4.png";
+	}else if(Math.floor(level/30) == 5){
+		levelUrl = "<%=basePath%>/imgs/star-level-5.png";
+	}else if(Math.floor(level/30) == 6){
+		levelUrl = "<%=basePath%>/imgs/star-level-6.png";
+	}else if(Math.floor(level/30) == 7){
+		levelUrl = "<%=basePath%>/imgs/star-level-7.png";
+	}else if(Math.floor(level/30) == 8){
+		levelUrl = "<%=basePath%>/imgs/star-level-8.png";
+	}else if(Math.floor(level/30) == 9){
+		levelUrl = "<%=basePath%>/imgs/star-level-9.png";
 	}
 	levelImg.attr("src",levelUrl);
 	
@@ -214,15 +226,19 @@ function createMomentElement(moment,top){
 	var comments = $("<div></div>");
 	comments.attr("class","comment-text");
 	comments.attr("id","comment-text"+moment.id);
+	var commentHead = $("<div></div>");
+	commentHead.attr("class","comment-head");
 	var span = $("<span></span>");
-	comments.append(span);
-	var tarea = $("<textarea> </textarea>");
+	span.attr("class","comment-icon");
+	commentHead.append(span);
+	var tarea = $("<textarea></textarea>");
 	tarea.attr("data-momentId",moment.id);
-	comments.append(tarea);
-	var btn = $("<button></button>");
-	btn.html("发表");
-	btn.attr("onclick","onComment(this)");
-	comments.append(btn);
+	commentHead.append(tarea);
+	var commentSend = $("<span></span>");
+	commentSend.attr("class","comment-send");
+	commentSend.attr("onclick","onComment(this)");
+	commentHead.append(commentSend);
+	comments.append(commentHead);
 
 	
 	remarksComments.append(favor);
@@ -315,6 +331,15 @@ function createCommentEle(commentObj){
 function onComment(btn){
 	var textarea = $(btn).prev();
 	var content = textarea.val();
+	
+	//去除两边的空格
+	content = content.replace(/(^\s*)|(\s*$)/g, "");
+	//检查留言内容是否为空
+	if(content.length == 0){
+		alert("亲，留言内容不能为空~");
+		return;
+	}
+	
 	var momentId = textarea.attr("data-momentId");
 	var commenterId = "<%=user.getId()%>";
 	var commenterName = "<%=user.getUserName()%>";
@@ -350,10 +375,20 @@ function createFavorPhotoEle(momentId,favorId,favorName){
 *发表朋友圈动态
 **/		
 function sendMoment(){
-     var content = $('#moment').val();
+     var content = $('#moment_txt_content').val();
      var file = $('#moment-pic')[0];
      
+     /* 检测文本 */
+     if(content == "" | content == null | content.length == 0){
+      	 alert("亲，输入点内容吧");
+    	 return false;
+     }
+    
      /* 检测图片大小 */
+     if(file.files.length == 0){
+     	alert("亲，选择个图片吧");
+    	return false;
+     }
      if(file.files[0].size > 65536){
     	 $('#moment-pic').val("");
     	 alert("您上传的图片过大，请上传小于64k的图片");
@@ -382,7 +417,7 @@ function sendMoment(){
               createMomentElement(JSON.parse(data),true);
               
               /* 清除文本输入框等的内容 */
-              $('#moment').val("");
+              $('#moment_txt_content').val("");
               $('#moment-pic').val("");
           },
           error:function(data,status){

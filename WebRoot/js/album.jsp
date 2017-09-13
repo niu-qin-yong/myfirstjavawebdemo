@@ -39,7 +39,7 @@ var album = {
 	},
 	//隐藏创建相册弹出框
 	hideAlbumCreate : function(){
-		$("#album-create").animate({top:'-300px'},300,function(){
+		$("#album-create").animate({top:'-500px'},300,function(){
 			//隐藏后将原有输入数据清空
 			$("#album-create-name").val("");
 			$("#album-create-des").val("");
@@ -91,7 +91,6 @@ var album = {
 		var list = $("<div></div>");
 		list.attr("id",albumObj.id);
 		list.attr("class","album-list");
-		list.attr("title","浏览相册"); 
 		//图片路径  pictures/1-2-xx.png  userid-albumid-picname.png
 		if(albumObj.pics != null && albumObj.pics != undefined && albumObj.pics.length != 0){
 			//取第一张图片做封面

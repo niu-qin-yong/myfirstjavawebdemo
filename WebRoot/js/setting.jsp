@@ -103,6 +103,18 @@ function setUserLevel(){
 		levelUrl = "<%=basePath%>/imgs/star-level-2.png";
 	}else if(Math.floor(level/30) == 3){
 		levelUrl = "<%=basePath%>/imgs/star-level-3.png";
+	}else if(Math.floor(level/30) == 4){
+		levelUrl = "<%=basePath%>/imgs/star-level-4.png";
+	}else if(Math.floor(level/30) == 5){
+		levelUrl = "<%=basePath%>/imgs/star-level-5.png";
+	}else if(Math.floor(level/30) == 6){
+		levelUrl = "<%=basePath%>/imgs/star-level-6.png";
+	}else if(Math.floor(level/30) == 7){
+		levelUrl = "<%=basePath%>/imgs/star-level-7.png";
+	}else if(Math.floor(level/30) == 8){
+		levelUrl = "<%=basePath%>/imgs/star-level-8.png";
+	}else if(Math.floor(level/30) == 9){
+		levelUrl = "<%=basePath%>/imgs/star-level-9.png";
 	}
 	
 	userLevel.setAttribute("src",levelUrl);

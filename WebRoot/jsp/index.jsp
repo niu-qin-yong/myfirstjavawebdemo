@@ -156,9 +156,13 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					<div id="friendzone" class="showcontent">
 						<div id="send" style="margin-bottom: 10px">
 							<form onsubmit="return sendMoment()" id="momentform">
-							     <textarea name="moment-text" id="moment" cols="80" rows="3" placeholder="说点什么吧"></textarea>
-							     <input type="file" name="moment-pic" id="moment-pic" accept="image/png,image/jpeg"/><br/>
-                    			 <input type="submit" value="发表"/>
+								 <textarea name="moment-text" id="moment_txt_content"  placeholder="说点什么吧"></textarea><br/>
+								 <div id="moment-pic-wrap">
+								 	<input type="file" name="moment-pic" id="moment-pic" accept="image/png,image/jpeg"/>
+								 </div>
+								 <div id="moment-send-wrap">
+									 <input id="moment-send" type="submit" value="发表"/>
+								 </div>                    			 
                     		</form>
 						</div>
 						<div id="loadmore">
@@ -167,7 +171,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					</div>
 					<div id="album" class="showcontent">
 						<div class="album-header">
-							<button onclick="album.showAlbumCreate()">创建相册</button>
+							<div id="show-album-create" onclick="album.showAlbumCreate()"></div>
 							<!-- <button id="album-create"  data-toggle="modal" data-target="#create-album" >创建相册</button>
 							创建相册的模态框
 							<div class="modal fade" id="create-album" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -393,9 +397,9 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					</div>
 					<div id="music" class="showcontent">
 						<div id="music-head">
-							<div id="allMusic" onclick="player.showMusics('music-content')" title="显示全部音乐"></div>
-							<div onclick="player.showMusics('music-mine')">我的音乐</div>
-							<div onclick="player.showMusics('music-friend')">好友音乐</div>
+							<div id="allMusic" onclick="player.showMusics('music-content')" ></div>
+							<div id="friendMusic" onclick="player.showMusics('music-friend')" ></div>
+							<div id="mineMusic" onclick="player.showMusics('music-mine')" ></div>
 							<input type="text" placeholder="输入单曲或歌手,按回车键搜索" id="music_search_input">
 						</div>
 						<div id="music-content" class="music-container">
@@ -405,7 +409,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 								<button id="music-upload-btn" onclick="showMusicUpload()">上传歌曲</button>
 							</div>
 						</div>
-						<div id="music-friend" class="music-container">好友音乐
+						<div id="music-friend" class="music-container">
 						</div>
 						<div id="music-search" class="music-container">
 						</div>
@@ -549,7 +553,6 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		<div id="album-create">
 			<div id="ac-header">
 				<div id="ac-header-title">
-					创建相册
 				</div>
 			</div>
 			<div id="ac-body">
@@ -557,12 +560,10 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 				<input id="album-create-des" placeholder="相册描述" />
 			</div>
 			<div id="ac-footer">
-				<button id="al-create" onclick="album.hideAlbumCreate()">
-					关闭
-				</button>
-				<button id="al-close" onclick="album.createAlbum()">
-					创建
-				</button>
+				<div id="al-create" onclick="album.createAlbum()">
+				</div>
+				<div id="al-close" onclick="album.hideAlbumCreate()">
+				</div>
 			</div>
 		</div>		
 		<!-- 相册浏览对话框 -->
