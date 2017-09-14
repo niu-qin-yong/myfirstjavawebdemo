@@ -405,8 +405,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 						<div id="music-content" class="music-container">
 						</div>
 						<div id="music-mine" class="music-container">
-							<div>
-								<button id="music-upload-btn" onclick="showMusicUpload()">上传歌曲</button>
+							<div id="show-music-upload" onclick="showMusicUpload()">
 							</div>
 						</div>
 						<div id="music-friend" class="music-container">
@@ -589,7 +588,6 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		<div id="music-upload">
 			<div id="mu-header">
 				<div id="mu-header-title">
-					歌曲上传
 				</div>
 			</div>
 			<div id="mu-body">
@@ -604,12 +602,8 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 				</div>
 			</div>
 			<div id="mu-footer">
-				<button id="al-create" onclick="hideMusicUpload()">
-					关闭
-				</button>
-				<button id="al-close" onclick="onMusicUpload()">
-					上传
-				</button>
+				<div id="mu-create" onclick="onMusicUpload()"></div>
+				<div id="mu-close" onclick="hideMusicUpload()"></div>
 			</div>
 		</div>	
 				

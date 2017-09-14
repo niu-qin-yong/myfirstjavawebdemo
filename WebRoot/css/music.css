@@ -140,10 +140,12 @@
 
 /*音乐上传弹出框*/
 #music-upload {
-	background-color: white;
-	border-radius: 5px;
-	box-shadow: 0 0 5px black;
-	width:500px;
+	width: 500px;
+	background: url(../imgs/music_upload_bg.png);
+	background-size:100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	box-sizing: border-box;
 	position: fixed;
 	margin:auto;
 	left:0;
@@ -154,8 +156,11 @@
 	width: 500px;
 }
 #mu-header-title {
-	font-size: x-large;
-	margin: 20px;
+	width:210px;
+	height:46px;
+	background: url(../imgs/music_upload_title.png) no-repeat;
+	background-size: contain;
+	margin-top:5px;
 }
 #mu-body {
 	width: 500px;
@@ -201,28 +206,44 @@
 	height: 70px;
 	margin-top: 20px;
 }
-#mu-footer button {
-	padding: 5px;
-	width:100px;
-	height:40px;
+#mu-footer div {
+	width:84px;
+	height:42px;
+	background-size:contain;
 	float:right;
 	margin-right: 20px;
 	border:0;
 	border-radius: 5px;
 }
-
-#mu-footer button:hover{
-	background-color: rgba(0,0,255,0.2);
+#mu-create{
+	background:url(../imgs/make.png) no-repeat;
 }
 
-#mu-footer button:focus{
+#mu-close{
+	background:url(../imgs/close.png) no-repeat;
+}
+#mu-footer div:hover{
+	background-color: rgba(0,0,0,0.2);
+}
+
+#mu-footer div:focus{
 	outline:none;
 }
 
-#mu-footer button:mutive{
-	box-shadow: 0 0  5px blue;
+#mu-footer div:active{
+	box-shadow: 0 0  5px gray;
 }
-/*音乐上传弹出框*/
+
+/* 上传歌曲选项按钮*/
+#show-music-upload{
+	width: 250px;
+	height:58px;
+	background: url(../imgs/music_upload_opt.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+
 
 @keyframes rotate{
 from {
