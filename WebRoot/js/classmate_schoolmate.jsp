@@ -147,6 +147,7 @@ function showClassmates(){
 				//如果是好友，取消好友
 				addfriend.setAttribute("title","取消好友");
 				addfriend.setAttribute("data-friId",<%=mate.getId()%>);
+				addfriend.setAttribute("data-friName","<%=mate.getUserName()%>");
 				addfriend.style.backgroundImage="url("+basePath+"imgs/removefriend.png)";
 				addfriend.setAttribute("onclick","removeFriend(this)");
 			}else{
@@ -178,6 +179,8 @@ function showClassmates(){
 function addFriend(a){
 	var friId = a.getAttribute("data-friId");
 	var friName = a.getAttribute("data-friName");
+	
+	console.log("friId:"+friId+",friName:"+friName);
 	
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function(){
@@ -223,12 +226,12 @@ function removeFriend(a){
     xmlhttp.onreadystatechange = function(){
        if(xmlhttp.readyState==4 && xmlhttp.status == 200){
     	   if(xmlhttp.responseText == "remove_friend_ok"){
-     	    a.style.backgroundImage="url("+basePath+"imgs/jiafriend.png)";
-	a.setAttribute("title","添加好友");
-	a.setAttribute("onclick",'addFriend(this)'); 
-	
-	//更新好友界面
-	removeEleFromFriends(a.getAttribute("data-friId"));
+	     	    a.style.backgroundImage="url("+basePath+"imgs/jiafriend.png)";
+				a.setAttribute("title","添加好友");
+				a.setAttribute("onclick",'addFriend(this)'); 
+				
+				//更新好友界面
+				removeEleFromFriends(a.getAttribute("data-friId"));
     	   }
        }
     }
