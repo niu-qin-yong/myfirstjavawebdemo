@@ -536,15 +536,13 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		<div id="chatbox">
 			<div id="chatmain">
 				<div id="bar">
-					与xxx聊天中
+					<div id="chat-person">尼古拉斯凯奇尼</div>
+					<div id="chat-close" onclick="hideChatWindow()"></div>
 				</div>
-				<div id="chatborard">
-				</div>
-				<div>
-					<input type="text" id="inputcontent" placeholder="点击按钮或者按回车键发送  /  按ESC键关闭聊天"/>
-					<button id="chatsend" onclick="onSend()">
-						发送
-					</button>
+				<div id="chatborard"></div>
+				<div id="chat-footer">
+					<textarea id="inputcontent"></textarea>
+					<span id="chatsend" onclick="onSend()"></span>
 				</div>
 			</div>
 		</div>

@@ -8,13 +8,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 /**
+	*关闭聊天窗口
+	**/
+	function hideChatWindow(){
+		/*把文本输入框中的toUserId属性值置为空，这是个标志，如果有值是1v1聊天，如果为空则是多人聊天*/
+		$("#inputcontent").attr("data-toUserId","");
+		$("#chatbox").css("display", "none");	
+	}
+
+/**
 	*1v1聊天
 	**/
 	function chat(toUserId,toUserName){
 		/* 设置好友id，发送消息时要用到 */
 		$("#inputcontent").attr("data-toUserId",toUserId);
 		
-		var text = "和 <b>"+toUserName+"</b> 聊天中";
+		var text = "<b>"+toUserName+"</b>";
 		showChatWindow(text);
 	}
 
@@ -57,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(message != "" | message != undefined){
 				var msgObj = JSON.parse(message.data);
 				if(msgObj.msgCode == 0){
-					showChatWindow("和 <b>"+msgObj.fromUserName+"</b> 聊天中");
+					showChatWindow("<b>"+msgObj.fromUserName+"</b>");
 					//1v1聊天,记录对方的userID,发送消息时有用到
 					$("#inputcontent").attr("data-toUserId",msgObj.fromUserId);
 				}else if(msgObj.msgCode == 1){
@@ -83,8 +92,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if($("#chatbox").css("display") == "none"){
 			$("#chatbox").css("display","block");
 		}
-		if($("#bar").html() != barText){
-			$("#bar").html(barText);
+		if($("#chat-person").html() != barText){
+			$("#chat-person").html(barText);
 			$("#chatborard").empty();
 		}
 	}
