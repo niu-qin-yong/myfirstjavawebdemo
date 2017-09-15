@@ -567,7 +567,6 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		<div id="album-browser">
 			<div id="ab-header">
 				<div id="ab-header-title">
-					浏览相册
 				</div>
 			</div>
 			<div class="scroll_wrap">
@@ -577,9 +576,8 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 				</div>
 			</div>
 			<div id="ab-footer">
-				<button id="ab-close" onclick="album.hideAlbumBrowser()">
-					关闭
-				</button>
+				<div id="ab-close" onclick="album.hideAlbumBrowser()">
+				</div>
 			</div>
 		</div>	
 		<!-- 音乐上传弹出框 -->

@@ -83,6 +83,7 @@
   height:100%;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
+  box-shadow: 0 0 5px rgba(238,180,34,0.8);
 }
 
 /*相册创建弹出框*/
@@ -168,22 +169,24 @@
 
 /*相册浏览弹出框*/
 #album-browser {
-	background-color: white;
-	border-radius: 5px;
-	box-shadow: 0 0 5px black;
 	width:500px;
 	position: fixed;
 	margin:auto;
 	left:0;
 	right:0;
 	top:-1000px;
+	background: url(../imgs/album_browser_bg.png) no-repeat;
+	background-size:100% 100%;
 }
 #ab-header {
 	width: 500px;
 }
 #ab-header-title {
-	font-size: x-large;
-	margin: 20px;
+	width:200px;
+	height:45px;
+	background: url(../imgs/album_browser_title.png) no-repeat;
+	background-size:100% 100%;
+	margin-top: 7px;
 }
 #ab-body {
 	width: 500px;
@@ -191,21 +194,34 @@
 	overflow-x:hidden;
 	overflow-y: auto;
 	padding: 5px;
-	background-color: #DCDCDC;
+	/* background-color: #DCDCDC; 
+	background-color: white;*/
 }
 
 #ab-footer {
 	width: 500px;
 	height: 70px;
 }
-#ab-footer button {
-	padding: 5px;
-	width:100px;
-	height:40px;
+#ab-close{
+	width:84px;
+	height:42px;
 	float:right;
 	margin-right: 20px;
 	border:0;
 	border-radius: 5px;
+	background: url(../imgs/close.png);
+	background-size:contain;
+}
+#ab-close:hover{
+	background-color: rgba(0,0,0,0.2);
+}
+
+#ab-close:focus{
+	outline:none;
+}
+
+#ab-close:active{
+	box-shadow: 0 0  5px gray;
 }
 
 
