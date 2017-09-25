@@ -100,7 +100,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		String username = user.getUserName();
 		if(username != null){
 		%>
-		<div>欢迎&nbsp;<b><%=username %></b>&nbsp;<a href="<%=basePath%>servlet/LogoutServlet">注销</a></div>
+		<div id="welcome">欢迎<div id="username-welcome"><%=username %></div>&nbsp;&nbsp;<a href="<%=basePath%>servlet/LogoutServlet">注销</a></div>
 		<%}%>
 		<!--外部框架-->
 		<div id="base">

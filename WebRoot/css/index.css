@@ -30,6 +30,21 @@ aside {
 	margin: auto;
 	position: relative;
 }
+/* 欢迎语 */
+#welcome{
+	font-family: "mini-simple";
+	font-size: 20px;
+	margin: 10px;
+}
+#username-welcome{
+	width:80px;
+    height:30px;
+	background: url(../imgs/tou1.png);
+	background-size: 100% 100%;
+	text-align: center;
+	display: inline-block;
+}
+
 /*顶部导航栏*/
 #banner {
 	width: 491px;
