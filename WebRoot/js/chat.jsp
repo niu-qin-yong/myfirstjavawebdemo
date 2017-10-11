@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	*1v1聊天
 	**/
 	function chat(toUserId,toUserName){
+		console.log(toUserId+","+toUserName);
 		/* 设置好友id，发送消息时要用到 */
 		$("#inputcontent").attr("data-toUserId",toUserId);
 		

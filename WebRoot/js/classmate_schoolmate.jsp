@@ -35,6 +35,8 @@ function removeEleFromFriends(friId){
 *添加好友到好友界面
 **/
 function addEleFromFriends(friId,friName){
+	console.log("添加好友"+friId+","+friName);
+	
 	var friendee=document.createElement("div");
 	friendee.setAttribute("class","friendee");
 	friendee.setAttribute("id","fri"+friId);
@@ -51,8 +53,9 @@ function addEleFromFriends(friId,friName){
 	
 	var gfriendchat=document.createElement("div");
 	gfriendchat.setAttribute("class","gfriendchat");
-	gfriendchat.setAttribute("onclick","javascript:chat(\"<%=user.getId()%>\","+friId+")");
-	<%-- gfriendchat.setAttribute("onclick","javascript:chat('<%=user.getId()%>',"+friId+")"); --%>
+	gfriendchat.setAttribute("onclick","javascript:chat("+friId+",\""+friName+"\")");
+	<%--  gfriendchat.setAttribute("onclick","javascript:chat(\"<%=user.getId()%>\","+friId+")");
+	gfriendchat.setAttribute("onclick","javascript:chat('<%=user.getId()%>',"+friId+")"); --%>
 	gfriendchat.innerHTML = "聊天";
 	friendee.appendChild(gfriendchat);
 	
