@@ -4,9 +4,9 @@
     /*border:1px solid red;*/
     margin:auto;
     position:absolute;
-    top:0;
+    top:50px;
     bottom:0;
-    right:65px;
+    right:-130px;
     border-radius:40px;
     background:rgba(255,255,255,0.7);
     overflow-x:visible;
@@ -33,7 +33,7 @@
     height:240px;
     /* border:1px solid red; */
     position:absolute;
-    left:-120px;
+    left:-160px;
     bottom:-16px;
     background:url(../imgs/classroombg.png) no-repeat;
     background-size:100% 100%;
