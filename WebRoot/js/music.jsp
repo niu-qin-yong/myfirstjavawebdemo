@@ -230,8 +230,9 @@ var player = {
 			var top =ele.getBoundingClientRect().top;
 			
 			//页面的垂直滚动距离
-			var scrollTop = document.body.scrollTop;  
-			
+			//var scrollTop2 = document.body.scrollTop;  //为什么下面的可以，而这行的不行
+			var scrollTop = document.documentElement.scrollTop;  
+
 			//设置转发DOM的位置
 			var topOffset = 15;
 			var jia = $("#jiathis");
@@ -256,7 +257,7 @@ var player = {
 			var top =ele.getBoundingClientRect().top;
 			
 			//页面的垂直滚动距离
-			var scrollTop = document.body.scrollTop;  		
+			var scrollTop = document.documentElement.scrollTop;	
 			
 			//设置DOM的位置
 			var topOffset = -20;
