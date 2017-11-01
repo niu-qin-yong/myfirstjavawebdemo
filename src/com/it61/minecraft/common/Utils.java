@@ -9,9 +9,13 @@ import com.it61.minecraft.bean.WSMessage;
 public class Utils {
 	
 	public static void main(String[] args) {
-		String str = "{\"msgCode\":0,\"targetUserId\":\"7\",\"content\":\"我是1\"}";
-		WSMessage msg = (WSMessage) JSON.parseObject(str,WSMessage.class);
-		System.out.println(msg.getContent());
+//		String str = "{\"msgCode\":0,\"targetUserId\":\"7\",\"content\":\"我是1\"}";
+//		WSMessage msg = (WSMessage) JSON.parseObject(str,WSMessage.class);
+//		System.out.println(msg.getContent());
+		
+		String str2 = "{\"age\":18,\"name\":\"I'm Mick\"}";
+		String json = Utils.FastJsontoJsonString(str2);
+		System.out.println(json);
 	}
 	
 	
@@ -37,7 +41,11 @@ public class Utils {
 		//设置时间格式
 		JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
 		
-		return JSON.toJSONString(myobj,filter,SerializerFeature.WriteDateUseDateFormat);
+		String json = JSON.toJSONString(myobj,filter,SerializerFeature.WriteDateUseDateFormat);
+		//将json字符串中的特殊字符编码
+		String j2 = StringUtils.getJsonForJS(json);
+		
+		return j2;
 
 	}
 	

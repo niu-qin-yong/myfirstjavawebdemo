@@ -1,5 +1,6 @@
 <%@ page contentType="text/javascript; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
+<%@page import="com.it61.minecraft.common.*"%>
 <%@page import="com.it61.minecraft.bean.*"%>
 <%@page import="com.it61.minecraft.service.*"%>
 <%@page import="com.it61.minecraft.service.impl.*"%>
@@ -57,7 +58,8 @@ function showMoments(){
 			}  
 			
 		};
-		String json = JSON.toJSONString(m,filter,SerializerFeature.WriteDateUseDateFormat);
+		//String json = JSON.toJSONString(m,filter,SerializerFeature.WriteDateUseDateFormat);
+		String json = Utils.FastJsontoJsonString(m);
 	%>	
 	
 		var moment = JSON.parse('<%=json%>');
