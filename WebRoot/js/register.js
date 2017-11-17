@@ -77,7 +77,7 @@ function validate(i) {
 		
 		//检查验证码是否正确，将用户输入的验证码提交给服务器，服务器返回判断结果
 		$.ajax({
-			url:"/minecraft/servlet/CheckValidateCodeServlet",
+			url:basePath+"servlet/CheckValidateCodeServlet",
 			async: false,
 			type:'post',
 			data:{'code':value},
@@ -124,7 +124,7 @@ function check() {
 //显示动态验证码,首次显示注册页面，用户点击验证码,注册失败这些情况下都更新验证码
 function showValidateCode() {
 	var div = document.querySelector("#vertify");
-	div.style.backgroundImage = "url(/minecraft/servlet/ValidateCodeServlet?randomId="
+	div.style.backgroundImage = "url("+basePath+"servlet/ValidateCodeServlet?randomId="
 			+ Math.random() + ")";
 }
 

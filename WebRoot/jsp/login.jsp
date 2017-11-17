@@ -2,7 +2,7 @@
 <%@page import="com.it61.minecraft.common.*" %>
 <%
 String webName = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName+"/";
 %>
 
 <%-- 读取cookie --%>
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="Author" content="">
 <meta name="Keywords" content="">
 <meta name="Description" content="">
-<title>Document</title>
+<title>登录</title>
 <link rel="stylesheet" href="<%=basePath %>/css/login.css">
 </head>
 <body>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 					<tr>
 						<td class="t2"><a href="javascript:void(0)">忘记登陆密码</a><a
-							href="/minecraft/jsp/registe.jsp">免费注册</a></td>
+							href="<%=basePath%>jsp/registe.jsp">免费注册</a></td>
 					</tr>
 					<tr>
 						<td class="t3"><input type="submit" class="login" value=""></td>

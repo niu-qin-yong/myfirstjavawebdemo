@@ -2,18 +2,22 @@
     pageEncoding="UTF-8"%>
 <%
 String webName = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName;
-
-
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+webName+"/";
 %>
 <!doctype html>
 <html>
  <head>
   <meta charset="UTF-8">
-  <title>完整注册页</title>
+  <title>注册</title>
   <link rel="stylesheet" href="../css/register.css">
  </head>
  <body>
+ 		<!-- 初始化JavaScript变量 -->
+		<script>
+			/* 应用路径 */
+			var basePath = "<%=basePath%>";
+		</script>
+		
 	<header>
 			<a href="#" class="logo"></a>			
 			<span class="welcome">欢迎注册</span>
@@ -21,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<hr>
 	<section>
 	    <div id="section_left">
-	        <form action="/minecraft/servlet/RegisteServlet" method="post" onsubmit="return check()">
+	        <form action="<%=basePath%>servlet/RegisteServlet" method="post" onsubmit="return check()">
 			<ul id="inputarea">
 			  <li>
 				<input  type="text" placeholder="您的用户名和登陆名" name="uname" id="username" data-point="用户名">

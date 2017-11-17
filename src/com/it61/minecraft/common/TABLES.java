@@ -5,15 +5,15 @@ public class TABLES {
 	  + "`id` int(11) NOT NULL AUTO_INCREMENT,"
 	  + "`username` varchar(16) NOT NULL,"
 	  + "`password` varchar(16) NOT NULL,"
-	  + "`nick_name` varchar(32),"
-	  + "`gender` char(6) DEFAULT NULL,"
+	  + "`nick_name` varchar(32) DEFAULT '',"
+	  + "`gender` char(6) DEFAULT 'male',"
 	  + "`age` int(1) DEFAULT '10',"
 	  + "`birth` varchar(16) DEFAULT '2007-01-01',"
 	  + "`class` int(11) DEFAULT '1',"
-	  + "`phonenumber` varchar(16) DEFAULT NULL,"
+	  + "`phonenumber` varchar(16) DEFAULT '',"
 	  + "`photo` blob,"
-	  + "`star` varchar(16) DEFAULT NULL,"
-	  + "`email` varchar(24) DEFAULT NULL,"
+	  + "`star` varchar(16) DEFAULT '白羊座',"
+	  + "`email` varchar(24) DEFAULT '',"
 	  + "`grade` int(11) DEFAULT '1',"
 	  + "`level` int(11) DEFAULT '30',"
 	  + "PRIMARY KEY (`id`),"
@@ -129,4 +129,17 @@ public class TABLES {
 			  + "KEY `user_id` (`user_id`),"
 			  + "CONSTRAINT `signs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) "
 			+ ") ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;";
+	
+	public static final String musicSys =
+			"insert into musics(music,poster,title,singer,server_side)"
+			+ " values('audio/凉凉.mp3','poster/ll.jpg','凉凉','张碧晨',1)"
+			+",('audio/成都.mp3','poster/cd.jpg','成都','赵雷',1)"
+			+",('audio/演员.mp3','poster/yy.jpg','演员','薛之谦',1)"
+			+",('audio/告白气球.mp3','poster/gbqq.jpg','告白气球','周杰伦',1)"
+			+",('audio/小幸运.mp3','poster/xxy.jpg','小幸运','田馥甄',1)";
+	
+	public static final String defaultUsers =
+			"insert into users(username,password,nick_name,gender,age,birth)"
+			+ " values('Steve','it61dntc','steve','male',11,'2006-01-01')"
+			+ ",('Alex','it61dntc','alex','female',8,'2008-10-25')";
 }

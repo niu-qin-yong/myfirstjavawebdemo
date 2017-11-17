@@ -89,6 +89,11 @@ public class ContextListenerImpl implements ServletContextListener,ServletContex
 				System.out.println("创建表 "+sql.substring(0, 20));
 			}
 			
+			//导入音乐馆数据
+			statement.execute(TABLES.musicSys);
+			System.out.println("导入音乐馆数据完成");
+			statement.execute(TABLES.defaultUsers);
+			System.out.println("导入默认用户据完成");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
