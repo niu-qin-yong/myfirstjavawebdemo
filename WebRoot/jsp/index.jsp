@@ -64,7 +64,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>我的主页完整布局</title>
+		<title>我的世界</title>
 		<link rel="stylesheet" href="css/index.css"/>
 		<link rel="stylesheet" type="text/css" href="plugin/kalendae/css/kalendae.css">
 		<link rel="stylesheet" href="css/classroom.css">
