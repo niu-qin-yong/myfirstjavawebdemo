@@ -127,6 +127,11 @@
     <servlet-name>MusicUploadServet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.MusicUploadServet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ObtainSaveSizeServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.ObtainSaveSizeServlet</servlet-class>
+  </servlet>
+
 
   <filter>
     <filter-name>CharactorFilter</filter-name>
@@ -295,6 +300,10 @@
   <servlet-mapping>
     <servlet-name>MusicUploadServet</servlet-name>
     <url-pattern>/servlet/MusicUploadServet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ObtainSaveSizeServlet</servlet-name>
+    <url-pattern>/servlet/ObtainSaveSizeServlet</url-pattern>
   </servlet-mapping>
   <listener>
     <listener-class>com.it61.minecraft.web.listener.OnlineListener</listener-class>

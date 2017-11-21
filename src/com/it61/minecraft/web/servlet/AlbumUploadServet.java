@@ -23,13 +23,16 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.it61.minecraft.bean.Album;
 import com.it61.minecraft.bean.Picture;
+import com.it61.minecraft.bean.User;
 import com.it61.minecraft.common.Constants;
 import com.it61.minecraft.common.ImageResize;
 import com.it61.minecraft.common.Utils;
 import com.it61.minecraft.service.AlbumService;
 import com.it61.minecraft.service.PictureService;
+import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.AlbumServiceImpl;
 import com.it61.minecraft.service.impl.PictureServiceImpl;
+import com.it61.minecraft.service.impl.UserServiceImpl;
 
 public class AlbumUploadServet extends HttpServlet {
 
@@ -51,7 +54,9 @@ public class AlbumUploadServet extends HttpServlet {
 				List<FileItem> items = upload.parseRequest(request);
 				//依次存放userid，albumid，picname
 				List<Object> datas = new ArrayList<Object>();
-
+				
+				//先判断大小，如果超出限制则结束
+				int picsSize = 0;
 				for (FileItem item : items) {
 					// 普通表单项
 					if (item.isFormField()) {
@@ -68,7 +73,23 @@ public class AlbumUploadServet extends HttpServlet {
 							albumName = value;
 						}
 						
-					} else {
+					}else{
+						picsSize += item.getSize();
+					}
+				}
+				UserService userService = new UserServiceImpl();
+				User user = userService.getUser(Integer.valueOf(userId));
+				//图片的最大存储空间 5M
+				int available = 5*1024*1024 - user.getPicSize();
+				if(picsSize > available){
+					System.out.println("User "+userId+" 上传图片，空间不足");
+					response.getWriter().write("{\"error\":\"picture storage isn't enough\"}");
+					return;
+				}
+				
+				
+				for (FileItem item : items) {
+					if (!item.isFormField()){
 						// type 是 file 的表单项
 						String name = item.getFieldName();
 						String type = item.getContentType();
@@ -134,6 +155,10 @@ public class AlbumUploadServet extends HttpServlet {
 				//保存图片数据到数据库
 				AlbumService service = new AlbumServiceImpl();
 				service.addPictures(datas.toArray());
+				
+				//保存图片占用的存储空间
+				System.out.println("上传的图片大小："+picsSize);
+				userService.savePicSize(Integer.valueOf(userId), picsSize);
 				
 				//将相册数据作为响应返回给客户端
 				Album album = new Album(Integer.valueOf(userId),Integer.valueOf(albumId),albumName);

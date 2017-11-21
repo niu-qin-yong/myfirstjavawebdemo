@@ -29,6 +29,8 @@ String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.Write
 %>
 var albumArray = JSON.parse('<%=allAlbumsJsonString%>');
 
+var picAlreadyUsedSize = 0;
+
 var album = {
 	viewer : null,
 	//显示创建相册弹出框
@@ -134,6 +136,7 @@ var album = {
 		input.attr("accept","image/png,image/jpeg");
 		input.attr("multiple","multiple");
 		input.on("change",function(event){
+			console.log("kd1");
 			// 实例化一个表单数据对象
 			var formData = new FormData();
 			
@@ -143,11 +146,24 @@ var album = {
 			formData.append("albumName",albumObj.name);
 			
 			//获取选择的图片
+			var filesTotalSize = 0;
 			var files = $(this)[0].files;
 			for(var i = 0;i < files.length;i++){
 				var file = files[i];
+				filesTotalSize += file.size;
 				formData.append($(this).attr("name"),file);
 			}
+			console.log("上传图片，图片总大小:"+filesTotalSize);
+			if(picAlreadyUsedSize == -1){
+				alert("抱歉,从服务器获取图片存储空间大小失败");
+				return;
+			}
+			//图片最大存储空间大小5M
+			var available = 5*1024*1024-picAlreadyUsedSize;			
+			if(filesTotalSize > available){
+				alert("抱歉，您的图片存储空间只剩"+Math.round(available/1024/1024*100)/100+"M,不足以存储现在上传的内容");
+				return;
+			}	
 			
 			//AJAX异步上传图片
 			$.ajax({
@@ -160,8 +176,8 @@ var album = {
 			         // 告诉jQuery不要去设置Content-Type请求头
 			         contentType : false,
 			         success:function(data,status){
-			         	var obj = JSON.parse(data);
 			         	console.log("上传图片成功后，服务端返回的数据："+data);
+			         	var obj = JSON.parse(data);
 			         	 
 						//更新封面
 						//取第一张图片做封面
@@ -174,6 +190,9 @@ var album = {
 						if(status == "success"){
 							alert("恭喜，上传成功!");
 						}
+						
+						//上传成功后获取最新的存储空间大小
+						album.obtainPicSize();
 			         },
 			         error:function(data,status){
 			             alert(data+"========"+status)
@@ -265,6 +284,22 @@ var album = {
 		//填充了图片后再创建Viewer对象才有效
 		this.initViewer();
 	},
+	//获取相册已用存储空间
+	obtainPicSize : function(){
+		$.ajax({
+		        url:"<%=basePath%>/servlet/ObtainSaveSizeServlet?userId="+<%=user.getId()%>+"&type=pic",
+		        type:"get",
+		        async:true,//异步
+		        success:function(data,status){
+		        	var obj = JSON.parse(data);
+		        	picAlreadyUsedSize = obj.size;
+		        	console.log("picAlreadyUsedSize:"+picAlreadyUsedSize);
+		        },
+		        error:function(data,status){
+		        	picAlreadyUsedSize = -1;
+		        }
+	    });
+	},
 	//初始化相册
 	initAlbum : function(){
 		for(var i=0;i < albumArray.length;i++){
@@ -272,6 +307,8 @@ var album = {
 			this.createEleNode(albumObj);	
 		}
 		
+		//初始化时获取下相册已用存储空间
+		this.obtainPicSize();
 	},
 	//初始化Viewer
 	initViewer : function(){

@@ -15,4 +15,23 @@ public interface UserService {
 	 * @param user
 	 */
 	void addExperience(User user)throws Exception;
+	/**
+	 * 由用户id获取用户对象
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	User getUser(int userId)throws Exception;
+	/**
+	 * 保存图片大小
+	 * @param userId
+	 * @param picSize
+	 */
+	void savePicSize(int userId,int picSize)throws Exception;
+	/**
+	 * 保存音乐大小
+	 * @param userId
+	 * @param picSize
+	 */
+	void saveMusicSize(int userId,int musicSize)throws Exception;
 }

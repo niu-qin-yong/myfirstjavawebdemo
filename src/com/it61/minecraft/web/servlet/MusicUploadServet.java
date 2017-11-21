@@ -24,14 +24,17 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.it61.minecraft.bean.Album;
 import com.it61.minecraft.bean.Music;
 import com.it61.minecraft.bean.Picture;
+import com.it61.minecraft.bean.User;
 import com.it61.minecraft.common.Constants;
 import com.it61.minecraft.common.ImageResize;
 import com.it61.minecraft.service.AlbumService;
 import com.it61.minecraft.service.MusicService;
 import com.it61.minecraft.service.PictureService;
+import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.AlbumServiceImpl;
 import com.it61.minecraft.service.impl.MusicServiceImpl;
 import com.it61.minecraft.service.impl.PictureServiceImpl;
+import com.it61.minecraft.service.impl.UserServiceImpl;
 
 public class MusicUploadServet extends HttpServlet {
 
@@ -51,8 +54,12 @@ public class MusicUploadServet extends HttpServlet {
 				List<FileItem> items = upload.parseRequest(request);
 				
 				Music music = new Music();
+				//用户上传的音乐
 				music.setServerSide(0);
 				
+				//先判断大小，如果超出限制则结束
+				//封面和音乐的大小
+				int posterAudioSize = 0;
 				for (FileItem item : items) {
 					// 普通表单项
 					if (item.isFormField()) {
@@ -68,7 +75,23 @@ public class MusicUploadServet extends HttpServlet {
 							music.setSinger(value);
 						}
 						
-					} else {
+					}else{
+						posterAudioSize += item.getSize();
+					}
+				}
+				UserService userService = new UserServiceImpl();
+				User user = userService.getUser(userId);
+				//图片的最大存储空间 15M
+				int available = 15*1024*1024 - user.getMusicSize();
+				if(posterAudioSize > available){
+					System.out.println("User "+userId+" 上传音乐，空间不足");
+					response.getWriter().write("{\"error\":\"music storage isn't enough\"}");
+					return;
+				}
+				
+				
+				for (FileItem item : items) {
+					if (!item.isFormField()){
 						// type 是 file 的表单项
 						String type = item.getContentType();
 						
@@ -95,6 +118,7 @@ public class MusicUploadServet extends HttpServlet {
 							path = getServletContext().getRealPath("/poster/"+userId);
 							
 						}
+						
 						System.out.println(item.getName()+" type:"+type+" path:"+path);
 						File pathFile = new File(path);
 						if(!pathFile.exists()){
@@ -122,6 +146,10 @@ public class MusicUploadServet extends HttpServlet {
 				//保存音乐数据到数据库
 				MusicService service = new MusicServiceImpl();
 				service.addMusics(music);
+				
+				//保存音乐和封面占用的存储空间
+				System.out.println("上传的音乐大小："+posterAudioSize);
+				userService.saveMusicSize(music.getUserId(), posterAudioSize);
 				
 				//TODO 将我的音乐作为响应返回给客户端
 				Music latestMusic = service.getLatestMusic(userId);

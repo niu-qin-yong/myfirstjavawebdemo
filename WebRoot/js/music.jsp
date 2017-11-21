@@ -33,6 +33,8 @@ List<Music> friendMusics = ms.getFriendMusic(friendIds);
 String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 %>
 
+var musicAlreadyUsedSize = 0;
+
 var player = {
 	  curMusic : null,
 	  paused : false,
@@ -40,7 +42,7 @@ var player = {
 	  audio : document.getElementById('player'),
 	  init : function(){
 	    var self = this;
-	    //console.log('<%=muscisJson%>')
+	    console.log('<%=muscisJson%>')
 	    self.list = JSON.parse('<%=muscisJson%>');
 	    
 	    //初始化音乐馆
@@ -70,8 +72,27 @@ var player = {
 		jia.attr("onmouseout",'javascript:$("#jiathis").css("display","none");');
 		//默认转发按钮不显示
 		self.hideRelay();   
+		
+		//异步获取音乐存储空间大小
+		self.obtainMusicSize();
 	
 	  },
+ 		//获取相册已用存储空间
+		obtainMusicSize : function(){
+			$.ajax({
+			        url:"<%=basePath%>/servlet/ObtainSaveSizeServlet?userId="+<%=user.getId()%>+"&type=music",
+			        type:"get",
+			        async:true,//异步
+			        success:function(data,status){
+			        	var obj = JSON.parse(data);
+			        	musicAlreadyUsedSize = obj.size;
+			        	console.log("musicAlreadyUsedSize:"+musicAlreadyUsedSize);
+			        },
+			        error:function(data,status){
+			        	musicAlreadyUsedSize = -1;
+			        }
+		    });
+		},
 	  updateView : function(source,subDivClassName){
 	    var self = this;
 	    var elements = document.querySelectorAll('.'+subDivClassName);
@@ -326,13 +347,29 @@ function onMusicUpload(){
 	//歌手
 	formData.append("singer",singer);
 	
-	//封面
+	//音乐文件
 	var audioFile = audioFiles[0];
 	formData.append("music-cover",audioFile);
-	//音乐文件
+	//封面
 	var posterFile = posterFiles[0];
 	formData.append("music-audio",posterFile);
 	
+	//上传文件总大小限制
+	console.log("上传音乐文件大小:"+audioFile.size);
+	console.log("上传音乐封面大小:"+posterFile.size);
+	
+	if(musicAlreadyUsedSize == -1){
+		alert("抱歉,从服务器获取音乐存储空间大小失败");
+		return;
+	}
+	//图片最大存储空间大小15M
+	var totalSize = audioFile.size + posterFile.size;
+	var available = 15*1024*1024-musicAlreadyUsedSize;			
+	if(totalSize > available){
+		alert("抱歉，您的音乐存储空间只剩"+Math.round(available/1024/1024*100)/100+"M,不足以存储现在上传的内容");
+		return;
+	}	
+				
 	//AJAX异步上传图片
 	$.ajax({
 	        url:"<%=basePath%>/servlet/MusicUploadServet",
@@ -360,6 +397,9 @@ function onMusicUpload(){
 				if(status == "success"){
 					alert("恭喜，上传成功!");
 				} 
+				
+				//上传成功后获取最新的存储空间大小
+				player.obtainMusicSize();
 	        	
 	        	 
 <%-- 				//更新封面

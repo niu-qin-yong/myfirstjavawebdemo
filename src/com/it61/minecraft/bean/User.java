@@ -18,7 +18,25 @@ public class User {
 	private String email;
 	private int grade;
 	private int level = 30;
+	private int picSize;
+	private int musicSize;
 	
+	public int getPicSize() {
+		return picSize;
+	}
+
+	public void setPicSize(int picSize) {
+		this.picSize = picSize;
+	}
+
+	public int getMusicSize() {
+		return musicSize;
+	}
+
+	public void setMusicSize(int musicSize) {
+		this.musicSize = musicSize;
+	}
+
 	public int getLevel() {
 		return level;
 	}
@@ -105,7 +123,8 @@ public class User {
 	 */
 	public User(int id, String userName, String passWord, String nickName,
 			String gender, int age, String birth, int banji,
-			String phonenumber, InputStream photo,String star,String email,int grade,int level) {
+			String phonenumber, InputStream photo,String star,String email,int grade,int level,
+			int picSize,int musicSize) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -121,6 +140,8 @@ public class User {
 		this.email = email;
 		this.grade = grade;
 		this.level = level;
+		this.picSize = picSize;
+		this.musicSize = musicSize;
 	}
 	public String getStar() {
 		return star;

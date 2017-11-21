@@ -84,8 +84,10 @@ public class UserDAO implements OnTransformListener<User>{
 			String email = rs.getString("email");
 			int grade = rs.getInt("grade");
 			int level = rs.getInt("level");
+			int picSize = rs.getInt("pic_size");
+			int musicSize = rs.getInt("music_size");
 			
-			user = new User(id,username,password,nick_name,gender,age,birth,banji,phonenumber,photo,star,email,grade,level);
+			user = new User(id,username,password,nick_name,gender,age,birth,banji,phonenumber,photo,star,email,grade,level,picSize,musicSize);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -116,5 +118,23 @@ public class UserDAO implements OnTransformListener<User>{
 		temp.update(sql, args);
 	}
 
+	public void savePicSize(int userId, int picSize) throws Exception {
+		UserDAO dao = new UserDAO();
+		User user = dao.findById(userId);
+		int size = user.getPicSize() + picSize;
+		
+		String sql = "update users set pic_size=? where id=?";
+		Object[] args = {size,userId};
+		temp.update(sql, args);
+	}
 
+	public void saveMusicSize(int userId, int musicSize) throws Exception {
+		UserDAO dao = new UserDAO();
+		User user = dao.findById(userId);
+		int size = user.getMusicSize() + musicSize;
+		
+		String sql = "update users set music_size=? where id=?";
+		Object[] args = {size,userId};
+		temp.update(sql, args);
+	}
 }

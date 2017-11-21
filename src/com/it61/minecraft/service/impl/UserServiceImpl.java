@@ -63,4 +63,23 @@ public class UserServiceImpl implements UserService {
 		userDAO.addExperience(user);
 	}
 
+	@Override
+	public User getUser(int userId) throws Exception {
+		UserDAO userDAO = new UserDAO();
+		return userDAO.findById(userId);
+	}
+
+	@Override
+	public void savePicSize(int userId, int picSize) throws Exception {
+		UserDAO userDAO = new UserDAO();
+		userDAO.savePicSize(userId,picSize);
+	}
+
+	@Override
+	public void saveMusicSize(int userId, int musicSize) throws Exception {
+		UserDAO userDAO = new UserDAO();
+		userDAO.saveMusicSize(userId,musicSize);
+	}
+
+
 }
