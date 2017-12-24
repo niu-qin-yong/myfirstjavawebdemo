@@ -16,6 +16,8 @@ public class TABLES {
 	  + "`email` varchar(24) DEFAULT '',"
 	  + "`grade` int(11) DEFAULT '1',"
 	  + "`level` int(11) DEFAULT '30',"
+	  + "`pic_size` int,"
+	  + "`music_size` int,"
 	  + "PRIMARY KEY (`id`),"
 	  + "UNIQUE KEY `username` (`username`)"
 	+ ") ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;";
