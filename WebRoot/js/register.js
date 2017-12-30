@@ -90,6 +90,7 @@ function validate(i) {
 	        },
 	        error:function(data,status){
 	        	alert("GetValidateCode "+status+"\n"+data);
+	        	console.log("GetValidateCode data:"+data);
 	        }
 		});
 		

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class CheckValidateCodeServlet extends HttpServlet {
+	private final String TAG = CheckValidateCodeServlet.class.getSimpleName();
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -18,6 +19,9 @@ public class CheckValidateCodeServlet extends HttpServlet {
 		//服务端生成的验证码
 		HttpSession session = request.getSession(false);
 		String validateCode = (String) session.getAttribute("validate_code");
+		
+		//log
+		System.out.println(TAG+":用户输入的验证码"+code+",服务端验证码："+validateCode);
 		
 		//一致返回true，否则返回false
 		response.getWriter().write(validateCode.equals(code)?"true":"false");

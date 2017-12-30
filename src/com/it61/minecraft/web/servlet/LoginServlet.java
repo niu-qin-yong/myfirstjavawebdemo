@@ -32,17 +32,21 @@ public final class LoginServlet extends HttpServlet {
 			//Session中添加登录状态
 			request.getSession().setAttribute("user", user);
 			
-			//使用Cookie保存账号密码
-			//需要完善前端页面，现在先假设需要保存用户名和密码
-			Cookie cookie = new Cookie("cookie-user", uname+"-"+psw);
-			cookie.setMaxAge(3*24*60*60);
-			cookie.setPath("/minecraft/jsp/login.jsp");
-			response.addCookie(cookie);
-			
 			//如果表单提交，重定向跳转到首页
 			String host = getServletContext().getContextPath();
 			//防止浏览器禁用Cookie,重写所有请求的URL
 //			response.sendRedirect(host+"/index.html");
+			
+			//使用Cookie保存账号密码
+			//需要完善前端页面，现在先假设需要保存用户名和密码
+			Cookie cookie = new Cookie("cookie-user", uname+"-"+psw);
+			cookie.setMaxAge(3*24*60*60);
+			cookie.setPath(host+"/jsp/login.jsp");
+			response.addCookie(cookie);
+			
+			//log
+			System.out.println("登录成功，重定向到首页 LoginServlet host:"+host);
+			
 			response.sendRedirect(response.encodeRedirectURL(host+"/index.html"));
 			
 			//如果ajax提交，把要跳转的地址传回去，由js进行跳转

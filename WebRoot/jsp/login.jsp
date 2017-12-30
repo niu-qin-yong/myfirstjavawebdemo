@@ -57,7 +57,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="saoma"></div>
 			<div class="loginbiao">账户登录</div>
 
-			<form action="<%=basePath %>/servlet/LoginServlet" method="post">
+			
+			<form action="http://127.0.0.1:8080//mc/servlet/LoginServlet" method="post">
 				<table class="tb">
 					<tr>
 						<td class="t1 user">

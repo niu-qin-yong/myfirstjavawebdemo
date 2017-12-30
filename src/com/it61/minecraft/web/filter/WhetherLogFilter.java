@@ -62,6 +62,10 @@ public class WhetherLogFilter implements Filter{
 		String path = httpReq.getServletPath();
 		for(String page : excludeUrls){
 			if(path.equals(page)){
+				
+				//log
+				System.out.println("WhetherLogFilter 访问 "+path+",没有被拦截");
+				
 				isIncludePage = false;
 				break;
 			}

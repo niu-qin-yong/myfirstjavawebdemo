@@ -25,6 +25,10 @@ public class IndexServlet extends HttpServlet {
 			String host = getServletContext().getContextPath();
 			//防止浏览器禁用Cookie,重写URL
 //			response.sendRedirect(host+"/jsp/login.jsp");
+			
+			//log
+			System.out.println("未登录，重定向到登录页 IndexServlet  host:"+host);
+			
 			response.sendRedirect(response.encodeRedirectURL(host+"/jsp/login.jsp"));
 		}else{
 			//已登录跳转到首页
