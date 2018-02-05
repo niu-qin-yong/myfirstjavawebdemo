@@ -1,12 +1,13 @@
 package com.it61.minecraft.bean;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Moment {
+public class Moment implements Serializable{
 	public Moment(){
 		
 	}

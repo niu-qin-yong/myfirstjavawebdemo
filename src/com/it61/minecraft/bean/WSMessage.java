@@ -1,6 +1,8 @@
 package com.it61.minecraft.bean;
 
-public class WSMessage {
+import java.io.Serializable;
+
+public class WSMessage implements Serializable{
 	/**
 	 * 消息码<br/>
 	 * 0：一对一聊天<br/>

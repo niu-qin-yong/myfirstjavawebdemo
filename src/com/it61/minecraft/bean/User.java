@@ -1,9 +1,10 @@
 package com.it61.minecraft.bean;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.Date;
 
-public class User {
+public class User implements Serializable{
 	private int id;
 	private String userName;
 	private String passWord;

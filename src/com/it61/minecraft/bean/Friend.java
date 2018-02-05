@@ -1,6 +1,8 @@
 package com.it61.minecraft.bean;
 
-public class Friend {
+import java.io.Serializable;
+
+public class Friend implements Serializable{
 	private int id;
 	private int owerId;
 	private int friId;

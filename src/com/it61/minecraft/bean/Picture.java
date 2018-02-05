@@ -1,8 +1,9 @@
 package com.it61.minecraft.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Picture {
+public class Picture implements Serializable{
 	private int id;
 	private int userId;
 	private int albumId;

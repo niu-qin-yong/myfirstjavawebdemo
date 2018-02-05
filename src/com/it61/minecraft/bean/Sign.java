@@ -1,8 +1,9 @@
 package com.it61.minecraft.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Sign {
+public class Sign implements Serializable{
 	private int id;
 	private int user_id;
 	private Timestamp sign_time;

@@ -1,10 +1,11 @@
 package com.it61.minecraft.bean;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-public class Favor {
+public class Favor implements Serializable{
 	private int id;
 	private int momentId;
 	private int favorId;

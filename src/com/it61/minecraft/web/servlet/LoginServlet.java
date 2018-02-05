@@ -8,12 +8,17 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.service.UserService;
 import com.it61.minecraft.service.impl.UserServiceImpl;
 
 public final class LoginServlet extends HttpServlet {
+	private static Logger logger = LogManager.getLogger(LoginServlet.class);
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -22,7 +27,7 @@ public final class LoginServlet extends HttpServlet {
 		String uname = request.getParameter("uname");
 		String psw = request.getParameter("pw");
 		
-		System.out.println("Login  name:"+uname+" ps:"+psw);
+		logger.info("name:"+uname+",psw:"+psw);
 		
 		//调用UserService的登录的方法
 		UserService userService = new UserServiceImpl();
@@ -30,7 +35,14 @@ public final class LoginServlet extends HttpServlet {
 		if(user != null){
 			//登录成功
 			//Session中添加登录状态
-			request.getSession().setAttribute("user", user);
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			//session.setMaxInactiveInterval(30);
+			
+			//log
+			logger.info("LoginServlet 用户名密码正确");
+			logger.info("LoginServlet sessionId:"+session.getId());
+			logger.info("LoginServlet maxInactiveInterval:"+session.getMaxInactiveInterval());
 			
 			//如果表单提交，重定向跳转到首页
 			String host = getServletContext().getContextPath();
@@ -45,7 +57,7 @@ public final class LoginServlet extends HttpServlet {
 			response.addCookie(cookie);
 			
 			//log
-			System.out.println("登录成功，重定向到首页 LoginServlet host:"+host);
+			logger.info("LoginServlet 登录成功，重定向到首页 LoginServlet host:"+host);
 			
 			response.sendRedirect(response.encodeRedirectURL(host+"/index.html"));
 			
@@ -55,6 +67,7 @@ public final class LoginServlet extends HttpServlet {
 //			response.getWriter().write(basePath+"index.html");
 		}else{
 			//登录失败
+			logger.info("user等于null，登录失败，转发到login也重新登录");
 			
 			//如果表单提交，转发处理
 			request.setAttribute("login_state", "false");

@@ -16,10 +16,14 @@ import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.common.ConnectionFactory;
 import com.it61.minecraft.common.TABLE;
 import com.it61.minecraft.common.TABLES;
+import com.it61.minecraft.web.servlet.LoginServlet;
 
 public class ContextListenerImpl implements ServletContextListener,ServletContextAttributeListener{
 

@@ -1,9 +1,10 @@
 package com.it61.minecraft.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Album {
+public class Album implements Serializable{
 
 	private int id;
 	private int userId;

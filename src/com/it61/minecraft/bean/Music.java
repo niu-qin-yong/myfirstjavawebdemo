@@ -1,6 +1,8 @@
 package com.it61.minecraft.bean;
 
-public class Music {
+import java.io.Serializable;
+
+public class Music implements Serializable{
 	/**
 	 * 音乐的路径
 	 */

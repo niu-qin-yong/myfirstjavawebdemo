@@ -8,14 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.it61.minecraft.bean.User;
 
 public class IndexServlet extends HttpServlet {
+	private static Logger logger = LogManager.getLogger(IndexServlet.class);
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
+		
+		//log
+		String sessionId = session.getId();
+		int maxInactiveInterval = session.getMaxInactiveInterval();
+		logger.info("sessionId:"+sessionId+",maxInactiveInterval:"+maxInactiveInterval);
+		
 		if(user == null){
 			//未登录
 //			response.setHeader("content-Type", "text/html; charset=utf-8");
@@ -27,10 +37,13 @@ public class IndexServlet extends HttpServlet {
 //			response.sendRedirect(host+"/jsp/login.jsp");
 			
 			//log
-			System.out.println("未登录，重定向到登录页 IndexServlet  host:"+host);
+			logger.info("IndexServlet 未登录，重定向到登录页  host:"+host);
 			
 			response.sendRedirect(response.encodeRedirectURL(host+"/jsp/login.jsp"));
 		}else{
+			//log
+			logger.info("IndexServlet 登录成功，转发首页");
+			
 			//已登录跳转到首页
 			request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 		}

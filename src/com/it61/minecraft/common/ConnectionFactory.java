@@ -23,20 +23,20 @@ public class ConnectionFactory {
 
 	static{
 		//本地调试
-		driver = "com.mysql.jdbc.Driver";
-		db_host = "jdbc:mysql://127.0.0.1:3306/";
-		db_name = "mc";
-		url = db_host+db_name;
-		user = "root";
-		password = "root";
+//		driver = "com.mysql.jdbc.Driver";
+//		db_host = "jdbc:mysql://127.0.0.1:3306/";
+//		db_name = "mc";
+//		url = db_host+db_name;
+//		user = "root";
+//		password = "root";
 		
 		//线上
-//		driver = "com.mysql.jdbc.Driver";
-//		db_host = "jdbc:mysql://10.10.62.70:3306/";
-//		db_name = "minecraft";
-//		url = db_host+db_name;
-//		user = "minecraft";
-//		password = "jFOR0Qqv";
+		driver = "com.mysql.jdbc.Driver";
+		db_host = "jdbc:mysql://10.10.62.70:3306/";
+		db_name = "minecraft";
+		url = db_host+db_name;
+		user = "minecraft";
+		password = "jFOR0Qqv";
 	}
 	
 	static HashMap<String,String> nameSqls = new HashMap<String,String>();
